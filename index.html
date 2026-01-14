@@ -15,6 +15,24 @@
             font-family: 'Inter', sans-serif; 
             scroll-behavior: smooth; 
         }
+
+         /* Animasi Bergerak Naik Turun */
+@keyframes floatingLogo {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-floating {
+    animation: floatingLogo 3s ease-in-out infinite;
+    display: inline-block; /* Penting agar transformasi bekerja */
+}
+
+/* Tambahan efek glow agar lebih gaul */
+.logo-glow {
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
         
         /* Glassmorphism Effect */
         .glass { 
@@ -47,16 +65,19 @@
     </head>
      <body class="font-sans">
 
-    <nav class="p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md">
-        <div class="text-2xl font-black tracking-tighter floating">
-            TJKT <span class="text-blue-500">XII-16</span>
-        </div>
-            <div class="space-x-6 hidden md:flex">
-                <a href="#home" class="hover:text-blue-400 transition text-sm font-medium">Beranda</a>
-                <a href="#jadwal" class="hover:text-blue-400 transition text-sm font-medium">Jadwal</a>
-                <a href="struktur" class="hover:text-blue-400 transition text-sm font-medium">Struktur</a>
-                <a href="galeri.html" class="bg-blue-600/20 text-blue-400 px-4 py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-sm">Galeri</a>
-            </div>
+<nav class="p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md">
+    <div class="text-2xl font-black tracking-tighter animate-floating logo-glow">
+        TJKT <span class="text-blue-500">XII-16</span>
+    </div>
+    
+    <div class="space-x-6 hidden md:flex">
+        <a href="#home" class="hover:text-blue-400 transition text-sm font-medium">Beranda</a>
+        <a href="#jadwal" class="hover:text-blue-400 transition text-sm font-medium">Jadwal</a>
+        <a href="#struktur" class="hover:text-blue-400 transition text-sm font-medium">Struktur</a>
+        <a href="galeri.html" class="bg-blue-600/20 text-blue-400 px-4 py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-sm">Galeri</a>
+    </div>
+</nav>
+
         </div>
     </nav>
 
@@ -259,7 +280,7 @@
                 <div class="relative w-40 h-40 md:w-48 md:h-48 mx-auto mb-6">
                     <div class="absolute inset-0 bg-cyan-500 rounded-full blur-2xl opacity-20 transition-opacity group-hover:opacity-50"></div>
                     <div class="relative w-full h-full rounded-full border-[5px] border-cyan-400 p-1.5 bg-slate-900 overflow-hidden shadow-[0_0_25px_rgba(34,211,238,0.4)] transition-transform duration-500 group-hover:scale-105">
-                        <img src="Hilal-Ade.jpg" class="w-full h-full object-cover rounded-full" alt="Hilal">
+                        <img src="Hilal-Ade.jpg" class="w-full h-full object-cover rounded-full" alt="Hilal-Ade.jpg">
                     </div>
                 </div>
                 <h4 class="text-xl font-black text-white">Hilal Ade Pratama</h4>
@@ -270,7 +291,7 @@
                 <div class="relative w-40 h-40 md:w-48 md:h-48 mx-auto mb-6">
                     <div class="absolute inset-0 bg-pink-500 rounded-full blur-2xl opacity-20 transition-opacity group-hover:opacity-50"></div>
                     <div class="relative w-full h-full rounded-full border-[5px] border-pink-400 p-1.5 bg-slate-900 overflow-hidden shadow-[0_0_25px_rgba(244,114,182,0.4)] transition-transform duration-500 group-hover:scale-105">
-                        <img src="Thalita.jpg" class="w-full h-full object-cover rounded-full" alt="Thalita">
+                        <img src="Thalita.jpg" class="w-full h-full object-cover rounded-full" alt="Thalita.jpg">
                     </div>
                 </div>
                 <h4 class="text-xl font-black text-white">Thalita</h4>
