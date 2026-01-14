@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Animasi - TJKT XII 16</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        body { 
+            background: radial-gradient(circle at top, #1e293b, #0f172a);
+            color: white;
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth; 
+        }
+
+        /* Efek Kaca (Glassmorphism) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: Blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #a855f7, #60a5fa);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 3s linear infinite;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Animasi Gradient Text */
+        .animate-text {
+            background: linear-gradient(to right, #60a5fa, #a855f7, #60a5fa);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 3s linear infinite;
+        }
+
+        @keyframes gradientText {
+            to { background-position: 200% center; }
+        }
+
+        /* Floating Animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <nav class="p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md">
+        <div class="text-2xl font-black tracking-tighter floating">
+            TJKT <span class="text-blue-500">XII-16</span>
+        </div>
+        <a href="index.html" class="glass-card px-5 py-2 rounded-full hover:text-blue-400 transition">
+            <i class="fas fa-arrow-left mr-2"></i> Kembali
+        </a>
+    </nav>
+
+    <header class="text-center py-20" data-aos="zoom-in">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-4 animate-text">Memory Gallery</h1>
+        <p class="text-gray-400 max-w-md mx-auto px-6">Berisi Foto-Foto Momen Berharga Selama 3 Tahun Bersama</p>
+    </header>
+
+    <div class="container mx-auto px-6 pb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+                <div class="relative group">
+                    <img src="Fotbar-wali-murid.jpg" class="w-full h-64 object-cover group-hover:opacity-50 transition duration-500">
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+                        <button class="bg-blue-600 p-4 rounded-full"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Penerimaan Raport Semester Ganjil</h3>
+                    <p class="text-blue-400 text-sm italic">Jum'at, 19 Desember 2025</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative group">
+                    <img src="background-kelas.jpg" class="w-full h-64 object-cover group-hover:opacity-50 transition duration-500">
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+                        <button class="bg-purple-600 p-4 rounded-full"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Hari Guru Nasional</h3>
+                    <p class="text-purple-400 text-sm italic">25 November 2025</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="300">
+                <div class="relative group">
+                    <img src="https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?auto=format&fit=crop&w=800" class="w-full h-64 object-cover group-hover:opacity-50 transition duration-500">
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+                        <button class="bg-cyan-600 p-4 rounded-full"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Field Trip Memorable</h3>
+                    <p class="text-cyan-400 text-sm italic">#Outdoor #Togetherness</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="bg-black/50 py-12 text-center border-t border-white/5">
+        <p class="text-gray-500 text-sm">
+            &copy; 2026 XII-16 TJKT. Crafted <span class="text-red-500"></span> by Ai Gemini x Tomy Eka RMX.
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inisialisasi Animasi AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    </script>
+</body>
+</html>

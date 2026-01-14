@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Kelas XII-16 TJKT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { 
+            background: radial-gradient(circle at top, #1e293b, #0f172a);
+            color: white;
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth; 
+        }
+        
+        /* Glassmorphism Effect */
+        .glass { 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #a855f7, #60a5fa);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 3s linear infinite;
+        }
+
+        @keyframes gradientText {
+            to { background-position: 200% center; }
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #3b82f6;
+        }
+     </style>
+    </head>
+     <body class="font-sans">
+
+    <nav class="p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md">
+        <div class="text-2xl font-black tracking-tighter floating">
+            TJKT <span class="text-blue-500">XII-16</span>
+        </div>
+            <div class="space-x-6 hidden md:flex">
+                <a href="#home" class="hover:text-blue-400 transition text-sm font-medium">Beranda</a>
+                <a href="#jadwal" class="hover:text-blue-400 transition text-sm font-medium">Jadwal</a>
+                <a href="struktur" class="hover:text-blue-400 transition text-sm font-medium">Struktur</a>
+                <a href="galeri.html" class="bg-blue-600/20 text-blue-400 px-4 py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-sm">Galeri</a>
+            </div>
+        </div>
+    </nav>
+
+
+      <section id="home" class="relative w-full aspect-video md:max-h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden shadow-2xl bg-black">
+    
+    <div class="absolute inset-0 z-0">
+        <style>
+            @keyframes kenburns {
+                0% { transform: scale(1.1); }
+                50% { transform: scale(1); }
+                100% { transform: scale(1.1); }
+            }
+            .animate-bg-cool {
+                animation: kenburns 25s ease-in-out infinite;
+            }
+
+            /* Overlay Lebih Gelap untuk Kontras Maksimal */
+            .overlay-dark-premium {
+                background: linear-gradient(to bottom, 
+                            rgba(0, 0, 0, 0.95) 0%,    /* Sangat gelap di atas untuk Welcome */
+                            rgba(0, 0, 0, 0.4) 40%,    /* Area wajah lebih terlihat */
+                            rgba(0, 0, 0, 0.4) 60%,    /* Area wajah lebih terlihat */
+                            rgba(15, 23, 42, 0.98) 100%); /* Menyatu gelap ke jadwal */
+            }
+
+            .glow-text-strong {
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 0 60px rgba(59, 130, 246, 0.3);
+            }
+            
+            .float-btn {
+                animation: floating 4s ease-in-out infinite;
+            }
+            @keyframes floating {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+        </style>
+
+        <img src="background-kelas.jpg" alt="Foto Kelas" class="w-full h-full object-cover object-center animate-bg-cool opacity-80">
+        <div class="absolute inset-0 overlay-dark-premium"></div>
+    </div>
+
+    <div class="relative z-10 pt-28 md:pt-36">
+        <h2 class="text-5xl md:text-9xl font-black mb-6 leading-tight text-white glow-text-strong tracking-tighter animate__animated animate__backInDown">
+            WELCOME TO <br>
+            <span class="gradient-text uppercase italic">CLASS XII 16</span>
+        </h2>
+        
+        <p class="text-gray-100 max-w-2xl mx-auto text-sm md:text-2xl mb-12 font-bold px-6 animate__animated animate__fadeInUp animate__delay-1s drop-shadow-md">
+            <span class="bg-blue-600/40 px-3 py-1 rounded-lg backdrop-blur-sm border border-white/10">
+                🔥 Memories Never Die — Angkatan 2023-2026 🔥
+            </span>
+        </p>
+        
+        <div class="flex flex-wrap justify-center gap-6 animate__animated animate__fadeInUp animate__delay-2s">
+            <a href="galeri.html" class="float-btn bg-white text-black px-10 py-4 rounded-full font-black text-xs md:text-lg flex items-center gap-2 hover:bg-blue-600 hover:text-white transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                <i class="fas fa-bolt"></i> LIHAT ALBUM
+            </a>
+            <a href="#struktur" class="float-btn border-2 border-white/30 text-white px-10 py-4 rounded-full font-black text-xs md:text-lg flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-md shadow-[0_0_30px_rgba(59,130,246,0.2)]" style="animation-delay: 0.5s;">
+                <i class="fas fa-fire"></i> STRUKTUR KELAS
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
+    <section id="jadwal" class="py-20 bg-[#0f172a] overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="text-center mb-16" data-aos="zoom-in-up">
+            <h3 class="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter">
+                JADWAL <span class="gradient-text italic">KBM   </span>
+            </h3>
+            <div class="inline-block px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10">
+                <p class="text-blue-400 font-bold uppercase text-[10px] md:text-xs tracking-widest">
+                    Tahun Pelajaran 2025 / 2026 — Revisi 4
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <div class="group relative bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-blue-600/10 hover:border-blue-500/50 hover:-translate-y-2" data-aos="fade-right">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h4 class="text-2xl font-black text-white group-hover:text-blue-400 transition-colors">SENIN - SELASA</h4>
+                        <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">Full Day Kejuruan</p>
+                    </div>
+                    <span class="bg-blue-600 text-white text-[10px] px-3 py-1 rounded-full font-bold animate-pulse">UTAMA</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 group-hover:border-blue-500/20">
+                        <span class="text-sm font-bold text-gray-300">Jam Ke 1 - 11</span>
+                        <span class="text-lg font-black text-blue-400">KEJURUAN (KK TKJ)</span>
+                    </div>
+                    <p class="text-[10px] text-center text-gray-500 italic">07:45 — 15:00 WIB</p>
+                </div>
+            </div>
+
+            <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-purple-600/10 hover:border-purple-500/50 hover:-translate-y-2" data-aos="fade-left">
+                <h4 class="text-2xl font-black text-white mb-6 group-hover:text-purple-400 transition-colors uppercase">Rabu</h4>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-purple-400 font-bold">07:05</p>
+                        <p class="font-bold text-gray-200">B. Indonesia</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-purple-400 font-bold">10:10</p>
+                        <p class="font-bold text-gray-200">PKN</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-purple-400 font-bold">11:20</p>
+                        <p class="font-bold text-gray-200">B. Jawa</p>
+                    </div>
+                    <div class="p-3 bg-purple-600/20 rounded-xl border border-purple-500/30">
+                        <p class="text-white font-black">11:55</p>
+                        <p class="font-black text-white">B. Inggris</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-orange-600/10 hover:border-orange-500/50 hover:-translate-y-2" data-aos="fade-right">
+                <h4 class="text-2xl font-black text-white mb-6 group-hover:text-orange-400 transition-colors uppercase">Kamis</h4>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div class="p-3 bg-orange-600/20 rounded-xl border border-orange-500/30">
+                        <p class="text-white font-black">07:05</p>
+                        <p class="font-black text-white">Matematika</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-orange-400 font-bold">08:50</p>
+                        <p class="font-bold text-gray-200">Projek Kreatif & Kewirausahaan</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-orange-400 font-bold">11:55</p>
+                        <p class="font-bold text-gray-200">B. Jawa</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-orange-400 font-bold">12:55</p>
+                        <p class="font-bold text-gray-200">Pendidikan Agama Islam</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-emerald-600/10 hover:border-emerald-500/50 hover:-translate-y-2" data-aos="fade-left">
+                <h4 class="text-2xl font-black text-white mb-6 group-hover:text-emerald-400 transition-colors uppercase">Jumat</h4>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl border border-white/5">
+                        <span class="text-xs font-bold text-gray-400">07:30-11.30</span>
+                        <span class="text-sm font-black text-gray-200 uppercase">Kejuruan (KK TKJ)</span>
+                    </div>
+                    <div class="py-1 text-center bg-red-500/10 rounded-lg border border-red-500/20">
+                        <p class="text-[9px] font-black text-red-500 tracking-[0.2em] uppercase italic">Sholat Jum'at </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 flex flex-wrap justify-center gap-4" data-aos="zoom-in">
+            <div class="glass flex items-center gap-3 px-6 py-3 rounded-2xl border border-white/10">
+                <i class="fas fa-coffee text-blue-400 animate-bounce"></i>
+                <div class="text-left">
+                    <p class="text-[8px] text-gray-500 font-black uppercase">Istirahat / MBG</p>
+                    <p class="text-xs font-black text-white">09:25 — 10:10</p>
+                </div>
+            </div>
+            <div class="glass flex items-center gap-3 px-6 py-3 rounded-2xl border border-white/10">
+                <i class="fas fa-mosque text-purple-400 animate-pulse"></i>
+                <div class="text-left">
+                    <p class="text-[8px] text-gray-500 font-black uppercase">Jeda Sholat</p>
+                    <p class="text-xs font-black text-white">12:00 — 12:55</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+    <section id="struktur"  class="py-20 bg-[#0f172a] text-center">
+    <div class="max-w-4xl mx-auto px-4">
+        <h3 class="text-4xl font-black text-white mb-16 tracking-tighter" data-aos="zoom-in">
+            STRUKTUR <span class="text-blue-500">KELAS</span>
+        </h3>
+        
+        <div class="flex flex-col items-center gap-16">
+            <div class="group" data-aos="fade-up">
+                <div class="relative w-48 h-48 md:w-56 md:h-56 mx-auto mb-6">
+                    <div class="absolute inset-0 bg-blue-500 rounded-full blur-2xl opacity-20 transition-opacity group-hover:opacity-50"></div>
+                    
+                    <div class="relative w-full h-full rounded-full border-[6px] border-blue-500 p-1.5 bg-slate-900 overflow-hidden shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-transform duration-500 group-hover:scale-105">
+                        <img src="FOTO-3X4-NITA-Nita-Hastuti.jpg" class="w-full h-full object-cover rounded-full" alt="Nita">
+                    </div>
+                </div>
+                <h4 class="text-2xl font-black text-white">Ibu Nita Hastuti S.pd</h4>
+                <p class="text-blue-400 font-bold uppercase text-xs tracking-[0.3em] mt-1">Wali Kelas</p>
+            </div>
+
+            <div class="group" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative w-40 h-40 md:w-48 md:h-48 mx-auto mb-6">
+                    <div class="absolute inset-0 bg-cyan-500 rounded-full blur-2xl opacity-20 transition-opacity group-hover:opacity-50"></div>
+                    <div class="relative w-full h-full rounded-full border-[5px] border-cyan-400 p-1.5 bg-slate-900 overflow-hidden shadow-[0_0_25px_rgba(34,211,238,0.4)] transition-transform duration-500 group-hover:scale-105">
+                        <img src="Hilal-Ade.jpg" class="w-full h-full object-cover rounded-full" alt="Hilal">
+                    </div>
+                </div>
+                <h4 class="text-xl font-black text-white">Hilal Ade Pratama</h4>
+                <p class="text-cyan-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-1">Ketua Kelas</p>
+            </div>
+
+            <div class="group" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative w-40 h-40 md:w-48 md:h-48 mx-auto mb-6">
+                    <div class="absolute inset-0 bg-pink-500 rounded-full blur-2xl opacity-20 transition-opacity group-hover:opacity-50"></div>
+                    <div class="relative w-full h-full rounded-full border-[5px] border-pink-400 p-1.5 bg-slate-900 overflow-hidden shadow-[0_0_25px_rgba(244,114,182,0.4)] transition-transform duration-500 group-hover:scale-105">
+                        <img src="Thalita.jpg" class="w-full h-full object-cover rounded-full" alt="Thalita">
+                    </div>
+                </div>
+                <h4 class="text-xl font-black text-white">Thalita</h4>
+                <p class="text-pink-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-1">Wakil Ketua Kelas</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    function previewImg(input, targetId) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(targetId).src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+
+<script>
+function previewImage(input, imgId) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById(imgId).src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+
+
+    <footer class="bg-black/50 py-12 text-center border-t border-white/5">
+        <p class="text-gray-500 text-sm">
+            &copy; 2026 XII-16 TJKT. Crafted <span class="text-red-500"></span> by Ai Gemini x Tomy Eka RMX.
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inisialisasi AOS (Animate on Scroll)
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-in-out'
+        });
+
+        // Sticky Navbar Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2', 'bg-black/80');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-2', 'bg-black/80');
+            }
+        });
+    </script>
+</body>
+</html>
