@@ -66,14 +66,67 @@ gradient-text {
 </head>
 <body class="font-sans">
 
-    <nav class="p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md">
-        <div class="text-2xl font-black tracking-tighter floating">
-            TJKT <span class="text-blue-500">XII-16</span>
-        </div>
-        <a href="index.html" class="glass-card px-5 py-2 rounded-full hover:text-blue-400 transition">
-            <i class="fas fa-arrow-left mr-2"></i> Kembali
+    <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
+    <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0">
+        TJKT <span class="text-blue-500">XII-16</span>
+    </div>
+    
+    <div class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4">
+        <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Beranda</a>
+        <a href="index.html#jadwal" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Jadwal</a>
+        <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Struktur</a>
+        <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Siswa</a>
+        
+        <a href="galeri.html" class="nav-link bg-blue-600/20 text-blue-400 px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap">
+            <i class="fas fa-images mr-1"></i> ALBUM
         </a>
-    </nav>
+    </div>
+</nav>
+
+<style>
+    /* Menghilangkan scrollbar di HP agar tetap rapi */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Gaya untuk tombol yang sedang aktif */
+    .nav-active {
+        color: #3b82f6 !important; /* Biru terang */
+        border-bottom: 2px solid #3b82f6;
+    }
+    
+    /* Gaya khusus tombol Album jika sedang aktif */
+    .album-active {
+        background-color: #2563eb !important;
+        color: white !important;
+        border-color: white !important;
+    }
+</style>
+
+
+<style>
+    /* Menghilangkan scrollbar di HP agar tetap rapi */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Gaya untuk tombol yang sedang aktif */
+    .nav-active {
+        color: #3b82f6 !important; /* Biru terang */
+        border-bottom: 2px solid #3b82f6;
+    }
+    
+    /* Gaya khusus tombol Album jika sedang aktif */
+    .album-active {
+        background-color: #2563eb !important;
+        color: white !important;
+        border-color: white !important;
+    }
+</style>
+
+<style>
+    /* Menghilangkan scrollbar tapi fungsi geser tetap ada jika menu terlalu panjang di HP */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
 
     <header class="text-center py-20" data-aos="zoom-in">
         <h1 class="text-5xl md:text-7xl font-extrabold mb-4 animate-text">Memory Gallery</h1>
@@ -111,14 +164,14 @@ gradient-text {
 
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="300">
                 <div class="relative group">
-                    <img src="https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?auto=format&fit=crop&w=800" class="w-full h-64 object-cover group-hover:opacity-50 transition duration-500">
+                    <img src="aib.jpg" class="w-full h-64 object-cover group-hover:opacity-50 transition duration-500">
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
                         <button class="bg-cyan-600 p-4 rounded-full"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Field Trip Memorable</h3>
-                    <p class="text-cyan-400 text-sm italic">#Outdoor #Togetherness</p>
+                    <h3 class="text-xl font-bold mb-1">Aib</h3>
+                    <p class="text-cyan-400 text-sm italic">Togetherness</p>
                 </div>
             </div>
 
@@ -139,5 +192,33 @@ gradient-text {
             once: true,
         });
     </script>
+
+<script>
+    function updateActiveNav() {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        const currentHash = window.location.hash;
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            
+            // Cek jika href sama dengan nama file atau ID section (#)
+            if (href === currentPath || (currentHash && href.includes(currentHash))) {
+                if (href === "galeri.html") {
+                    link.classList.add('album-active');
+                } else {
+                    link.classList.add('nav-active');
+                }
+            } else {
+                link.classList.remove('nav-active', 'album-active');
+            }
+        });
+    }
+
+    // Jalankan saat halaman dimuat dan saat hash berubah
+    window.addEventListener('load', updateActiveNav);
+    window.addEventListener('hashchange', updateActiveNav);
+</script>
+
 </body>
 </html>

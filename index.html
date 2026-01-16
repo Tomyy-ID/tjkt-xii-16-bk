@@ -65,21 +65,68 @@
     </head>
      <body class="font-sans">
 
-<nav class="p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md">
-    <div class="text-2xl font-black tracking-tighter animate-floating logo-glow">
+    <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
+    <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0">
         TJKT <span class="text-blue-500">XII-16</span>
     </div>
-    
-    <div class="space-x-6 hidden md:flex">
-        <a href="#home" class="hover:text-blue-400 transition text-sm font-medium">Beranda</a>
-        <a href="#jadwal" class="hover:text-blue-400 transition text-sm font-medium">Jadwal</a>
-        <a href="#struktur" class="hover:text-blue-400 transition text-sm font-medium">Struktur</a>
-        <a href="galeri.html" class="bg-blue-600/20 text-blue-400 px-4 py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-sm">Galeri</a>
+    <div class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4">
+        <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Beranda</a>
+        <a href="index.html#jadwal" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Jadwal</a>
+        <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Struktur</a>
+        <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Siswa</a>
+        <a href="galeri.html" class="nav-link bg-blue-600/20 text-blue-400 px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap">
+            <i class="fas fa-images mr-1"></i> ALBUM
+        </a>
     </div>
 </nav>
 
-        </div>
-    </nav>
+
+<style>
+    /* Menghilangkan scrollbar di HP agar tetap rapi */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Gaya untuk tombol yang sedang aktif */
+    .nav-active {
+        color: #3b82f6 !important; /* Biru terang */
+        border-bottom: 2px solid #3b82f6;
+    }
+    
+    /* Gaya khusus tombol Album jika sedang aktif */
+    .album-active {
+        background-color: #2563eb !important;
+        color: white !important;
+        border-color: white !important;
+    }
+</style>
+
+
+<style>
+    /* Menghilangkan scrollbar di HP agar tetap rapi */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Gaya untuk tombol yang sedang aktif */
+    .nav-active {
+        color: #3b82f6 !important; /* Biru terang */
+        border-bottom: 2px solid #3b82f6;
+    }
+    
+    /* Gaya khusus tombol Album jika sedang aktif */
+    .album-active {
+        background-color: #2563eb !important;
+        color: white !important;
+        border-color: white !important;
+    }
+</style>
+
+<style>
+    /* Menghilangkan scrollbar tapi fungsi geser tetap ada jika menu terlalu panjang di HP */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+
 
 
       <section id="home" class="relative w-full aspect-video md:max-h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden shadow-2xl bg-black">
@@ -355,5 +402,24 @@ function previewImage(input, imgId) {
             }
         });
     </script>
+
+<script>
+    function updateActiveNav() {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        const currentHash = window.location.hash;
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            link.classList.remove('nav-active', 'album-active');
+            if (currentHash && href.includes(currentHash)) {
+                link.classList.add('nav-active');
+            } else if (!currentHash && (href === currentPath || (currentPath === "index.html" && href === "index.html"))) {
+                href === "galeri.html" ? link.classList.add('album-active') : link.classList.add('nav-active');
+            }
+        });
+    }
+    window.addEventListener('load', updateActiveNav);
+    window.addEventListener('hashchange', updateActiveNav);
+</script>
+
 </body>
 </html>
