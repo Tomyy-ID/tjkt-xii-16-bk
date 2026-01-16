@@ -127,85 +127,132 @@
     </div>
 
     <script>
-        const students = [
-            "Hilal Ade Pratama", "Thalita", "Aditya", "Anisa", "Bagas", "Citra",
-            "Dika", "Eka", "Fajar", "Gita", "Hendra", "Indah",
-            "Joko", "Kiki", "Lulu", "Maya", "Nico", "Olivia",
-            "Putra", "Rani", "Santi", "Tomy", "Umar", "Vina",
-            "Wahyu", "Xena", "Yayan", "Zaki", "Aris", "Bella",
-            "Catur", "Dodi", "Eris", "Fanny", "Gani", "Hana"
-        ];
+    // Data Siswa Urut Absen 1 - 36
+    const students = [
+        { name: "Hilal Ade Pratama", nis: "13654" },
+        { name: "Thalita", nis: "002" },
+        { name: "Aditya", nis: "003" },
+        { name: "Anisa", nis: "004" },
+        { name: "Bagas", nis: "005" },
+        { name: "Citra", nis: "006" },
+        { name: "Dika", nis: "007" },
+        { name: "Eka", nis: "008" },
+        { name: "Fajar", nis: "009" },
+        { name: "Gita", nis: "010" },
+        { name: "Hendra", nis: "011" },
+        { name: "Indah", nis: "012" },
+        { name: "Joko", nis: "013" },
+        { name: "Kiki", nis: "014" },
+        { name: "Lulu", nis: "015" },
+        { name: "Maya", nis: "016" },
+        { name: "Nico", nis: "017" },
+        { name: "Olivia", nis: "018" },
+        { name: "Putra", nis: "019" },
+        { name: "Rani", nis: "020" },
+        { name: "Santi", nis: "021" },
+        { name: "Tomy", nis: "022" },
+        { name: "Umar", nis: "023" },
+        { name: "Vina", nis: "024" },
+        { name: "Wahyu", nis: "025" },
+        { name: "Xena", nis: "026" },
+        { name: "Yayan", nis: "027" },
+        { name: "Zaki", nis: "028" },
+        { name: "Aris", nis: "029" },
+        { name: "Bella", nis: "030" },
+        { name: "Catur", nis: "031" },
+        { name: "Dodi", nis: "032" },
+        { name: "Eris", nis: "033" },
+        { name: "Fanny", nis: "034" },
+        { name: "Gani", nis: "035" },
+        { name: "Hana", nis: "036" }
+    ];
 
-        const grid = document.getElementById('studentGrid');
+    const grid = document.getElementById('studentGrid');
 
-        function renderStudents() {
-            grid.innerHTML = students.map((name, i) => `
+    // Mengambil file dengan format: Nama-NIS-Absen.jpg di folder img-siswa
+    function getFileName(student, index) {
+        const absen = index + 1;
+        // Contoh: img-siswa/Hilal Ade Pratama-001-1.jpg
+        return `img-siswa/${student.name}-${student.nis}-${absen}.jpg`;
+    }
+
+    function renderStudents() {
+        grid.innerHTML = students.map((student, i) => {
+            const fileName = getFileName(student, i);
+            const absen = i + 1;
+            return `
                 <div class="student-card glass-card rounded-2xl overflow-hidden group cursor-pointer shadow-xl border border-white/5 hover:border-blue-500/50 transition-all duration-300" 
-                     data-aos="fade-up" onclick="openModal('${name}', ${i+1})">
+                     data-aos="fade-up" onclick="openModal(${i})">
                     <div class="relative overflow-hidden bg-slate-900">
-                        <img src="siswa-${i+1}.jpg" onerror="this.src='https://via.placeholder.com/300x400?text=3x4'" 
+                        <img src="${fileName}" onerror="this.src='https://via.placeholder.com/300x400?text=ABSEN+${absen}'" 
                              class="photo-frame grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-500">
+                        
                         <div class="absolute top-2 left-2 bg-blue-600/80 backdrop-blur-md px-2 py-0.5 rounded text-[8px] md:text-[10px] font-black">
-                            ABSEN ${(i+1).toString().padStart(2, '0')}
+                            ABS ${absen.toString().padStart(2, '0')}
+                        </div>
+
+                        <div class="absolute top-2 right-2 bg-purple-600/80 backdrop-blur-md px-2 py-0.5 rounded text-[8px] md:text-[10px] font-black">
+                            NIS ${student.nis}
                         </div>
                     </div>
                     <div class="p-3 text-center">
-                        <h3 class="student-name text-[9px] md:text-xs font-black truncate uppercase tracking-tighter group-hover:text-blue-400 transition">${name}</h3>
+                        <h3 class="student-name text-[9px] md:text-xs font-black truncate uppercase tracking-tighter group-hover:text-blue-400 transition">${student.name}</h3>
                     </div>
                 </div>
-            `).join('');
+            `;
+        }).join('');
+    }
+
+    function searchStudent() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.getElementsByClassName('student-card');
+        for (let card of cards) {
+            let name = card.querySelector('.student-name').innerText.toLowerCase();
+            card.style.display = name.includes(input) ? "block" : "none";
         }
+    }
 
-        function searchStudent() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('student-card');
-            for (let card of cards) {
-                let name = card.querySelector('.student-name').innerText.toLowerCase();
-                card.style.display = name.includes(input) ? "block" : "none";
-            }
-        }
+    function openModal(index) {
+        const student = students[index];
+        let src = getFileName(student, index);
+        const modalImg = document.getElementById('modalImg');
+        modalImg.src = src;
+        
+        modalImg.onerror = function() {
+            this.src = 'https://via.placeholder.com/300x400?text=FOTO+BELUM+ADA';
+        };
 
-        function openModal(name, id) {
-            let src = `siswa-${id}.jpg`;
-            // Penanganan khusus foto yang namanya berbeda
-            if(id === 1) src = "Hilal-Ade.jpg";
-            if(id === 2) src = "Thalita.jpg";
+        document.getElementById('modalName').innerText = student.name;
+        document.getElementById('photoModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 
-            document.getElementById('modalImg').src = src;
-            document.getElementById('modalName').innerText = name;
-            document.getElementById('photoModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
+    function closeModal() {
+        document.getElementById('photoModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 
-        function closeModal() {
-            document.getElementById('photoModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+    function updateActiveNav() {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = document.querySelectorAll('.nav-link');
 
-        // Script untuk Active Navigation
-        function updateActiveNav() {
-            const currentPath = window.location.pathname.split("/").pop() || "index.html";
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            navLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                link.classList.remove('nav-active', 'album-active');
-
-                if (href === currentPath) {
-                    if (href === "galeri.html") {
-                        link.classList.add('album-active');
-                    } else {
-                        link.classList.add('nav-active');
-                    }
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            link.classList.remove('nav-active', 'album-active');
+            if (href === currentPath) {
+                if (href === "galeri.html") {
+                    link.classList.add('album-active');
+                } else {
+                    link.classList.add('nav-active');
                 }
-            });
-        }
-
-        // Jalankan saat load
-        window.addEventListener('load', () => {
-            renderStudents();
-            updateActiveNav();
+            }
         });
+    }
+
+    window.addEventListener('load', () => {
+        renderStudents();
+        updateActiveNav();
+    });
     </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
