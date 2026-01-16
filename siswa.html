@@ -20,6 +20,13 @@
             scroll-behavior: smooth; 
         }
 
+        /* Optimasi GPU & Rendering */
+        .student-card {
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
         /* Animasi Logo */
         @keyframes floatingLogo {
             0%, 100% { transform: translateY(0px); }
@@ -38,6 +45,14 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Adaptive Glass (Ringankan beban HP saat scroll) */
+        @media (max-width: 768px) {
+            .glass-card {
+                backdrop-filter: blur(4px); /* Blur lebih tipis di HP agar lancar */
+                background: rgba(15, 23, 42, 0.8);
+            }
         }
 
         .gradient-text {
@@ -82,6 +97,12 @@
             background-color: #2563eb !important;
             color: white !important;
             border-color: white !important;
+        }
+
+        /* Ringankan footer */
+        footer {
+            content-visibility: auto;
+            contain-intrinsic-size: 200px;
         }
     </style>
 </head>
@@ -130,48 +151,47 @@
         </div>
     </div>
 
-
-<footer class="bg-black/50 py-12 border-t border-white/5">
+  <footer class="bg-black/50 py-12 border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
             
-            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group justify-center sm:justify-start">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group justify-start">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
                     <i class="fab fa-instagram text-2xl"></i>
                 </div>
                 <div class="text-left">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">Instagram Kelas</p>
+                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
                     <p class="text-sm font-bold text-white group-hover:text-pink-500 transition-colors">@12enambelas_</p>
                 </div>
             </a>
 
-            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group justify-center sm:justify-start">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-pink-600 via-purple-600 to-blue-700 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group justify-start">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-gradient-to-tr from-pink-600 via-purple-600 to-blue-700 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
                     <i class="fab fa-instagram text-2xl"></i>
                 </div>
                 <div class="text-left">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">Instagram Sekolah</p>
+                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
                     <p class="text-sm font-bold text-white group-hover:text-purple-400 transition-colors">@smks.bksimo</p>
                 </div>
             </a>
 
-            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group justify-center sm:justify-start">
-                <div class="w-12 h-12 rounded-full bg-slate-800 border border-white/20 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 group-hover:border-blue-500">
+            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group justify-start">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-slate-800 border border-white/20 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 group-hover:border-blue-500">
                     <i class="fas fa-school text-xl"></i>
                 </div>
                 <div class="text-left">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">Official Website</p>
+                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
                     <p class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">SMK BK SIMO</p>
                 </div>
             </a>
 
-            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group justify-center sm:justify-start lg:justify-end">
-                <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
-                    <i class="fas fa-code text-xl"></i>
-                </div>
-                <div class="text-left lg:text-right">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">Web Developer</p>
+            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group justify-start lg:justify-end">
+                <div class="text-left lg:text-right order-2 lg:order-1">
+                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
                     <p class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors italic">@tomyeka_rmx</p>
+                </div>
+                <div class="w-12 h-12 shrink-0 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 order-1 lg:order-2">
+                    <i class="fas fa-code text-xl"></i>
                 </div>
             </a>
 
@@ -185,53 +205,34 @@
     </div>
 </footer>
 
+
     <script>
     // Data Siswa Urut Absen 1 - 36
     const students = [
-        { name: "Hilal", nis: "001" },
-        { name: "Thalita", nis: "002" },
-        { name: "Aditya", nis: "003" },
-        { name: "Anisa", nis: "004" },
-        { name: "Bagas", nis: "005" },
-        { name: "Citra", nis: "006" },
-        { name: "Dika", nis: "007" },
-        { name: "Eka", nis: "008" },
-        { name: "Fajar", nis: "009" },
-        { name: "Gita", nis: "010" },
-        { name: "Hendra", nis: "011" },
-        { name: "Indah", nis: "012" },
-        { name: "Joko", nis: "013" },
-        { name: "Kiki", nis: "014" },
-        { name: "Hilal Ade Pratama", nis: "13654" },
-        { name: "Maya", nis: "016" },
-        { name: "Nico", nis: "017" },
-        { name: "Olivia", nis: "018" },
-        { name: "Putra", nis: "019" },
-        { name: "Rani", nis: "020" },
-        { name: "Santi", nis: "021" },
-        { name: "Tomy", nis: "022" },
-        { name: "Umar", nis: "023" },
-        { name: "Vina", nis: "024" },
-        { name: "Wahyu", nis: "025" },
-        { name: "Xena", nis: "026" },
-        { name: "Yayan", nis: "027" },
-        { name: "Zaki", nis: "028" },
-        { name: "Aris", nis: "029" },
-        { name: "Bella", nis: "030" },
-        { name: "Catur", nis: "031" },
-        { name: "Dodi", nis: "032" },
-        { name: "Eris", nis: "033" },
-        { name: "Fanny", nis: "034" },
-        { name: "Gani", nis: "035" },
-        { name: "Hana", nis: "036" }
+        { name: "Hilal", nis: "001" }, { name: "Thalita", nis: "002" },
+        { name: "Aditya", nis: "003" }, { name: "Anisa", nis: "004" },
+        { name: "Bagas", nis: "005" }, { name: "Citra", nis: "006" },
+        { name: "Dika", nis: "007" }, { name: "Eka", nis: "008" },
+        { name: "Fajar", nis: "009" }, { name: "Gita", nis: "010" },
+        { name: "Hendra", nis: "011" }, { name: "Indah", nis: "012" },
+        { name: "Joko", nis: "013" }, { name: "Kiki", nis: "014" },
+        { name: "Hilal Ade Pratama", nis: "13654" }, { name: "Maya", nis: "016" },
+        { name: "Nico", nis: "017" }, { name: "Olivia", nis: "018" },
+        { name: "Putra", nis: "019" }, { name: "Rani", nis: "020" },
+        { name: "Santi", nis: "021" }, { name: "Tomy", nis: "022" },
+        { name: "Umar", nis: "023" }, { name: "Vina", nis: "024" },
+        { name: "Wahyu", nis: "025" }, { name: "Xena", nis: "026" },
+        { name: "Yayan", nis: "027" }, { name: "Zaki", nis: "028" },
+        { name: "Aris", nis: "029" }, { name: "Bella", nis: "030" },
+        { name: "Catur", nis: "031" }, { name: "Dodi", nis: "032" },
+        { name: "Eris", nis: "033" }, { name: "Fanny", nis: "034" },
+        { name: "Gani", nis: "035" }, { name: "Hana", nis: "036" }
     ];
 
     const grid = document.getElementById('studentGrid');
 
-    // MENCARI FOTO BERDASARKAN NOMOR ABSEN SAJA (contoh: 1.jpg, 2.jpg)
     function getFileName(index) {
-        const absen = index + 1;
-        return `img-siswa/${absen}.jpg`;
+        return `img-siswa/${index + 1}.jpg`;
     }
 
     function renderStudents() {
@@ -242,7 +243,8 @@
                 <div class="student-card glass-card rounded-2xl overflow-hidden group cursor-pointer shadow-xl border border-white/5 hover:border-blue-500/50 transition-all duration-300" 
                      data-aos="fade-up" onclick="openModal(${i})">
                     <div class="relative overflow-hidden bg-slate-900">
-                        <img src="${fileName}" onerror="this.src='https://via.placeholder.com/300x400?text=ABSEN+${absen}'" 
+                        <img src="${fileName}" loading="lazy" 
+                             onerror="this.src='https://via.placeholder.com/300x400?text=ABSEN+${absen}'" 
                              class="photo-frame grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-500">
                         
                         <div class="absolute top-2 left-2 bg-blue-600/80 backdrop-blur-md px-2 py-0.5 rounded text-[8px] md:text-[10px] font-black">
@@ -261,13 +263,18 @@
         }).join('');
     }
 
+    // Optimasi 2: Search Debounce (Tidak lag saat ngetik)
+    let searchTimeout;
     function searchStudent() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.getElementsByClassName('student-card');
-        for (let card of cards) {
-            let name = card.querySelector('.student-name').innerText.toLowerCase();
-            card.style.display = name.includes(input) ? "block" : "none";
-        }
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('student-card');
+            for (let card of cards) {
+                let name = card.querySelector('.student-name').innerText.toLowerCase();
+                card.style.display = name.includes(input) ? "block" : "none";
+            }
+        }, 200);
     }
 
     function openModal(index) {
@@ -314,6 +321,13 @@
     </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 500, once: true });</script>
+    <script>
+        // Optimasi 3: AOS Setting yang lebih ringan
+        AOS.init({ 
+            duration: 400, 
+            once: true,
+            disable: window.innerWidth < 768 // Matikan animasi di HP jika sangat berat
+        });
+    </script>
 </body>
 </html>
