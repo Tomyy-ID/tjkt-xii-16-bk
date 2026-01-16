@@ -70,16 +70,41 @@
     <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0">
         TJKT <span class="text-blue-500">XII-16</span>
     </div>
-    <div class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
+    <div id="nav-container" class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
         <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
         <a href="index.html#jadwal" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Jadwal</a>
         <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Struktur</a>
         <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
-        <a href="galeri.html" class="nav-link bg-blue-600/20 text-blue-400 px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap shrink-0">
+        <a href="galeri.html" class="nav-link px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap shrink-0">
             <i class="fas fa-images mr-1"></i> ALBUM
         </a>
     </div>
 </nav>
+
+<script>
+    function updateActiveNav() {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        const currentHash = window.location.hash;
+        const navLinks = document.querySelectorAll('.nav-link, a[href="galeri.html"]');
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            // Reset semua class
+            link.classList.remove('nav-active', 'text-blue-400', 'bg-blue-600', 'text-white', 'border-white');
+            
+            // Logika pewarnaan
+            if (href === currentPath || (currentHash && href.includes(currentHash))) {
+                if (href === "galeri.html") {
+                    link.classList.add('bg-blue-600', 'text-white', 'border-white');
+                } else {
+                    link.classList.add('nav-active', 'text-blue-400');
+                }
+            }
+        });
+    }
+    window.addEventListener('load', updateActiveNav);
+    window.addEventListener('hashchange', updateActiveNav);
+</script>
 
 <section id="home" class="relative w-full aspect-video md:max-h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden shadow-2xl bg-black">
     <div class="absolute inset-0 z-0">
