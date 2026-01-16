@@ -16,25 +16,21 @@
             scroll-behavior: smooth; 
         }
 
-         /* Animasi Bergerak Naik Turun */
-@keyframes floatingLogo {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
+        @keyframes floatingLogo {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
 
-.animate-floating {
-    animation: floatingLogo 3s ease-in-out infinite;
-    display: inline-block; /* Penting agar transformasi bekerja */
-}
+        .animate-floating {
+            animation: floatingLogo 3s ease-in-out infinite;
+            display: inline-block;
+        }
 
-/* Tambahan efek glow agar lebih gaul */
-.logo-glow {
-    text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-}
-
+        .logo-glow {
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
         
-        /* Glassmorphism Effect */
         .glass { 
             background: rgba(255, 255, 255, 0.03); 
             backdrop-filter: blur(12px);
@@ -53,152 +49,81 @@
             to { background-position: 200% center; }
         }
 
-        .card-hover {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .nav-active {
+            color: #3b82f6 !important;
+            border-bottom: 2px solid #3b82f6;
         }
-        .card-hover:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #3b82f6;
+        
+        .album-active {
+            background-color: #2563eb !important;
+            color: white !important;
+            border-color: white !important;
         }
      </style>
-    </head>
-     <body class="font-sans">
+</head>
+<body class="font-sans">
 
-    <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
+<nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
     <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0">
         TJKT <span class="text-blue-500">XII-16</span>
     </div>
-    <div class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4">
-        <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Beranda</a>
-        <a href="index.html#jadwal" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Jadwal</a>
-        <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Struktur</a>
-        <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Siswa</a>
-        <a href="galeri.html" class="nav-link bg-blue-600/20 text-blue-400 px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap">
+    <div class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
+        <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
+        <a href="index.html#jadwal" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Jadwal</a>
+        <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Struktur</a>
+        <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
+        <a href="galeri.html" class="nav-link bg-blue-600/20 text-blue-400 px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap shrink-0">
             <i class="fas fa-images mr-1"></i> ALBUM
         </a>
     </div>
 </nav>
 
-
-<style>
-    /* Menghilangkan scrollbar di HP agar tetap rapi */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* Gaya untuk tombol yang sedang aktif */
-    .nav-active {
-        color: #3b82f6 !important; /* Biru terang */
-        border-bottom: 2px solid #3b82f6;
-    }
-    
-    /* Gaya khusus tombol Album jika sedang aktif */
-    .album-active {
-        background-color: #2563eb !important;
-        color: white !important;
-        border-color: white !important;
-    }
-</style>
-
-
-<style>
-    /* Menghilangkan scrollbar di HP agar tetap rapi */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* Gaya untuk tombol yang sedang aktif */
-    .nav-active {
-        color: #3b82f6 !important; /* Biru terang */
-        border-bottom: 2px solid #3b82f6;
-    }
-    
-    /* Gaya khusus tombol Album jika sedang aktif */
-    .album-active {
-        background-color: #2563eb !important;
-        color: white !important;
-        border-color: white !important;
-    }
-</style>
-
-<style>
-    /* Menghilangkan scrollbar tapi fungsi geser tetap ada jika menu terlalu panjang di HP */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-</style>
-
-
-
-
-      <section id="home" class="relative w-full aspect-video md:max-h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden shadow-2xl bg-black">
-    
+<section id="home" class="relative w-full aspect-video md:max-h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden shadow-2xl bg-black">
     <div class="absolute inset-0 z-0">
         <style>
-            @keyframes kenburns {
-                0% { transform: scale(1.1); }
-                50% { transform: scale(1); }
-                100% { transform: scale(1.1); }
-            }
-            .animate-bg-cool {
-                animation: kenburns 25s ease-in-out infinite;
-            }
-
-            /* Overlay Lebih Gelap untuk Kontras Maksimal */
-            .overlay-dark-premium {
-                background: linear-gradient(to bottom, 
-                            rgba(0, 0, 0, 0.95) 0%,    /* Sangat gelap di atas untuk Welcome */
-                            rgba(0, 0, 0, 0.4) 40%,    /* Area wajah lebih terlihat */
-                            rgba(0, 0, 0, 0.4) 60%,    /* Area wajah lebih terlihat */
-                            rgba(15, 23, 42, 0.98) 100%); /* Menyatu gelap ke jadwal */
-            }
-
-            .glow-text-strong {
-                text-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 0 60px rgba(59, 130, 246, 0.3);
-            }
-            
-            .float-btn {
-                animation: floating 4s ease-in-out infinite;
-            }
-            @keyframes floating {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-10px); }
-            }
+            @keyframes kenburns { 0% { transform: scale(1.1); } 50% { transform: scale(1); } 100% { transform: scale(1.1); } }
+            .animate-bg-cool { animation: kenburns 25s ease-in-out infinite; }
+            .overlay-dark-premium { background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0.3) 60%, rgba(15, 23, 42, 0.95) 100%); }
+            .glow-text-strong { text-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 0 60px rgba(59, 130, 246, 0.3); }
+            .float-btn { animation: floating 4s ease-in-out infinite; }
+            @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         </style>
-
         <img src="background-kelas.jpg" alt="Foto Kelas" class="w-full h-full object-cover object-center animate-bg-cool opacity-80">
         <div class="absolute inset-0 overlay-dark-premium"></div>
     </div>
 
-    <div class="relative z-10 pt-28 md:pt-36">
-        <h2 class="text-5xl md:text-9xl font-black mb-6 leading-tight text-white glow-text-strong tracking-tighter animate__animated animate__backInDown">
+    <div class="relative z-10 pt-12 md:pt-20">
+        <h2 class="text-4xl md:text-9xl font-black mb-2 leading-tight text-white glow-text-strong tracking-tighter animate__animated animate__backInDown">
             WELCOME TO <br>
             <span class="gradient-text uppercase italic">CLASS XII 16</span>
         </h2>
-        
-        <p class="text-gray-100 max-w-2xl mx-auto text-sm md:text-2xl mb-12 font-bold px-6 animate__animated animate__fadeInUp animate__delay-1s drop-shadow-md">
+        <p class="text-gray-100 max-w-2xl mx-auto text-[10px] md:text-2xl mb-6 font-bold px-6 animate__animated animate__fadeInUp animate__delay-1s drop-shadow-md">
             <span class="bg-blue-600/40 px-3 py-1 rounded-lg backdrop-blur-sm border border-white/10">
                 🔥 Memories Never Die — Angkatan 2023-2026 🔥
             </span>
         </p>
-        
-        <div class="flex flex-wrap justify-center gap-6 animate__animated animate__fadeInUp animate__delay-2s">
-            <a href="galeri.html" class="float-btn bg-white text-black px-10 py-4 rounded-full font-black text-xs md:text-lg flex items-center gap-2 hover:bg-blue-600 hover:text-white transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+        <div class="flex flex-wrap justify-center gap-4 md:gap-6 animate__animated animate__fadeInUp animate__delay-2s">
+            <a href="galeri.html" class="float-btn bg-white text-black px-8 py-3 md:px-10 md:py-4 rounded-full font-black text-[10px] md:text-lg flex items-center gap-2 hover:bg-blue-600 hover:text-white transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.3)]">
                 <i class="fas fa-bolt"></i> LIHAT ALBUM
             </a>
-            <a href="#struktur" class="float-btn border-2 border-white/30 text-white px-10 py-4 rounded-full font-black text-xs md:text-lg flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-md shadow-[0_0_30px_rgba(59,130,246,0.2)]" style="animation-delay: 0.5s;">
+            <a href="#struktur" class="float-btn border-2 border-white/30 text-white px-8 py-3 md:px-10 md:py-4 rounded-full font-black text-[10px] md:text-lg flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-md shadow-[0_0_30px_rgba(59,130,246,0.2)]" style="animation-delay: 0.5s;">
                 <i class="fas fa-fire"></i> STRUKTUR KELAS
+            </a>
+            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="float-btn bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 text-white px-8 py-3 md:px-10 md:py-4 rounded-full font-black text-[10px] md:text-lg flex items-center gap-2 hover:scale-110 transition-all duration-500 shadow-[0_0_30px_rgba(236,72,153,0.4)]" style="animation-delay: 0.7s;">
+                <i class="fab fa-instagram text-xl"></i> INSTAGRAM
             </a>
         </div>
     </div>
 </section>
 
-
-
-
-    <section id="jadwal" class="py-20 bg-[#0f172a] overflow-hidden">
+<section id="jadwal" class="py-20 bg-[#0f172a] overflow-hidden">
     <div class="max-w-5xl mx-auto px-4">
         <div class="text-center mb-16" data-aos="zoom-in-up">
             <h3 class="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter">
-                JADWAL <span class="gradient-text italic">KBM   </span>
+                JADWAL <span class="gradient-text italic">KBM</span>
             </h3>
             <div class="inline-block px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10">
                 <p class="text-blue-400 font-bold uppercase text-[10px] md:text-xs tracking-widest">
@@ -208,77 +133,136 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            <div class="group relative bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-blue-600/10 hover:border-blue-500/50 hover:-translate-y-2" data-aos="fade-right">
+            <div class="group relative bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-blue-600/20 hover:border-blue-500/50 hover:-translate-y-2" data-aos="fade-right">
                 <div class="flex justify-between items-start mb-6">
                     <div>
-                        <h4 class="text-2xl font-black text-white group-hover:text-blue-400 transition-colors">SENIN - SELASA</h4>
+                        <h4 class="text-2xl font-black text-white group-hover:text-blue-400 transition-colors uppercase">Senin</h4>
                         <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">Full Day Kejuruan</p>
                     </div>
                     <span class="bg-blue-600 text-white text-[10px] px-3 py-1 rounded-full font-bold animate-pulse">UTAMA</span>
                 </div>
                 <div class="space-y-3">
-                    <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 group-hover:border-blue-500/20">
-                        <span class="text-sm font-bold text-gray-300">Jam Ke 1 - 11</span>
-                        <span class="text-lg font-black text-blue-400">KEJURUAN (KK TKJ)</span>
+                    <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase">Jam 1 | <span class="text-blue-400">07:45 - 08:15</span></p>
+                        <p class="text-lg font-black text-blue-500 uppercase italic">Sinkronisasi Wali Kelas & Mengaji</p>
+                        <p class="text-[10px] text-blue-300 font-bold italic">Nita Hastuti, S.Pd</p>
                     </div>
-                    <p class="text-[10px] text-center text-gray-500 italic">07:45 — 15:00 WIB</p>
-                </div>
-            </div>
-
-            <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-purple-600/10 hover:border-purple-500/50 hover:-translate-y-2" data-aos="fade-left">
-                <h4 class="text-2xl font-black text-white mb-6 group-hover:text-purple-400 transition-colors uppercase">Rabu</h4>
-                <div class="grid grid-cols-2 gap-3 text-xs">
-                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                        <p class="text-purple-400 font-bold">07:05</p>
-                        <p class="font-bold text-gray-200">B. Indonesia</p>
-                    </div>
-                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                        <p class="text-purple-400 font-bold">10:10</p>
-                        <p class="font-bold text-gray-200">PKN</p>
-                    </div>
-                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                        <p class="text-purple-400 font-bold">11:20</p>
-                        <p class="font-bold text-gray-200">B. Jawa</p>
-                    </div>
-                    <div class="p-3 bg-purple-600/20 rounded-xl border border-purple-500/30">
-                        <p class="text-white font-black">11:55</p>
-                        <p class="font-black text-white">B. Inggris</p>
+                    <div class="p-4 bg-blue-600/10 rounded-2xl border border-blue-500/20">
+                        <p class="text-[10px] font-bold text-blue-400 uppercase">Jam 2 - 11 | <span class="text-white">08:15 - 15:00</span></p>
+                        <p class="text-lg font-black text-white uppercase">KEJURUAN (KK TKJ)</p>
+                        <p class="text-[10px] text-blue-200 font-bold mt-1 italic">Siti Mafulah, S.Kom</p>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-orange-600/10 hover:border-orange-500/50 hover:-translate-y-2" data-aos="fade-right">
-                <h4 class="text-2xl font-black text-white mb-6 group-hover:text-orange-400 transition-colors uppercase">Kamis</h4>
-                <div class="grid grid-cols-2 gap-3 text-xs">
-                    <div class="p-3 bg-orange-600/20 rounded-xl border border-orange-500/30">
-                        <p class="text-white font-black">07:05</p>
-                        <p class="font-black text-white">Matematika</p>
+            <div class="group relative bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-cyan-600/20 hover:border-cyan-500/50 hover:-translate-y-2" data-aos="fade-left">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h4 class="text-2xl font-black text-white group-hover:text-cyan-400 transition-colors uppercase">Selasa</h4>
+                        <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">Kejuruan & PKWU</p>
                     </div>
-                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                        <p class="text-orange-400 font-bold">08:50</p>
-                        <p class="font-bold text-gray-200">Projek Kreatif & Kewirausahaan</p>
-                    </div>
-                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                        <p class="text-orange-400 font-bold">11:55</p>
-                        <p class="font-bold text-gray-200">B. Jawa</p>
-                    </div>
-                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                        <p class="text-orange-400 font-bold">12:55</p>
-                        <p class="font-bold text-gray-200">Pendidikan Agama Islam</p>
-                    </div>
+                    <span class="bg-blue-600 text-white text-[10px] px-3 py-1 rounded-full font-bold animate-pulse">UTAMA</span>
                 </div>
-            </div>
-
-            <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-emerald-600/10 hover:border-emerald-500/50 hover:-translate-y-2" data-aos="fade-left">
-                <h4 class="text-2xl font-black text-white mb-6 group-hover:text-emerald-400 transition-colors uppercase">Jumat</h4>
                 <div class="space-y-3">
-                    <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl border border-white/5">
-                        <span class="text-xs font-bold text-gray-400">07:30-11.30</span>
-                        <span class="text-sm font-black text-gray-200 uppercase">Kejuruan (KK TKJ)</span>
+                    <div class="p-4 bg-cyan-600/10 rounded-2xl border border-cyan-500/20">
+                        <p class="text-[10px] font-bold text-cyan-400 uppercase">Jam 1 - 9 | <span class="text-white">07:05 - 13:30</span></p>
+                        <p class="text-lg font-black text-white uppercase">KEJURUAN (KK TKJ)</p>
+                        <p class="text-[10px] text-cyan-200 font-bold mt-1 italic">Siti Mafulah, S.Kom</p>
                     </div>
-                    <div class="py-1 text-center bg-red-500/10 rounded-lg border border-red-500/20">
-                        <p class="text-[9px] font-black text-red-500 tracking-[0.2em] uppercase italic">Sholat Jum'at </p>
+                    <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase">Jam 10 | <span class="text-cyan-400">13:50 - 14:25</span></p>
+                        <p class="text-lg font-black text-white uppercase">Projek Kreatif & Kewirausahaan ⟨PKWU⟩</p>
+                        <p class="text-[10px] text-cyan-300 font-bold italic">Risky Annisakh</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase">Jam 11 | <span class="text-cyan-400">14:25 - 15:00</span></p>
+                        <p class="text-lg font-black text-cyan-500 uppercase italic">Sinkronisasi Wali Kelas & Baca Bebas</p>
+                        <p class="text-[10px] text-cyan-300 font-bold italic">Nita Hastuti, S.Pd</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-purple-600/10 hover:border-purple-500/50 hover:-translate-y-2" data-aos="fade-right">
+                <h4 class="text-2xl font-black text-white mb-6 group-hover:text-purple-400 transition-colors uppercase">Rabu</h4>
+                <div class="grid grid-cols-2 gap-3 text-[10px] mb-4">
+                    <div class="p-3 bg-purple-600/20 rounded-xl border border-purple-500/30">
+                        <p class="text-white font-black">Jam 1-4 | <span class="text-purple-200">07:05</span></p>
+                        <p class="font-bold text-white uppercase">B. INDONESIA</p>
+                        <p class="text-[8px] text-purple-100 font-bold italic">Aris Ika N, S.Pd</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-purple-400 font-bold">Jam 5-6 | <span class="text-white">10:10</span></p>
+                        <p class="font-bold text-gray-200 uppercase">Pendidikan Pancasila ⟨PKN⟩</p>
+                        <p class="text-[8px] text-purple-300 italic">Nita Hastuti, S.Pd</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-purple-400 font-bold">Jam 7 | <span class="text-white">11:20</span></p>
+                        <p class="font-bold text-gray-200 uppercase">B. JAWA</p>
+                        <p class="text-[8px] text-purple-300 italic">Qurniawati, S.Pd</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-purple-400 font-bold">Jam 8-10 | <span class="text-white">11:55</span></p>
+                        <p class="font-bold text-gray-200 uppercase">B. INGGRIS</p>
+                        <p class="text-[8px] text-purple-300 italic">Azis Mustofa, A.Md</p>
+                    </div>
+                </div>
+                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase">Jam 11 | <span class="text-purple-400">14:25 - 15:00</span></p>
+                    <p class="text-sm font-black text-purple-500 uppercase italic">Sinkronisasi Wali Kelas & Mengaji</p>
+                    <p class="text-[10px] text-purple-300 font-bold italic">Nita Hastuti, S.Pd</p>
+                </div>
+            </div>
+
+            <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-orange-600/10 hover:border-orange-500/50 hover:-translate-y-2" data-aos="fade-left">
+                <h4 class="text-2xl font-black text-white mb-6 group-hover:text-orange-400 transition-colors uppercase">Kamis</h4>
+                <div class="grid grid-cols-2 gap-3 text-[10px] mb-4">
+                    <div class="p-3 bg-orange-600/20 rounded-xl border border-orange-500/30">
+                        <p class="text-white font-black">Jam 1-3 | <span class="text-orange-100">07:05</span></p>
+                        <p class="font-bold text-white uppercase">MATEMATIKA</p>
+                        <p class="text-[8px] text-orange-100 font-bold italic">Sunarni, S.Si</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-orange-400 font-bold">Jam 4-7 | <span class="text-white">08:50</span></p>
+                        <p class="font-bold text-gray-200 uppercase leading-tight">Projek Kreatif & Kewirausahaan ⟨PKWU⟩</p>
+                        <p class="text-[8px] text-orange-300 italic">Risky Annisakh</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-orange-400 font-bold">Jam 8 | <span class="text-white">11:55</span></p>
+                        <p class="font-bold text-gray-200 uppercase">B. JAWA</p>
+                        <p class="text-[8px] text-orange-300 italic">Qurniawati, S.Pd</p>
+                    </div>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <p class="text-orange-400 font-bold">Jam 9-10 | <span class="text-white">12:55</span></p>
+                        <p class="font-bold text-gray-200 uppercase">Pendidikan Agama Islam ⟨PAI⟩</p>
+                        <p class="text-[8px] text-orange-300 italic">Dra. Hj. Lutfiyah</p>
+                    </div>
+                </div>
+                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase">Jam 11 | <span class="text-orange-400">14:25 - 15:00</span></p>
+                    <p class="text-sm font-black text-orange-500 uppercase italic">Sinkronisasi Wali Kelas & Baca Bebas</p>
+                    <p class="text-[10px] text-orange-300 font-bold italic">Nita Hastuti, S.Pd</p>
+                </div>
+            </div>
+
+            <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-emerald-600/10 hover:border-emerald-500/50 hover:-translate-y-2 md:col-span-2" data-aos="fade-up">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h4 class="text-2xl font-black text-white group-hover:text-emerald-400 transition-colors uppercase">Jumat</h4>
+                        <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">Kejuruan ⟨TEORI⟩</p>
+                    </div>
+                    <span class="bg-blue-600 text-white text-[10px] px-3 py-1 rounded-full font-bold animate-pulse">UTAMA</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="p-4 bg-emerald-600/10 rounded-2xl border border-emerald-500/20">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-[10px] font-bold text-emerald-400 uppercase">Jam 1 - 6 | <span class="text-white">07:05 - 11:20</span></span>
+                        </div>
+                        <p class="text-lg font-black text-white uppercase">KEJURUAN (KK TKJ)</p>
+                        <p class="text-[10px] text-emerald-200 font-bold italic">Siti Mafulah, S.Kom</p>
+                    </div>
+                    <div class="py-2 text-center bg-red-500/10 rounded-lg border border-red-500/20">
+                        <p class="text-[9px] font-black text-red-500 tracking-[0.2em] uppercase italic">Waktu Sholat Jum'at & Sinkronisasi</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -288,23 +272,21 @@
                 <i class="fas fa-coffee text-blue-400 animate-bounce"></i>
                 <div class="text-left">
                     <p class="text-[8px] text-gray-500 font-black uppercase">Istirahat / MBG</p>
-                    <p class="text-xs font-black text-white">09:25 — 10:10</p>
+                    <p class="text-xs font-black text-blue-400">09:25 — 10:10</p>
                 </div>
             </div>
             <div class="glass flex items-center gap-3 px-6 py-3 rounded-2xl border border-white/10">
                 <i class="fas fa-mosque text-purple-400 animate-pulse"></i>
                 <div class="text-left">
-                    <p class="text-[8px] text-gray-500 font-black uppercase">Jeda Sholat</p>
-                    <p class="text-xs font-black text-white">12:00 — 12:55</p>
+                    <p class="text-[8px] text-gray-500 font-black uppercase">Jeda Sholat (XII)</p>
+                    <p class="text-xs font-black text-purple-400">12:35 — 12:55</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-
-
-    <section id="struktur"  class="py-20 bg-[#0f172a] text-center">
+<section id="struktur"  class="py-20 bg-[#0f172a] text-center">
     <div class="max-w-4xl mx-auto px-4">
         <h3 class="text-4xl font-black text-white mb-16 tracking-tighter" data-aos="zoom-in">
             STRUKTUR <span class="text-blue-500">KELAS</span>
@@ -348,77 +330,42 @@
     </div>
 </section>
 
+<footer class="bg-black/50 py-12 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-10">
+            
+            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </div>
+                <div class="text-left">
+                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">Instagram Kelas</p>
+                    <p class="text-sm font-bold text-white group-hover:text-pink-500 transition-colors">@12enambelas_</p>
+                </div>
+            </a>
 
+            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group md:flex-row-reverse md:text-right">
+                <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                    <i class="fas fa-code text-xl"></i>
+                </div>
+                <div class="text-left">
+                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">Web Developer</p>
+                    <p class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors italic">@tomyeka_rmx</p>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="text-center pt-8 border-t border-white/5">
+            <p class="text-gray-500 text-[11px] font-bold uppercase tracking-widest">
+                &copy; 2026 XII-16 TJKT. Crafted by Ai Gemini x Tomexx.ID            </p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    function previewImg(input, targetId) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById(targetId).src = e.target.result;
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
-
-
-<script>
-function previewImage(input, imgId) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById(imgId).src = e.target.result;
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-</script>
-
-
-    <footer class="bg-black/50 py-12 text-center border-t border-white/5">
-        <p class="text-gray-500 text-sm">
-            &copy; 2026 XII-16 TJKT. Crafted <span class="text-red-500"></span> by Ai Gemini x Tomy Eka RMX.
-        </p>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Inisialisasi AOS (Animate on Scroll)
-        AOS.init({
-            duration: 1000,
-            once: true,
-            easing: 'ease-in-out'
-        });
-
-        // Sticky Navbar Effect
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('py-2', 'bg-black/80');
-                nav.classList.remove('py-4');
-            } else {
-                nav.classList.add('py-4');
-                nav.classList.remove('py-2', 'bg-black/80');
-            }
-        });
-    </script>
-
-<script>
-    function updateActiveNav() {
-        const currentPath = window.location.pathname.split("/").pop() || "index.html";
-        const currentHash = window.location.hash;
-        document.querySelectorAll('.nav-link').forEach(link => {
-            const href = link.getAttribute('href');
-            link.classList.remove('nav-active', 'album-active');
-            if (currentHash && href.includes(currentHash)) {
-                link.classList.add('nav-active');
-            } else if (!currentHash && (href === currentPath || (currentPath === "index.html" && href === "index.html"))) {
-                href === "galeri.html" ? link.classList.add('album-active') : link.classList.add('nav-active');
-            }
-        });
-    }
-    window.addEventListener('load', updateActiveNav);
-    window.addEventListener('hashchange', updateActiveNav);
+    AOS.init({ duration: 500, once: true, easing: 'ease-in-out' });
 </script>
 
 </body>

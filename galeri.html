@@ -17,6 +17,23 @@
             scroll-behavior: smooth; 
         }
 
+        /* --- Logo Styles (Sama dengan Index) --- */
+        @keyframes floatingLogo {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .animate-floating {
+            animation: floatingLogo 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .logo-glow {
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        /* --- Galeri & Card Styles --- */
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: Blur(10px);
@@ -31,6 +48,32 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
+        /* --- Slider Engine Styles --- */
+        .slider-viewport {
+            overflow: hidden;
+            width: 100%;
+            cursor: grab;
+            position: relative;
+        }
+        .slider-viewport:active { cursor: grabbing; }
+        .slides-container {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .slide {
+            min-width: 100%;
+            height: 16rem; 
+            object-fit: cover;
+            user-select: none;
+            pointer-events: none;
+        }
+        .modal-slide {
+            min-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            user-select: none;
+        }
+
         .animate-text {
             background: linear-gradient(to right, #60a5fa, #a855f7, #60a5fa);
             background-size: 200% auto;
@@ -41,16 +84,6 @@
 
         @keyframes gradientText {
             to { background-position: 200% center; }
-        }
-
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -88,30 +121,38 @@
 
     <header class="text-center py-20" data-aos="zoom-in">
         <h1 class="text-5xl md:text-7xl font-extrabold mb-4 animate-text">Memory Gallery</h1>
-        <p class="text-gray-400 max-w-md mx-auto px-6">Berisi Foto-Foto Momen Berharga Selama 3 Tahun Bersama</p>
+        <p class="text-gray-400 max-w-md mx-auto px-6 italic">Geser foto atau tunggu slide otomatis untuk melihat lebih banyak momen.</p>
     </header>
 
     <div class="container mx-auto px-6 pb-20">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative group">
-                    <img src="Fotbar-wali-murid.jpg" class="w-full h-64 object-cover group-hover:opacity-50 transition duration-500">
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-                        <button onclick="openGalleryModal('Fotbar-wali-murid.jpg', 'Penerimaan Raport Semester Ganjil', 'Jum\'at, 19 Desember 2025')" class="bg-blue-600 p-4 rounded-full"><i class="fas fa-search-plus"></i></button>
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider1')" ontouchstart="startDrag(event, 'slider1')">
+                    <div class="slides-container" id="slider1">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
+                        <img src="background-kelas.jpg" class="slide">
+                        <img src="aib.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider1', 'Penerimaan Raport', 'Semester Ganjil 2025')" class="bg-blue-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Penerimaan Raport Semester Ganjil</h3>
-                    <p class="text-blue-400 text-sm italic">Jum'at, 19 Desember 2025</p>
+                    <h3 class="text-xl font-bold mb-1">Penerimaan Raport</h3>
+                    <p class="text-blue-400 text-sm italic">Semester Ganjil 2025</p>
                 </div>
             </div>
 
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative group">
-                    <img src="background-kelas.jpg" class="w-full h-64 object-cover group-hover:opacity-50 transition duration-500">
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-                        <button onclick="openGalleryModal('background-kelas.jpg', 'Hari Guru Nasional', '25 November 2025')" class="bg-purple-600 p-4 rounded-full"><i class="fas fa-search-plus"></i></button>
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider2')" ontouchstart="startDrag(event, 'slider2')">
+                    <div class="slides-container" id="slider2">
+                        <img src="background-kelas.jpg" class="slide">
+                        <img src="aib.jpg" class="slide">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider2', 'Hari Guru Nasional', '25 November 2025')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="p-6 text-center">
@@ -121,10 +162,14 @@
             </div>
 
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="300">
-                <div class="relative group">
-                    <img src="aib.jpg" class="w-full h-64 object-cover group-hover:opacity-50 transition duration-500">
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
-                        <button onclick="openGalleryModal('aib.jpg', 'Aib', 'Togetherness')" class="bg-cyan-600 p-4 rounded-full"><i class="fas fa-search-plus"></i></button>
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider3')" ontouchstart="startDrag(event, 'slider3')">
+                    <div class="slides-container" id="slider3">
+                        <img src="aib.jpg" class="slide">
+                        <img src="background-kelas.jpg" class="slide">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider3', 'Aib', 'Togetherness')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="p-6 text-center">
@@ -133,31 +178,253 @@
                 </div>
             </div>
 
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider4')" ontouchstart="startDrag(event, 'slider4')">
+                    <div class="slides-container" id="slider4">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
+                        <img src="background-kelas.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider4', 'Kegiatan Praktik', 'TJKT Labs')" class="bg-blue-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Kegiatan Praktik</h3>
+                    <p class="text-blue-400 text-sm italic">TJKT Labs</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider5')" ontouchstart="startDrag(event, 'slider5')">
+                    <div class="slides-container" id="slider5">
+                        <img src="background-kelas.jpg" class="slide">
+                        <img src="aib.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider5', 'Class Meeting', 'Sport Center')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Class Meeting</h3>
+                    <p class="text-purple-400 text-sm italic">Sport Center</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider6')" ontouchstart="startDrag(event, 'slider6')">
+                    <div class="slides-container" id="slider6">
+                        <img src="aib.jpg" class="slide">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider6', 'Wisuda Kakak Kelas', 'Convention Hall')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Event Sekolah</h3>
+                    <p class="text-cyan-400 text-sm italic">Convention Hall</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider7')" ontouchstart="startDrag(event, 'slider7')">
+                    <div class="slides-container" id="slider7">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
+                        <img src="aib.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider7', 'Momen Bukber', 'Ramadhan Vibes')" class="bg-blue-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Buka Bersama</h3>
+                    <p class="text-blue-400 text-sm italic">Ramadhan Vibes</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider8')" ontouchstart="startDrag(event, 'slider8')">
+                    <div class="slides-container" id="slider8">
+                        <img src="background-kelas.jpg" class="slide">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider8', 'Kunjungan Industri', 'Tech Company')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Kunjungan Industri</h3>
+                    <p class="text-purple-400 text-sm italic">Tech Company</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider9')" ontouchstart="startDrag(event, 'slider9')">
+                    <div class="slides-container" id="slider9">
+                        <img src="aib.jpg" class="slide">
+                        <img src="background-kelas.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider9', 'Masa Depan', 'Dream Big')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Masa Depan</h3>
+                    <p class="text-cyan-400 text-sm italic">Dream Big</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <div id="photoModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-xl transition-all duration-500">
+    <div id="photoModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/95 backdrop-blur-xl transition-all duration-500">
         <div class="relative max-w-4xl w-full flex flex-col items-center animate__animated animate__zoomIn">
-            <button onclick="closeModal()" class="absolute -top-12 right-0 text-white text-3xl hover:text-red-500 transition-colors">
+            <button onclick="closeModal()" class="absolute -top-12 right-0 text-white text-3xl hover:text-red-500 transition-colors z-[110]">
                 <i class="fas fa-times"></i>
             </button>
-            <img id="modalImg" src="" class="max-h-[70vh] w-auto rounded-2xl shadow-2xl border border-white/10 object-contain">
+            <div class="modal-slider-viewport w-full overflow-hidden cursor-grab" onmousedown="startDrag(event, 'modalSlider')" ontouchstart="startDrag(event, 'modalSlider')">
+                <div class="slides-container" id="modalSlider"></div>
+            </div>
             <div class="mt-6 text-center">
                 <h3 id="modalTitle" class="text-2xl md:text-3xl font-bold text-white"></h3>
                 <p id="modalDate" class="text-blue-400 italic mt-2"></p>
+                <p class="text-gray-500 text-[10px] mt-4 uppercase tracking-[0.2em]">Geser untuk melihat foto lain</p>
             </div>
         </div>
     </div>
 
-    <footer class="bg-black/50 py-12 text-center border-t border-white/5">
-        <p class="text-gray-500 text-sm">
-            &copy; 2026 XII-16 TJKT. Crafted by Ai Gemini x Tomy Eka RMX.
-        </p>
+    <footer class="bg-black/50 py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-10">
+                <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">Instagram Kelas</p>
+                        <p class="text-sm font-bold text-white group-hover:text-pink-500 transition-colors">@12enambelas_</p>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group md:flex-row-reverse md:text-right">
+                    <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                        <i class="fas fa-code text-xl"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">Web Developer</p>
+                        <p class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors italic">@tomyeka_rmx</p>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center pt-8 border-t border-white/5">
+                <p class="text-gray-500 text-[11px] font-bold uppercase tracking-widest">
+                    &copy; 2026 XII-16 TJKT. Crafted by Ai Gemini x Tomexx.ID
+                </p>
+            </div>
+        </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 500, once: true });
+
+        // Slider Logic
+        let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
+        let currentSliderId = '', currentIndexes = { slider1: 0, slider2: 0, slider3: 0, slider4: 0, slider5: 0, slider6: 0, slider7: 0, slider8: 0, slider9: 0, modalSlider: 0 };
+
+        function startDrag(event, id) {
+            isDragging = true;
+            currentSliderId = id;
+            startPos = getPositionX(event);
+            const container = document.getElementById(id);
+            const style = window.getComputedStyle(container);
+            const matrix = new WebKitCSSMatrix(style.transform);
+            prevTranslate = matrix.m41;
+            animationID = requestAnimationFrame(animation);
+        }
+
+        function moveDrag(event) {
+            if (isDragging) {
+                const currentPosition = getPositionX(event);
+                currentTranslate = prevTranslate + currentPosition - startPos;
+            }
+        }
+
+        function endDrag() {
+            if(!isDragging) return;
+            isDragging = false;
+            cancelAnimationFrame(animationID);
+            const container = document.getElementById(currentSliderId);
+            const movedBy = currentTranslate - prevTranslate;
+            const slidesCount = container.querySelectorAll('img').length;
+
+            if (movedBy < -100 && currentIndexes[currentSliderId] < slidesCount - 1) currentIndexes[currentSliderId] += 1;
+            if (movedBy > 100 && currentIndexes[currentSliderId] > 0) currentIndexes[currentSliderId] -= 1;
+
+            setPositionByIndex();
+        }
+
+        function getPositionX(event) { return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX; }
+
+        function animation() {
+            if (isDragging) {
+                document.getElementById(currentSliderId).style.transform = `translateX(${currentTranslate}px)`;
+                requestAnimationFrame(animation);
+            }
+        }
+
+        function setPositionByIndex() {
+            const container = document.getElementById(currentSliderId);
+            currentTranslate = currentIndexes[currentSliderId] * -container.offsetWidth;
+            prevTranslate = currentTranslate;
+            container.style.transform = `translateX(${currentTranslate}px)`;
+        }
+
+        // Auto Slide Timer
+        setInterval(() => {
+            Object.keys(currentIndexes).forEach(id => {
+                const container = document.getElementById(id);
+                if (!container || (isDragging && currentSliderId === id)) return;
+                if (id === 'modalSlider' && document.getElementById('photoModal').classList.contains('hidden')) return;
+                
+                const slides = container.querySelectorAll('img');
+                currentIndexes[id] = (currentIndexes[id] + 1) % slides.length;
+                currentSliderId = id;
+                setPositionByIndex();
+            });
+        }, 4000);
+
+        function openModalWithSlides(sourceSliderId, title, date) {
+            const sourceContainer = document.getElementById(sourceSliderId);
+            const modalContainer = document.getElementById('modalSlider');
+            const images = sourceContainer.querySelectorAll('img');
+            modalContainer.innerHTML = '';
+            images.forEach(img => {
+                const newImg = document.createElement('img');
+                newImg.src = img.src;
+                newImg.className = 'modal-slide';
+                modalContainer.appendChild(newImg);
+            });
+            currentIndexes['modalSlider'] = currentIndexes[sourceSliderId];
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDate').innerText = date;
+            const modal = document.getElementById('photoModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => { currentSliderId = 'modalSlider'; setPositionByIndex(); }, 50);
+        }
+
+        function closeModal() {
+            document.getElementById('photoModal').classList.add('hidden');
+            document.getElementById('photoModal').classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        window.addEventListener('load', updateActiveNav);
+        window.addEventListener('hashchange', updateActiveNav);
+        window.onmousemove = moveDrag; window.onmouseup = endDrag;
+        window.ontouchmove = moveDrag; window.ontouchend = endDrag;
+        window.onclick = (e) => { if(e.target.id === 'photoModal') closeModal(); }
 
         function updateActiveNav() {
             const currentPath = window.location.pathname.split("/").pop() || "index.html";
@@ -170,31 +437,6 @@
                     link.classList.remove('nav-active', 'album-active');
                 }
             });
-        }
-        window.addEventListener('load', updateActiveNav);
-        window.addEventListener('hashchange', updateActiveNav);
-
-        // Fungsi Pop Up
-        function openGalleryModal(src, title, date) {
-            const modal = document.getElementById('photoModal');
-            document.getElementById('modalImg').src = src;
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDate').innerText = date;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('photoModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = 'auto';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('photoModal');
-            if (event.target == modal) closeModal();
         }
     </script>
 </body>
