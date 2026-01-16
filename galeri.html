@@ -19,16 +19,6 @@
             color: white;
             font-family: 'Inter', sans-serif; 
             scroll-behavior: smooth; 
-            /* Optimasi scrolling */
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* --- Optimasi Performa Utama --- */
-        .glass-card, .slide, .slides-container {
-            /* Memaksa GPU untuk memproses elemen ini agar CPU tidak berat */
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
         }
 
         /* --- Logo Styles --- */
@@ -50,22 +40,16 @@
         /* --- Galeri & Card Styles --- */
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: Blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s;
-        }
-
-        /* Kurangi blur di mobile agar tidak lag saat scroll */
-        @media (max-width: 768px) {
-            .glass-card {
-                backdrop-filter: blur(4px);
-            }
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .glass-card:hover {
             background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.03);
+            transform: scale(1.05);
             border-color: #3b82f6;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
         /* --- Slider Engine Styles --- */
@@ -78,8 +62,7 @@
         .slider-viewport:active { cursor: grabbing; }
         .slides-container {
             display: flex;
-            /* Menggunakan transition yang lebih ringan */
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .slide {
             min-width: 100%;
@@ -87,6 +70,12 @@
             object-fit: cover;
             user-select: none;
             pointer-events: none;
+        }
+        .modal-slide {
+            min-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            user-select: none;
         }
 
         .animate-text {
@@ -113,12 +102,6 @@
             background-color: #2563eb !important;
             color: white !important;
             border-color: white !important;
-        }
-
-        /* Optimasi Footer agar tidak diproses jika tidak terlihat */
-        footer {
-            content-visibility: auto;
-            contain-intrinsic-size: 300px;
         }
     </style>
 </head>
@@ -151,7 +134,7 @@
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="100">
                 <div class="relative group">
                     <div id="slider1">
-                        <img src="Fotbar-wali-murid.jpg" loading="lazy" class="w-full h-64 object-cover">
+                        <img src="Fotbar-wali-murid.jpg" class="w-full h-64 object-cover">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40">
                         <button onclick="openModalWithSlides('slider1', 'Penerimaan Raport', 'Semester Ganjil 2025')" class="bg-blue-600 p-4 rounded-full"><i class="fas fa-search-plus"></i></button>
@@ -166,9 +149,9 @@
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="200">
                 <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider2')" ontouchstart="startDrag(event, 'slider2')">
                     <div class="slides-container" id="slider2">
-                        <img src="background-kelas.jpg" loading="lazy" class="slide">
-                        <img src="aib.jpg" loading="lazy" class="slide">
-                        <img src="Fotbar-wali-murid.jpg" loading="lazy" class="slide">
+                        <img src="background-kelas.jpg" class="slide">
+                        <img src="aib.jpg" class="slide">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
                         <button onclick="openModalWithSlides('slider2', 'Hari Guru Nasional', '25 November 2025')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
@@ -183,9 +166,9 @@
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="300">
                 <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider3')" ontouchstart="startDrag(event, 'slider3')">
                     <div class="slides-container" id="slider3">
-                        <img src="aib.jpg" loading="lazy" class="slide">
-                        <img src="background-kelas.jpg" loading="lazy" class="slide">
-                        <img src="Fotbar-wali-murid.jpg" loading="lazy" class="slide">
+                        <img src="aib.jpg" class="slide">
+                        <img src="background-kelas.jpg" class="slide">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
                         <button onclick="openModalWithSlides('slider3', 'Aib', 'Togetherness')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
@@ -197,7 +180,7 @@
                 </div>
             </div>
 
-        </div>
+            </div>
     </div>
 
     <div id="photoModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
@@ -219,50 +202,50 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
             
-            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group justify-start">
-                <div class="w-12 h-12 shrink-0 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
-                    <i class="fab fa-instagram text-2xl"></i>
+            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-start">
+                <div class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110">
+                    <i class="fab fa-instagram text-xl"></i>
                 </div>
                 <div class="text-left">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
-                    <p class="text-sm font-bold text-white group-hover:text-pink-500 transition-colors">@12enambelas_</p>
+                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
+                    <p class="text-xs font-bold text-white group-hover:text-pink-500 transition-colors">@12enambelas_</p>
                 </div>
             </a>
 
-            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group justify-start">
-                <div class="w-12 h-12 shrink-0 rounded-full bg-gradient-to-tr from-pink-600 via-purple-600 to-blue-700 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
-                    <i class="fab fa-instagram text-2xl"></i>
+            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-center">
+                <div class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-pink-600 via-purple-600 to-blue-700 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110">
+                    <i class="fab fa-instagram text-xl"></i>
                 </div>
                 <div class="text-left">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
-                    <p class="text-sm font-bold text-white group-hover:text-purple-400 transition-colors">@smks.bksimo</p>
+                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
+                    <p class="text-xs font-bold text-white group-hover:text-purple-400 transition-colors">@smks.bksimo</p>
                 </div>
             </a>
 
-            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group justify-start">
-                <div class="w-12 h-12 shrink-0 rounded-full bg-slate-800 border border-white/20 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 group-hover:border-blue-500">
-                    <i class="fas fa-school text-xl"></i>
+            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-center">
+                <div class="w-10 h-10 shrink-0 rounded-full bg-slate-800 border border-white/20 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110 group-hover:border-blue-500">
+                    <i class="fas fa-school text-lg"></i>
                 </div>
                 <div class="text-left">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
-                    <p class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">SMK BK SIMO</p>
+                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
+                    <p class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors">SMK BK SIMO</p>
                 </div>
             </a>
 
-            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group justify-start lg:justify-end">
-                <div class="text-left lg:text-right order-2 lg:order-1">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
-                    <p class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors italic">@tomyeka_rmx</p>
+            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-end">
+                <div class="w-10 h-10 shrink-0 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110">
+                    <i class="fas fa-code text-lg"></i>
                 </div>
-                <div class="w-12 h-12 shrink-0 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 order-1 lg:order-2">
-                    <i class="fas fa-code text-xl"></i>
+                <div class="text-left">
+                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
+                    <p class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors italic">@tomyeka_rmx</p>
                 </div>
             </a>
 
         </div>
 
         <div class="text-center pt-8 border-t border-white/5">
-            <p class="text-gray-500 text-[11px] font-bold uppercase tracking-widest">
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
                 &copy; 2026 XII-16 TJKT. Crafted by Ai Gemini x Tomexx.ID
             </p>
         </div>
@@ -272,28 +255,19 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Optimasi AOS: Matikan di layar kecil jika lag
-        AOS.init({ 
-            duration: 400, 
-            once: true,
-            disable: window.innerWidth < 768 
-        });
+        AOS.init({ duration: 500, once: true });
 
         let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
-        let currentSliderId = '', currentIndexes = { slider2: 0, slider3: 0, modalSlider: 0 };
+        let currentSliderId = '', currentIndexes = { slider2: 0, slider3: 0, slider4: 0, slider5: 0, slider6: 0, slider7: 0, slider8: 0, slider9: 0, modalSlider: 0 };
 
         function startDrag(event, id) {
             isDragging = true;
             currentSliderId = id;
             startPos = getPositionX(event);
-            
             const container = document.getElementById(id);
-            // Gunakan transform matrix untuk mendapatkan posisi X saat ini agar lebih akurat
             const style = window.getComputedStyle(container);
             const matrix = new WebKitCSSMatrix(style.transform);
             prevTranslate = matrix.m41;
-            
-            container.style.transition = 'none'; // Matikan transisi saat drag agar responsif
             animationID = requestAnimationFrame(animation);
         }
 
@@ -308,10 +282,7 @@
             if(!isDragging) return;
             isDragging = false;
             cancelAnimationFrame(animationID);
-            
             const container = document.getElementById(currentSliderId);
-            container.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
-            
             const movedBy = currentTranslate - prevTranslate;
             const slidesCount = container.querySelectorAll('img').length;
 
@@ -337,7 +308,6 @@
             container.style.transform = `translateX(${currentTranslate}px)`;
         }
 
-        // Auto slide hanya untuk slider yang tidak sedang di-drag
         setInterval(() => {
             Object.keys(currentIndexes).forEach(id => {
                 const container = document.getElementById(id);
@@ -345,14 +315,13 @@
                 if (id === 'modalSlider' && document.getElementById('photoModal').classList.contains('hidden')) return;
                 
                 const slides = container.querySelectorAll('img');
-                if(slides.length <= 1) return;
+                if(slides.length <= 1) return; // Skip if static
                 
                 currentIndexes[id] = (currentIndexes[id] + 1) % slides.length;
                 currentSliderId = id;
-                container.style.transition = 'transform 0.8s ease-in-out';
                 setPositionByIndex();
             });
-        }, 5000);
+        }, 4000);
 
         function openModalWithSlides(sourceSliderId, title, date) {
             const sourceContainer = document.getElementById(sourceSliderId);
@@ -362,7 +331,7 @@
             images.forEach(img => {
                 const newImg = document.createElement('img');
                 newImg.src = img.src;
-                newImg.className = 'w-full max-h-[70vh] object-contain min-w-full';
+                newImg.className = 'modal-slide';
                 modalContainer.appendChild(newImg);
             });
             currentIndexes['modalSlider'] = currentIndexes[sourceSliderId] || 0;
@@ -372,11 +341,7 @@
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
-            setTimeout(() => { 
-                currentSliderId = 'modalSlider'; 
-                modalContainer.style.transition = 'none';
-                setPositionByIndex(); 
-            }, 50);
+            setTimeout(() => { currentSliderId = 'modalSlider'; setPositionByIndex(); }, 50);
         }
 
         function closeModal() {
@@ -388,6 +353,7 @@
         window.addEventListener('load', updateActiveNav);
         window.onmousemove = moveDrag; window.onmouseup = endDrag;
         window.ontouchmove = moveDrag; window.ontouchend = endDrag;
+        window.onclick = (e) => { if(e.target.id === 'photoModal') closeModal(); }
 
         function updateActiveNav() {
             const currentPath = window.location.pathname.split("/").pop() || "index.html";
