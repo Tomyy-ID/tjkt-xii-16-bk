@@ -169,16 +169,15 @@
 
     const grid = document.getElementById('studentGrid');
 
-    // Mengambil file dengan format: Nama-NIS-Absen.jpg di folder img-siswa
-    function getFileName(student, index) {
+    // MENCARI FOTO BERDASARKAN NOMOR ABSEN SAJA (contoh: 1.jpg, 2.jpg)
+    function getFileName(index) {
         const absen = index + 1;
-        // Contoh: img-siswa/Hilal Ade Pratama-001-1.jpg
-        return `img-siswa/${student.name}-${student.nis}-${absen}.jpg`;
+        return `img-siswa/${absen}.jpg`;
     }
 
     function renderStudents() {
         grid.innerHTML = students.map((student, i) => {
-            const fileName = getFileName(student, i);
+            const fileName = getFileName(i);
             const absen = i + 1;
             return `
                 <div class="student-card glass-card rounded-2xl overflow-hidden group cursor-pointer shadow-xl border border-white/5 hover:border-blue-500/50 transition-all duration-300" 
@@ -214,7 +213,7 @@
 
     function openModal(index) {
         const student = students[index];
-        let src = getFileName(student, index);
+        let src = getFileName(index);
         const modalImg = document.getElementById('modalImg');
         modalImg.src = src;
         
