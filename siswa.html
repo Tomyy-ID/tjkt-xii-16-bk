@@ -88,21 +88,19 @@
 <body class="font-sans text-xs md:text-base">
 
     <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
-        <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0">
-            TJKT <span class="text-blue-500">XII-16</span>
-        </div>
-        
-        <div class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4">
-            <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Beranda</a>
-            <a href="index.html#jadwal" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Jadwal</a>
-            <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Struktur</a>
-            <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Siswa</a>
-            
-            <a href="galeri.html" class="nav-link bg-blue-600/20 text-blue-400 px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap">
-                <i class="fas fa-images mr-1"></i> ALBUM
-            </a>
-        </div>
-    </nav>
+    <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0 uppercase">
+        TJKT <span class="text-blue-500">XII-16</span>
+    </div>
+    <div id="nav-container" class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
+        <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
+        <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Struktur</a>
+        <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
+        <a href="nilai-TKA.html" class="nav-link nav-active text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Nilai TKA</a>
+        <a href="galeri.html" class="nav-link px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap shrink-0">
+            <i class="fas fa-images mr-1"></i> ALBUM
+        </a>
+    </div>
+</nav>
 
     <header class="text-center py-12" data-aos="zoom-in">
         <h1 class="text-4xl md:text-7xl font-black gradient-text italic tracking-tighter uppercase">List Siswa</h1>
@@ -179,7 +177,7 @@
 
         <div class="text-center pt-8 border-t border-white/5">
             <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                &copy; 2026 XII-16 TJKT. Crafted by Ai Gemini x Tomexx.ID
+                &copy; 2026 XII-16 TJKT. Crafted by Ai Gemini x Tomexx.id
             </p>
         </div>
     </div>
@@ -189,9 +187,9 @@
     <script>
     // Data Siswa Urut Absen 1 - 36
     const students = [
-        { name: "Hilal", nis: "001" },
-        { name: "Thalita", nis: "002" },
-        { name: "Aditya", nis: "003" },
+        { name: "Anisyahira", nis: "001" },
+        { name: "-", nis: "002" },
+        { name: "Arham Dhuhati Achmad", nis: "003" },
         { name: "Anisa", nis: "004" },
         { name: "Bagas", nis: "005" },
         { name: "Citra", nis: "006" },
@@ -220,11 +218,11 @@
         { name: "Aris", nis: "029" },
         { name: "Bella", nis: "030" },
         { name: "Catur", nis: "031" },
-        { name: "Dodi", nis: "032" },
-        { name: "Eris", nis: "033" },
-        { name: "Fanny", nis: "034" },
-        { name: "Gani", nis: "035" },
-        { name: "Hana", nis: "036" }
+        { name: "Thalita", nis: "032" },
+        { name: "Tiara", nis: "033" },
+        { name: "Tomy Eka Ardianto", nis: "13236" },
+        { name: "Widya", nis: "035" },
+        { name: "Yusita", nis: "036" }
     ];
 
     const grid = document.getElementById('studentGrid');
