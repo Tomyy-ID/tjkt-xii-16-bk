@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Halaman Tidak Ditemukan | TJKT XII-16</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        body { 
+            background: radial-gradient(circle at top, #1e293b, #0f172a);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .glass { 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #a855f7, #60a5fa);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 3s linear infinite;
+        }
+
+        @keyframes gradientText { to { background-position: 200% center; } }
+
+        .timer-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 20px;
+            border-radius: 1.5rem;
+            min-width: 120px;
+        }
+
+        /* Float Buttons */
+        #musicBtn, .wa-float {
+            position: fixed;
+            bottom: 20px;
+            z-index: 100;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        #musicBtn {
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .wa-float {
+            left: 20px;
+            background-color: #25d366;
+            color: white;
+            font-size: 22px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        
+        .wa-float:hover { transform: scale(1.1); background-color: #128c7e; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop></audio>
+
+    <button id="musicBtn" onclick="toggleMusic()">
+        <i id="musicIcon" class="fas fa-volume-mute"></i>
+    </button>
+
+    <a href="https://wa.me/6288980517964?text=Halo%20Admin%20TJKT%20XII-16" target="_blank" class="wa-float animate__animated animate__bounceIn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="container px-6 py-10 mx-auto text-center">
+        <div class="mb-6 inline-block glass px-6 py-2 rounded-full border border-blue-500/30" data-aos="fade-down">
+            <p class="text-[10px] md:text-xs font-bold tracking-widest uppercase text-gray-300">
+                <i class="far fa-clock mr-2 text-blue-400"></i>
+                <span id="current-date">MEMUAT TANGGAL...</span> | <span id="current-time" class="text-blue-400">00:00:00</span>
+            </p>
+        </div>
+
+        <div class="glass max-w-3xl mx-auto p-8 md:p-14 rounded-[2.5rem] shadow-2xl relative overflow-hidden" data-aos="zoom-in">
+            <div class="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none">
+                <h1 class="text-[15rem] font-black">404</h1>
+            </div>
+
+            <div class="mb-6 relative z-10">
+                <i class="fas fa-bolt text-5xl text-yellow-400 animate-pulse"></i>
+            </div>
+
+            <h1 class="text-3xl md:text-5xl font-black mb-2 tracking-tighter uppercase relative z-10">
+                ERROR <span class="text-blue-500">404</span> | <span class="gradient-text italic">NOT FOUND</span>
+            </h1>
+            
+            <div class="max-w-lg mx-auto mb-10 relative z-10">
+                <p class="text-gray-400 text-sm md:text-base font-medium">
+                    Halaman tidak tersedia. Anda akan diarahkan kembali secara otomatis.
+                </p>
+                <p class="text-gray-500 text-[10px] mt-2 italic uppercase tracking-wider">
+                    Kembali ke beranda dalam:
+                </p>
+            </div>
+
+            <div class="flex justify-center gap-4 mb-10 relative z-10">
+                <div class="timer-card">
+                    <span id="seconds" class="block text-5xl md:text-7xl font-black text-white">10</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-blue-400 font-bold">Detik</span>
+                </div>
+                <div class="timer-card border-pink-500/30">
+                    <span id="ms" class="block text-5xl md:text-7xl font-black text-pink-500">000</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold">Ms</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+                <a href="index.html" class="bg-white text-black hover:bg-blue-600 hover:text-white px-8 py-3 rounded-full font-black text-xs transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-home mr-1"></i> REFRESH SEKARANG
+                </a>
+                <a href="https://www.instagram.com/tomy_eka_rmx" target="_blank" class="border border-white/20 hover:bg-white/10 text-white px-8 py-3 rounded-full font-black text-xs transition-all duration-300 transform hover:scale-105">
+                    <i class="fab fa-instagram mr-1 text-pink-500"></i> HUBUNGI DEVELOPER
+                </a>
+            </div>
+        </div>
+
+        <p class="mt-8 text-gray-600 text-[10px] font-bold uppercase tracking-widest">
+            &copy; 2026 XII-16 TJKT • Powered by Tomexx.id
+        </p>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // --- JAM REAL-TIME ---
+        function updateClock() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').innerText = now.toLocaleDateString('id-ID', options).toUpperCase();
+            document.getElementById('current-time').innerText = now.toLocaleTimeString('id-ID') + " WIB";
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // --- MUSIK LOGIC ---
+        const playlist = ["https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"];
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        let userWantsMusic = false; 
+
+        window.addEventListener('load', () => { music.src = playlist[0]; });
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                userWantsMusic = true;
+                musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+            } else {
+                music.pause();
+                userWantsMusic = false;
+                musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+            }
+        }
+
+        // --- COUNTDOWN 10 DETIK + MILIDETIK + REDIRECT ---
+        const duration = 10 * 1000; 
+        const targetTime = new Date().getTime() + duration;
+
+        const updateTimer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetTime - now;
+
+            if (distance <= 0) {
+                clearInterval(updateTimer);
+                document.getElementById("seconds").innerText = "00";
+                document.getElementById("ms").innerText = "000";
+                
+                // OTOMATIS PINDAH KE HALAMAN AWAL
+                window.location.href = "index.html"; 
+                return;
+            }
+
+            const s = Math.floor(distance / 1000);
+            const ms = Math.floor(distance % 1000);
+
+            document.getElementById("seconds").innerText = String(s).padStart(2, '0');
+            document.getElementById("ms").innerText = String(ms).padStart(3, '0');
+        }, 10); // Interval 10ms untuk milidetik yang halus
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) music.pause();
+            else if (userWantsMusic) music.play();
+        });
+    </script>
+</body>
+</html>

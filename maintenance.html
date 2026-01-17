@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance - Under Construction | TJKT XII-16</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        body { 
+            background: radial-gradient(circle at bottom, #1e293b, #020617);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .glass { 
+            background: rgba(255, 255, 255, 0.02); 
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        @keyframes shimmer { to { background-position: 200% center; } }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 75%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Music Button Design from 404.html */
+        #musicBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* WhatsApp Floating Button Design */
+        .wa-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            background-color: #25d366;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+        .wa-float:hover { transform: scale(1.1); background-color: #128c7e; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop></audio>
+
+    <button id="musicBtn" onclick="toggleMusic()">
+        <i id="musicIcon" class="fas fa-volume-mute"></i>
+    </button>
+
+    <a href="https://wa.me/6288980517964?text=Halo%20Admin%20TJKT%20XII-16,%20saya%20ingin%20bertanya%20tentang%20progres%20pengembangan%20website." target="_blank" class="wa-float animate__animated animate__bounceIn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="container px-6 mx-auto text-center">
+        <div class="mb-8 inline-block glass px-5 py-2 rounded-full border border-yellow-500/30 animate__animated animate__fadeInDown">
+            <p class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-yellow-500">
+                <i class="fas fa-tools mr-2"></i> SITUS SEDANG DIPERBAIKI
+            </p>
+        </div>
+
+        <div class="glass max-w-2xl mx-auto p-10 md:p-16 rounded-[3rem] shadow-2xl relative" data-aos="zoom-in">
+            <div class="mb-8">
+                <div class="relative inline-block">
+                    <i class="fas fa-laptop-code text-6xl text-blue-400 mb-4"></i>
+                    <span class="absolute -top-1 -right-1 flex h-4 w-4">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-4 w-4 bg-blue-500"></span>
+                    </span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-black mb-4 tracking-tight uppercase">
+                    UNDER <span class="shimmer-text">CONSTRUCTION</span>
+                </h1>
+                <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                    Kami sedang meramu sesuatu yang luar biasa. Tim <span class="text-blue-400 font-bold">XII-16 TJKT</span> sedang bekerja keras di balik layar.
+                </p>
+            </div>
+
+            <div class="mb-10 text-left">
+                <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">
+                    <span>Progress Pengembangan</span>
+                    <span class="text-blue-400">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill animate__animated animate__slideInLeft"></div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://www.instagram.com/tomy_eka_rmx" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-black text-xs transition-all duration-300 transform hover:-translate-y-1 shadow-xl shadow-blue-600/20">
+                    <i class="fab fa-instagram mr-2"></i> INSTAGRAM
+                </a>
+                <a href="https://wa.me/6288980517964?text=Halo%20Admin%20TJKT%20XII-16,%20saya%20ingin%20bertanya%20tentang%20progres%20pengembangan%20website." target="_blank" class="border border-white/10 hover:bg-white/5 text-gray-300 px-8 py-4 rounded-2xl font-black text-xs transition-all duration-300">
+                    <i class="fab fa-whatsapp mr-2 text-green-500"></i> CHAT DEVELOPER
+                </a>
+            </div>
+        </div>
+
+        <p class="mt-12 text-gray-600 text-[10px] font-bold uppercase tracking-[0.3em]">
+            &copy; 2026 XII-16 TJKT • Powered by Tomexx.id
+        </p>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // --- MUSIC LOGIC ---
+        const playlist = [
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+        ];
+        
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = document.getElementById('musicIcon');
+        let userWantsMusic = false; 
+
+        window.addEventListener('load', () => {
+            const randomSong = playlist[Math.floor(Math.random() * playlist.length)];
+            music.src = randomSong;
+        });
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                userWantsMusic = true;
+                musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+            } else {
+                music.pause();
+                userWantsMusic = false;
+                musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+            }
+        }
+
+        window.addEventListener('click', () => {
+            if (music.paused && !userWantsMusic) {
+                music.play();
+                userWantsMusic = true;
+                musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+            }
+        }, { once: true });
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                music.pause();
+            } else if (userWantsMusic) {
+                music.play();
+            }
+        });
+    </script>
+</body>
+</html>
