@@ -22,6 +22,21 @@
             overflow-x: hidden;
         }
 
+        /* LOGO ANIMATION FROM INDEX */
+        @keyframes floatingLogo {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-floating {
+            animation: floatingLogo 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .logo-glow {
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
         .glass { 
             background: rgba(255, 255, 255, 0.03); 
             backdrop-filter: blur(15px);
@@ -41,50 +56,36 @@
 
         .timer-card {
             background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(59, 130, 246, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 20px;
             border-radius: 1.5rem;
             min-width: 120px;
-            box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2), 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1), 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        #seconds { text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
-        #ms { text-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
+        /* Warna Hitung Mundur Putih Semua */
+        #seconds, #ms { 
+            color: white !important;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); 
+        }
 
-        /* --- PERBAIKAN TOTAL TEPI RUNNING TEXT --- */
         .marquee-container {
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
             background: rgba(255, 255, 255, 0.02);
-            /* Border tipis transparan agar menyatu dengan glass card */
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             padding: 15px 0;
             margin-top: 2.5rem;
             position: relative;
-            /* Masking CSS untuk efek fade yang lebih natural di tepi */
             -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
             mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
         }
 
-        /* Cadangan gradient jika browser tidak support masking */
-        .marquee-container::before, .marquee-container::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 100px;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-        .marquee-container::before { left: 0; background: linear-gradient(to right, rgba(20, 28, 48, 1), transparent); }
-        .marquee-container::after { right: 0; background: linear-gradient(to left, rgba(20, 28, 48, 1), transparent); }
-
-        /* --- PENGATURAN KECEPATAN RENDAH --- */
         .marquee-text {
             display: inline-block;
-            animation: marquee 40s linear infinite; /* Sedikit lebih lambat lagi agar sangat tenang */
+            animation: marquee 40s linear infinite;
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
@@ -97,8 +98,6 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
         }
-
-        .marquee-container:hover .marquee-text { animation-play-state: paused; }
 
         #musicBtn, .wa-float {
             position: fixed;
@@ -129,21 +128,22 @@
             font-size: 22px;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
         }
-        
-        .wa-float:hover { transform: scale(1.1); background-color: #128c7e; }
-
-        .bg-white:hover {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-            letter-spacing: 1px;
-        }
     </style>
 </head>
 <body>
 
-    <audio id="bgMusic" loop></audio>
+    <div class="absolute top-6 left-6 z-50">
+        <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0 uppercase">
+            TJKT <span class="text-blue-500">XII-16</span>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop autoplay>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
     <button id="musicBtn" onclick="toggleMusic()">
-        <i id="musicIcon" class="fas fa-volume-mute"></i>
+        <i id="musicIcon" class="fas fa-volume-up"></i>
     </button>
 
     <a href="https://wa.me/6288980517964?text=Halo%20Admin%20TJKT%20XII-16" target="_blank" class="wa-float animate__animated animate__bounceIn">
@@ -182,12 +182,12 @@
 
             <div class="flex justify-center gap-4 mb-10 relative z-10">
                 <div class="timer-card">
-                    <span id="seconds" class="block text-5xl md:text-7xl font-black text-white">20</span>
-                    <span class="text-[10px] uppercase tracking-[0.3em] text-blue-400 font-bold">Detik</span>
+                    <span id="seconds" class="block text-5xl md:text-7xl font-black">20</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold">Detik</span>
                 </div>
-                <div class="timer-card border-pink-500/30" style="border-color: rgba(236, 72, 153, 0.4);">
-                    <span id="ms" class="block text-5xl md:text-7xl font-black text-pink-500">000</span>
-                    <span class="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold">Ms</span>
+                <div class="timer-card">
+                    <span id="ms" class="block text-5xl md:text-7xl font-black">000</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold">Ms</span>
                 </div>
             </div>
 
@@ -216,6 +216,7 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
+        // Update Tanggal & Jam
         function updateClock() {
             const now = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -225,25 +226,37 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        const playlist = ["https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"];
+        // Music Logic
         const music = document.getElementById('bgMusic');
         const musicIcon = document.getElementById('musicIcon');
-        let userWantsMusic = false; 
 
-        window.addEventListener('load', () => { music.src = playlist[0]; });
+        // Fungsi Autoplay yang mencoba memutar musik saat interaksi pertama
+        function attemptAutoplay() {
+            music.play().then(() => {
+                musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+                // Berhasil diputar, hapus listener
+                document.removeEventListener('click', attemptAutoplay);
+                document.removeEventListener('scroll', attemptAutoplay);
+            }).catch(() => {
+                // Browser memblokir autoplay sampai ada interaksi
+                musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+            });
+        }
+
+        document.addEventListener('click', attemptAutoplay);
+        document.addEventListener('scroll', attemptAutoplay);
 
         function toggleMusic() {
             if (music.paused) {
                 music.play();
-                userWantsMusic = true;
                 musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
             } else {
                 music.pause();
-                userWantsMusic = false;
                 musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
             }
         }
 
+        // Timer Redirect Logic
         const duration = 20 * 1000; 
         const targetTime = new Date().getTime() + duration;
 
@@ -268,7 +281,7 @@
 
         document.addEventListener("visibilitychange", () => {
             if (document.hidden) music.pause();
-            else if (userWantsMusic) music.play();
+            else if (!music.paused) music.play();
         });
     </script>
 </body>
