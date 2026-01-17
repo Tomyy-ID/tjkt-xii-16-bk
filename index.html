@@ -66,6 +66,37 @@
         .glow-text-strong { text-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 0 60px rgba(59, 130, 246, 0.3); }
         .float-btn { animation: floating 4s ease-in-out infinite; }
         @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* CSS Running Text */
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+            margin-bottom: 40px;
+            position: relative;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
      </style>
 </head>
 <body class="font-sans">
@@ -118,7 +149,13 @@
     </div>
 </section>
 
-<section id="jadwal" class="py-20 bg-[#0f172a] overflow-hidden">
+<section id="jadwal" class="relative z-20 -mt-10 md:-mt-24 py-10 bg-transparent overflow-hidden">
+    <div class="marquee-wrapper" data-aos="fade-up">
+        <div class="marquee-content">
+            Selamat datang di Official Website TJKT XII-16 • SMK BK SIMO • Angkatan 2023-2026 • Together We Are Stronger • Creative and Innovative Students • Stay Focused and Keep Learning • Success is Ours • Selamat datang di Official Website TJKT XII-16 • SMK BK SIMO • Angkatan 2023-2026 • Together We Are Stronger • Creative and Innovative Students • Stay Focused and Keep Learning • Success is Ours •
+        </div>
+    </div>
+
     <div class="max-w-5xl mx-auto px-4">
         <div class="text-center mb-16" data-aos="zoom-in-up">
             <h3 class="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter">
