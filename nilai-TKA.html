@@ -61,7 +61,6 @@
             border-bottom: 2px solid #3b82f6;
         }
 
-        /* Mode Menunggu (Blur) */
         .blur-value {
             filter: blur(10px);
             user-select: none;
@@ -69,7 +68,6 @@
             transition: all 0.5s ease;
         }
 
-        /* Style untuk tombol saat sudah diumumkan nanti */
         .btn-status {
             cursor: pointer;
             transition: all 0.3s ease;
@@ -149,7 +147,7 @@
                         </tr>
                     </thead>
                     <tbody id="student-list" class="divide-y divide-white/5">
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
         </div>
@@ -161,7 +159,7 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
             
-            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-start">
+            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110">
                     <i class="fab fa-instagram text-xl"></i>
                 </div>
@@ -171,7 +169,7 @@
                 </div>
             </a>
 
-            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-center">
+            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-3 group lg:justify-center">
                 <div class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-pink-600 via-purple-600 to-blue-700 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110">
                     <i class="fab fa-instagram text-xl"></i>
                 </div>
@@ -181,7 +179,7 @@
                 </div>
             </a>
 
-            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-center">
+            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-3 group lg:justify-center">
                 <div class="w-10 h-10 shrink-0 rounded-full bg-slate-800 border border-white/20 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110 group-hover:border-blue-500">
                     <i class="fas fa-school text-lg"></i>
                 </div>
@@ -191,7 +189,7 @@
                 </div>
             </a>
 
-            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-end">
+            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-3 group lg:justify-end">
                 <div class="w-10 h-10 shrink-0 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110">
                     <i class="fas fa-code text-lg"></i>
                 </div>
@@ -227,38 +225,45 @@
     const audio = document.getElementById('clickSound');
     const tbody = document.getElementById('student-list');
     
-    names.forEach((name, index) => {
-        const row = document.createElement('tr');
-        row.id = `row-${index}`;
-        row.className = "group border-t border-white/5 hover:bg-white/5 transition-all";
-        row.innerHTML = `
-            <td class="p-5 font-bold text-gray-600 italic text-xs">${(index + 1).toString().padStart(2, '0')}</td>
-            <td class="p-5">
-                <p class="font-black text-white/50 uppercase italic text-sm tracking-tight">${name}</p>
-                <p class="text-[8px] text-gray-700 font-bold tracking-widest uppercase">Registered Student</p>
-            </td>
-            <td class="p-5 text-center font-black italic"><span class="blur-value text-white">--</span></td>
-            <td class="p-5 text-center font-black italic"><span class="blur-value text-white">--</span></td>
-            <td class="p-5 text-center">
-                <button onclick="playReveal(${index})" class="btn-status bg-white/5 text-gray-600 text-[8px] px-3 py-1 rounded-full border border-white/5 font-black italic uppercase tracking-widest">
-                    <i class="fas fa-lock mr-1"></i> Locked
-                </button>
-            </td>
-        `;
-        tbody.appendChild(row);
-    });
+    // Render list siswa
+    const renderStudents = () => {
+        tbody.innerHTML = names.map((name, index) => `
+            <tr id="row-${index}" class="group border-t border-white/5 hover:bg-white/5 transition-all">
+                <td class="p-5 font-bold text-gray-600 italic text-xs">${(index + 1).toString().padStart(2, '0')}</td>
+                <td class="p-5">
+                    <p class="font-black text-white/50 uppercase italic text-sm tracking-tight">${name}</p>
+                    <p class="text-[8px] text-gray-700 font-bold tracking-widest uppercase">Registered Student</p>
+                </td>
+                <td class="p-5 text-center font-black italic"><span class="blur-value text-white">--</span></td>
+                <td class="p-5 text-center font-black italic"><span class="blur-value text-white">--</span></td>
+                <td class="p-5 text-center">
+                    <button onclick="playReveal(${index})" class="btn-status bg-white/5 text-gray-600 text-[8px] px-3 py-1 rounded-full border border-white/5 font-black italic uppercase tracking-widest">
+                        <i class="fas fa-lock mr-1"></i> Locked
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    };
+
+    renderStudents();
 
     function playReveal(index) {
-        audio.currentTime = 0;
-        audio.play();
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play().catch(e => console.log("Audio play failed:", e));
+        }
     }
 
     function updateClock() {
         const now = new Date();
         const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('real-date').innerText = now.toLocaleDateString('id-ID', optionsDate).toUpperCase();
-        document.getElementById('real-time').innerText = now.toLocaleTimeString('id-ID') + " WIB";
+        const dateElement = document.getElementById('real-date');
+        const timeElement = document.getElementById('real-time');
+        
+        if (dateElement) dateElement.innerText = now.toLocaleDateString('id-ID', optionsDate).toUpperCase();
+        if (timeElement) timeElement.innerText = now.toLocaleTimeString('id-ID') + " WIB";
     }
+    
     setInterval(updateClock, 1000);
     updateClock();
 </script>

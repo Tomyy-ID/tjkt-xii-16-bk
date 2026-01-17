@@ -21,7 +21,6 @@
             scroll-behavior: smooth; 
         }
 
-        /* --- Logo Styles --- */
         @keyframes floatingLogo {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -37,10 +36,9 @@
             text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
         }
 
-        /* --- Galeri & Card Styles --- */
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: Blur(10px);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -52,7 +50,6 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
-        /* --- Slider Engine Styles --- */
         .slider-viewport {
             overflow: hidden;
             width: 100%;
@@ -108,24 +105,19 @@
 <body class="font-sans">
 
     <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
-        <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0">
+        <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0 uppercase">
             TJKT <span class="text-blue-500">XII-16</span>
         </div>
-        
-        <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
-    <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0 uppercase">
-        TJKT <span class="text-blue-500">XII-16</span>
-    </div>
-    <div id="nav-container" class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
-        <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
-        <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Struktur</a>
-        <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
-        <a href="nilai-TKA.html" class="nav-link nav-active text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Nilai TKA</a>
-        <a href="galeri.html" class="nav-link px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap shrink-0">
-            <i class="fas fa-images mr-1"></i> ALBUM
-        </a>
-    </div>
-</nav>
+        <div id="nav-container" class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
+            <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
+            <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Struktur</a>
+            <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
+            <a href="nilai-TKA.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Nilai TKA</a>
+            <a href="galeri.html" class="nav-link px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap shrink-0">
+                <i class="fas fa-images mr-1"></i> ALBUM
+            </a>
+        </div>
+    </nav>
 
     <header class="text-center py-20" data-aos="zoom-in">
         <h1 class="text-5xl md:text-7xl font-extrabold mb-4 animate-text">Memory Gallery</h1>
@@ -136,12 +128,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative group">
-                    <div id="slider1">
-                        <img src="Fotbar-wali-murid.jpg" class="w-full h-64 object-cover">
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider1')" ontouchstart="startDrag(event, 'slider1')">
+                    <div class="slides-container" id="slider1">
+                        <img src="Fotbar-wali-murid.jpg" class="slide">
                     </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40">
-                        <button onclick="openModalWithSlides('slider1', 'Penerimaan Raport', 'Semester Ganjil 2025')" class="bg-blue-600 p-4 rounded-full"><i class="fas fa-search-plus"></i></button>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider1', 'Penerimaan Raport', 'Semester Ganjil 2025')" class="bg-blue-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="p-6 text-center">
@@ -184,7 +176,7 @@
                 </div>
             </div>
 
-            </div>
+        </div>
     </div>
 
     <div id="photoModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
@@ -192,7 +184,7 @@
             <button onclick="closeModal()" class="absolute -top-12 right-0 text-white text-3xl hover:text-red-500 z-[110]">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="modal-slider-viewport w-full overflow-hidden cursor-grab" onmousedown="startDrag(event, 'modalSlider')" ontouchstart="startDrag(event, 'modalSlider')">
+            <div class="slider-viewport w-full" onmousedown="startDrag(event, 'modalSlider')" ontouchstart="startDrag(event, 'modalSlider')">
                 <div class="slides-container" id="modalSlider"></div>
             </div>
             <div class="mt-6 text-center">
@@ -203,66 +195,59 @@
     </div>
 
     <footer class="bg-black/50 py-12 border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
-            
-            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-start">
-                <div class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110">
-                    <i class="fab fa-instagram text-xl"></i>
-                </div>
-                <div class="text-left">
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
-                    <p class="text-xs font-bold text-white group-hover:text-pink-500 transition-colors">@12enambelas_</p>
-                </div>
-            </a>
-
-            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-center">
-                <div class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-pink-600 via-purple-600 to-blue-700 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110">
-                    <i class="fab fa-instagram text-xl"></i>
-                </div>
-                <div class="text-left">
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
-                    <p class="text-xs font-bold text-white group-hover:text-purple-400 transition-colors">@smks.bksimo</p>
-                </div>
-            </a>
-
-            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-center">
-                <div class="w-10 h-10 shrink-0 rounded-full bg-slate-800 border border-white/20 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110 group-hover:border-blue-500">
-                    <i class="fas fa-school text-lg"></i>
-                </div>
-                <div class="text-left">
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
-                    <p class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors">SMK BK SIMO</p>
-                </div>
-            </a>
-
-            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-3 group justify-start sm:justify-start lg:justify-end">
-                <div class="w-10 h-10 shrink-0 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110">
-                    <i class="fas fa-code text-lg"></i>
-                </div>
-                <div class="text-left">
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
-                    <p class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors italic">@tomyeka_rmx</p>
-                </div>
-            </a>
-
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
+                <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white transition-transform group-hover:scale-110">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
+                        <p class="text-xs font-bold text-white group-hover:text-pink-500 transition-colors">@12enambelas_</p>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-3 group lg:justify-center">
+                    <div class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-pink-600 via-purple-600 to-blue-700 flex items-center justify-center text-white transition-transform group-hover:scale-110">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
+                        <p class="text-xs font-bold text-white group-hover:text-purple-400 transition-colors">@smks.bksimo</p>
+                    </div>
+                </a>
+                <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-3 group lg:justify-center">
+                    <div class="w-10 h-10 shrink-0 rounded-full bg-slate-800 border border-white/20 flex items-center justify-center text-white transition-transform group-hover:scale-110 group-hover:border-blue-500">
+                        <i class="fas fa-school text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
+                        <p class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors">SMK BK SIMO</p>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-3 group lg:justify-end">
+                    <div class="w-10 h-10 shrink-0 rounded-full bg-blue-600 flex items-center justify-center text-white transition-transform group-hover:scale-110">
+                        <i class="fas fa-code text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
+                        <p class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors italic">@tomyeka_rmx</p>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center pt-8 border-t border-white/5">
+                <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+                    &copy; 2026 XII-16 TJKT. Crafted by Ai Gemini x Tomexx.ID
+                </p>
+            </div>
         </div>
-
-        <div class="text-center pt-8 border-t border-white/5">
-            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                &copy; 2026 XII-16 TJKT. Crafted by Ai Gemini x Tomexx.ID
-            </p>
-        </div>
-    </div>
-</footer>
-
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 500, once: true });
 
         let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
-        let currentSliderId = '', currentIndexes = { slider2: 0, slider3: 0, slider4: 0, slider5: 0, slider6: 0, slider7: 0, slider8: 0, slider9: 0, modalSlider: 0 };
+        let currentSliderId = '', currentIndexes = { slider1:0, slider2: 0, slider3: 0, modalSlider: 0 };
 
         function startDrag(event, id) {
             isDragging = true;
@@ -307,11 +292,13 @@
 
         function setPositionByIndex() {
             const container = document.getElementById(currentSliderId);
+            if(!container) return;
             currentTranslate = currentIndexes[currentSliderId] * -container.offsetWidth;
             prevTranslate = currentTranslate;
             container.style.transform = `translateX(${currentTranslate}px)`;
         }
 
+        // Auto slide logic
         setInterval(() => {
             Object.keys(currentIndexes).forEach(id => {
                 const container = document.getElementById(id);
@@ -319,7 +306,7 @@
                 if (id === 'modalSlider' && document.getElementById('photoModal').classList.contains('hidden')) return;
                 
                 const slides = container.querySelectorAll('img');
-                if(slides.length <= 1) return; // Skip if static
+                if(slides.length <= 1) return;
                 
                 currentIndexes[id] = (currentIndexes[id] + 1) % slides.length;
                 currentSliderId = id;
@@ -345,7 +332,10 @@
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
-            setTimeout(() => { currentSliderId = 'modalSlider'; setPositionByIndex(); }, 50);
+            setTimeout(() => { 
+                currentSliderId = 'modalSlider'; 
+                setPositionByIndex(); 
+            }, 50);
         }
 
         function closeModal() {
@@ -363,7 +353,11 @@
             const currentPath = window.location.pathname.split("/").pop() || "index.html";
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === currentPath) {
-                    currentPath === "galeri.html" ? link.classList.add('album-active') : link.classList.add('nav-active');
+                    if (currentPath === "galeri.html") {
+                        link.classList.add('album-active');
+                    } else {
+                        link.classList.add('nav-active');
+                    }
                 }
             });
         }
