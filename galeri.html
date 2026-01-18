@@ -174,8 +174,9 @@
     <div class="flex flex-wrap justify-center gap-3 mb-12 px-6" data-aos="fade-up">
         <button onclick="filterGallery('all')" id="btn-all" class="filter-btn album-active px-5 py-2 rounded-full border border-blue-500/30 text-[10px] font-bold uppercase tracking-widest transition-all">Semua</button>
         <button onclick="filterGallery('kegiatan')" id="btn-kegiatan" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Kegiatan</button>
-        <button onclick="filterGallery('formal')" id="btn-formal" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Praktek</button>
+        <button onclick="filterGallery('formal')" id="btn-formal" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Formal</button>
         <button onclick="filterGallery('momen')" id="btn-momen" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Momen</button>
+<button onclick="filterGallery('momen')" id="btn-momen" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">P5</button>
     </div>
 
     <div class="container mx-auto px-6 pb-20">
@@ -197,7 +198,7 @@
                 </div>
             </div>
 
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="Momen" data-aos="fade-up">
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
                 <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider2')" ontouchstart="startDrag(event, 'slider2')">
                     <div class="slides-container" id="slider2">
                         <img src="img-album/Hari-guru-2025-1.jpg" class="slide" loading="lazy">
@@ -219,7 +220,7 @@
                 </div>
             </div>
 
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="Kegiatan" data-aos="fade-up">
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
                 <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider3')" ontouchstart="startDrag(event, 'slider3')">
                     <div class="slides-container" id="slider3">
                         <img src="img-album/Foto-ijazah-perempuan-1.jpg" class="slide" loading="lazy">
@@ -255,7 +256,7 @@
                 </div>
             </div>
 
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="Kegiatan" data-aos="fade-up">
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
                 <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider5')" ontouchstart="startDrag(event, 'slider5')">
                     <div class="slides-container" id="slider5">
                         <img src="img-album/Praktek-Masak-1.jpg" class="slide" loading="lazy">
@@ -274,19 +275,22 @@
                 </div>
             </div>
 
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
                 <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider6')" ontouchstart="startDrag(event, 'slider6')">
                     <div class="slides-container" id="slider6">
-                        <img src="img-album/" class="slide" loading="lazy">
+                        <img src="img-album/p5-perempuan-1.jpg" class="slide" loading="lazy">
+                        <img src="img-album/p5-perempuan-2.jpg" class="slide" loading="lazy">
+                        <img src="img-album/p5-perempuan-3.jpg" class="slide" loading="lazy">
+                        <img src="img-album/p5-perempuan-4.jpg" class="slide" loading="lazy">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider6', 'Makan Bersama', 'Momen Kebersamaan')" class="bg-red-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        <button onclick="openModalWithSlides('slider6', 'Fotbar Siswi Bersama Wali Kelas', 'Kegiatan P5')" class="bg-red-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider6"></div>
                 <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Makan Bersama</h3>
-                    <p class="text-red-400 text-sm italic">Kantin Memory</p>
+                    <h3 class="text-xl font-bold mb-1">Fotbar Siswi Bersama Wali Kelas</h3>
+                    <p class="text-red-400 text-sm italic">Kegiatan P5</p>
                 </div>
             </div>
 
