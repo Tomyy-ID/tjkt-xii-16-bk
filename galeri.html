@@ -145,9 +145,13 @@
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="200">
                 <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider2')" ontouchstart="startDrag(event, 'slider2')">
                     <div class="slides-container" id="slider2">
-                        <img src="background-kelas.jpg" class="slide">
-                        <img src="aib.jpg" class="slide">
-                        <img src="Fotbar-wali-murid.jpg" class="slide">
+                        <img src="Hari-guru-2025-1.jpg" class="slide">
+                        <img src="Hari-guru-2025-2.jpg" class="slide">
+                        <img src="Hari-guru-2025-3.jpg" class="slide">
+                        <img src="Hari-guru-2025-4.jpg" class="slide">
+                        <img src="Hari-guru-2025-5.jpg" class="slide">
+                        <img src="Hari-guru-2025-6.jpg" class="slide">
+                        <img src="Hari-guru-2025-7.jpg" class="slide">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
                         <button onclick="openModalWithSlides('slider2', 'Hari Guru Nasional', '25 November 2025')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
@@ -162,17 +166,33 @@
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="300">
                 <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider3')" ontouchstart="startDrag(event, 'slider3')">
                     <div class="slides-container" id="slider3">
-                        <img src="aib.jpg" class="slide">
-                        <img src="background-kelas.jpg" class="slide">
-                        <img src="Fotbar-wali-murid.jpg" class="slide">
+                        <img src="Hari-guru-2025-4.jpg" class="slide">
+                        <img src="Hari-guru-2025-5.jpg" class="slide">
+                        <img src="Hari-guru-2025-6.jpg" class="slide">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider3', 'Aib', 'Togetherness')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        <button onclick="openModalWithSlides('slider3', 'Momen Guru', 'Best Memory')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Aib</h3>
-                    <p class="text-cyan-400 text-sm italic">Togetherness</p>
+                    <h3 class="text-xl font-bold mb-1">Momen Guru</h3>
+                    <p class="text-cyan-400 text-sm italic">Best Memory</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider4')" ontouchstart="startDrag(event, 'slider4')">
+                    <div class="slides-container" id="slider4">
+                        <img src="aib.jpg" class="slide">
+                        <img src="background-kelas.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider4', 'Kebersamaan', 'Class Moment')" class="bg-emerald-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Kebersamaan</h3>
+                    <p class="text-emerald-400 text-sm italic">Class Moment</p>
                 </div>
             </div>
 
@@ -247,7 +267,8 @@
         AOS.init({ duration: 500, once: true });
 
         let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
-        let currentSliderId = '', currentIndexes = { slider1:0, slider2: 0, slider3: 0, modalSlider: 0 };
+        // Menambahkan slider4 ke dalam index tracking
+        let currentSliderId = '', currentIndexes = { slider1:0, slider2: 0, slider3: 0, slider4: 0, modalSlider: 0 };
 
         function startDrag(event, id) {
             isDragging = true;
