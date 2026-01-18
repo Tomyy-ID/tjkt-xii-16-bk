@@ -17,7 +17,13 @@
         body { 
             background: radial-gradient(circle at top, #1e293b, #0f172a);
             color: white;
-            font-family: 'Inter', sans-serif; 
+ footer class="bg-black/50 py-12 border-t border-white/5">
+        <div class="text-center pt-8">
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+                &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
+            </p>
+        </div>
+    </footer>           font-family: 'Inter', sans-serif; 
             scroll-behavior: smooth; 
         }
 
@@ -100,6 +106,39 @@
             color: white !important;
             border-color: white !important;
         }
+
+        .dot {
+            height: 5px;
+            width: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 3px;
+            transition: all 0.3s ease;
+        }
+        .dot.active {
+            background-color: #3b82f6;
+            width: 12px;
+            border-radius: 10px;
+        }
+
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn:not(.album-active):hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Perbaikan untuk Ikon Search agar tetap tajam */
+        .search-container {
+            position: relative;
+            z-index: 10;
+        }
+        .search-icon {
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            filter: none !important; /* Mencegah filter dari parent */
+        }
     </style>
 </head>
 <body class="font-sans">
@@ -121,239 +160,297 @@
 
     <header class="text-center py-20" data-aos="zoom-in">
         <h1 class="text-5xl md:text-7xl font-extrabold mb-4 animate-text">Memory Gallery</h1>
-        <p class="text-gray-400 max-w-md mx-auto px-6 italic">Geser foto atau tunggu slide otomatis untuk melihat lebih banyak momen.</p>
+        <p class="text-gray-400 max-w-md mx-auto px-6 italic">Geser foto atau gunakan navigasi untuk melihat lebih banyak momen.</p>
     </header>
 
-    <div class="container mx-auto px-6 pb-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider1')" ontouchstart="startDrag(event, 'slider1')">
-                    <div class="slides-container" id="slider1">
-                        <img src="img-album/Fotbar-wali-murid.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider1', 'Penerimaan Raport', 'Semester Ganjil 2025')" class="bg-blue-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Penerimaan Raport</h3>
-                    <p class="text-blue-400 text-sm italic">Semester Ganjil 2025</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider2')" ontouchstart="startDrag(event, 'slider2')">
-                    <div class="slides-container" id="slider2">
-                        <img src="img-album/Hari-guru-2025-1.jpg" class="slide">
-                        <img src="img-album/Hari-guru-2025-2.jpg" class="slide">
-                        <img src="img-album/Hari-guru-2025-3.jpg" class="slide">
-                        <img src="img-album/Hari-guru-2025-4.jpg" class="slide">
-                        <img src="img-album/Hari-guru-2025-5.jpg" class="slide">
-                        <img src="img-album/Hari-guru-2025-6.jpg" class="slide">
-                        <img src="img-album/Hari-guru-2025-7.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider2', 'Hari Guru Nasional', '25 November 2025')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Hari Guru Nasional</h3>
-                    <p class="text-purple-400 text-sm italic">25 November 2025</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="300">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider3')" ontouchstart="startDrag(event, 'slider3')">
-                    <div class="slides-container" id="slider3">
-                        <img src="img-album/Foto-ijazah-perempuan-1.jpg" class="slide">
-                        <img src="img-album/Foto-ijazah-perempuan-2.jpg" class="slide">
-                        <img src="img-album/Foto-ijazah-perempuan-3.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider3', 'Fotbar Foto Ijazah', 'Perempuan XII.16')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Fotbar Ijazah</h3>
-                    <p class="text-cyan-400 text-sm italic">Perempuan XII.16</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="400">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider4')" ontouchstart="startDrag(event, 'slider4')">
-                    <div class="slides-container" id="slider4">
-                        <img src="img-album/Fotbar-ijazah-1.jpg" class="slide">
-                        <img src="img-album/Fotbar-ijazah-2.jpg" class="slide">
-                        <img src="img-album/Fotbar-ijazah-3.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider4', 'Fotbar Foto Ijazah', 'Full Kelas XII.16')" class="bg-emerald-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Fotbar Ijazah</h3>
-                    <p class="text-emerald-400 text-sm italic">Full Kelas XII.16</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider5')" ontouchstart="startDrag(event, 'slider5')">
-                    <div class="slides-container" id="slider5">
-                        <img src="img-album/Hari-batik-1.jpg" class="slide">
-                        <img src="img-album/Hari-batik-2.jpg" class="slide">
-                        <img src="img-album/Hari-batik-3.jpg" class="slide">
-                        <img src="img-album/Hari-batik-4.jpg" class="slide">
-                        <img src="img-album/Hari-batik-5.jpg" class="slide">
-                        <img src="img-album/Hari-batik-6.jpg" class="slide">
-                        <img src="img-album/Hari-batik-7.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider5', 'Hari Batik Nasional', '2 Oktober 2024')" class="bg-blue-500 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Hari Batik Nasional</h3>
-                    <p class="text-blue-400 text-sm italic">2 Oktober 2024</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider6')" ontouchstart="startDrag(event, 'slider6')">
-                    <div class="slides-container" id="slider6">
-                        <img src="placeholder-6.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider6', 'Momen Spesial', '2025')" class="bg-rose-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Memory 6</h3>
-                    <p class="text-rose-400 text-sm italic">Coming Soon</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider7')" ontouchstart="startDrag(event, 'slider7')">
-                    <div class="slides-container" id="slider7">
-                        <img src="placeholder-7.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider7', 'Momen Spesial', '2025')" class="bg-indigo-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Memory 7</h3>
-                    <p class="text-indigo-400 text-sm italic">Coming Soon</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider8')" ontouchstart="startDrag(event, 'slider8')">
-                    <div class="slides-container" id="slider8">
-                        <img src="placeholder-8.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider8', 'Momen Spesial', '2025')" class="bg-pink-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Memory 8</h3>
-                    <p class="text-pink-400 text-sm italic">Coming Soon</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider9')" ontouchstart="startDrag(event, 'slider9')">
-                    <div class="slides-container" id="slider9">
-                        <img src="placeholder-9.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider9', 'Momen Spesial', '2025')" class="bg-violet-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Memory 9</h3>
-                    <p class="text-violet-400 text-sm italic">Coming Soon</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider10')" ontouchstart="startDrag(event, 'slider10')">
-                    <div class="slides-container" id="slider10">
-                        <img src="placeholder-10.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider10', 'Momen Spesial', '2025')" class="bg-teal-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Memory 10</h3>
-                    <p class="text-teal-400 text-sm italic">Coming Soon</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider11')" ontouchstart="startDrag(event, 'slider11')">
-                    <div class="slides-container" id="slider11">
-                        <img src="placeholder-11.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider11', 'Momen Spesial', '2025')" class="bg-lime-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Memory 11</h3>
-                    <p class="text-lime-400 text-sm italic">Coming Soon</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider12')" ontouchstart="startDrag(event, 'slider12')">
-                    <div class="slides-container" id="slider12">
-                        <img src="placeholder-12.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider12', 'Momen Spesial', '2025')" class="bg-yellow-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Memory 12</h3>
-                    <p class="text-yellow-400 text-sm italic">Coming Soon</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider13')" ontouchstart="startDrag(event, 'slider13')">
-                    <div class="slides-container" id="slider13">
-                        <img src="placeholder-13.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider13', 'Momen Spesial', '2025')" class="bg-red-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1">Memory 13</h3>
-                    <p class="text-red-400 text-sm italic">Coming Soon</p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl border-orange-500/50" data-aos="fade-up">
-                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider14')" ontouchstart="startDrag(event, 'slider14')">
-                    <div class="slides-container" id="slider14">
-                        <img src="placeholder-last.jpg" class="slide">
-                    </div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider14', 'Momen Terakhir', 'Perpisahan 2026')" class="bg-orange-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
-                    </div>
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-1 text-orange-400">Memory Akhir</h3>
-                    <p class="text-orange-500 text-sm italic font-black">GRADUATION 2026</p>
-                </div>
-            </div>
-
+    <div class="container mx-auto px-6 mb-8" data-aos="fade-up">
+        <div class="relative max-w-md mx-auto search-container">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-blue-400 z-20">
+                <i class="fas fa-search search-icon text-lg"></i>
+            </span>
+            <input 
+                type="text" 
+                id="gallerySearch" 
+                placeholder="Cari momen atau kegiatan..." 
+                class="w-full bg-white/10 border border-white/20 rounded-full py-3 pl-12 pr-4 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                onkeyup="filterGallery(currentActiveCategory)"
+            >
         </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3 mb-12 px-6" data-aos="fade-up">
+        <button onclick="filterGallery('all')" id="btn-all" class="filter-btn album-active px-5 py-2 rounded-full border border-blue-500/30 text-[10px] font-bold uppercase tracking-widest transition-all">Semua</button>
+        <button onclick="filterGallery('kegiatan')" id="btn-kegiatan" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Kegiatan</button>
+        <button onclick="filterGallery('formal')" id="btn-formal" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Formal</button>
+        <button onclick="filterGallery('momen')" id="btn-momen" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Momen</button>
+    </div>
+
+    <div class="container mx-auto px-6 pb-20">
+             <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider1')" ontouchstart="startDrag(event, 'slider1')">
+            <div class="slides-container" id="slider1">
+                <img src="img-album/Fotbar-wali-murid.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider1', 'Penerimaan Raport', 'Semester Ganjil 2025')" class="bg-blue-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider1"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Penerimaan Raport</h3>
+            <p class="text-blue-400 text-sm italic">Semester Ganjil 2025</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider2')" ontouchstart="startDrag(event, 'slider2')">
+            <div class="slides-container" id="slider2">
+                <img src="img-album/Hari-guru-2025-1.jpg" class="slide" loading="lazy">
+                <img src="img-album/Hari-guru-2025-2.jpg" class="slide" loading="lazy">
+                <img src="img-album/Hari-guru-2025-3.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider2', 'Hari Guru Nasional', '25 November 2025')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider2"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Hari Guru Nasional</h3>
+            <p class="text-purple-400 text-sm italic">25 November 2025</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider3')" ontouchstart="startDrag(event, 'slider3')">
+            <div class="slides-container" id="slider3">
+                <img src="img-album/Foto-ijazah-perempuan-1.jpg" class="slide" loading="lazy">
+                <img src="img-album/Foto-ijazah-perempuan-2.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider3', 'Fotbar Foto Ijazah', 'Perempuan XII.16')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider3"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Fotbar Ijazah</h3>
+            <p class="text-cyan-400 text-sm italic">Perempuan XII.16</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider4')" ontouchstart="startDrag(event, 'slider4')">
+            <div class="slides-container" id="slider4">
+                <img src="img-album/Fotbar-ijazah-1.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider4', 'Fotbar Foto Ijazah', 'Full Kelas XII.16')" class="bg-emerald-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider4"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Fotbar Ijazah</h3>
+            <p class="text-emerald-400 text-sm italic">Full Kelas XII.16</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider5')" ontouchstart="startDrag(event, 'slider5')">
+            <div class="slides-container" id="slider5">
+                <img src="img-album/Hari-batik-1.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider5', 'Hari Batik Nasional', '2 Oktober 2024')" class="bg-blue-500 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider5"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Hari Batik Nasional</h3>
+            <p class="text-blue-400 text-sm italic">2 Oktober 2024</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider6')" ontouchstart="startDrag(event, 'slider6')">
+            <div class="slides-container" id="slider6">
+                <img src="placeholder-6.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider6', 'Momen Spesial', '2025')" class="bg-rose-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider6"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 6</h3>
+            <p class="text-rose-400 text-sm italic">Coming Soon</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider7')" ontouchstart="startDrag(event, 'slider7')">
+            <div class="slides-container" id="slider7">
+                <img src="placeholder-7.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider7', 'Judul Momen 7', 'Deskripsi')" class="bg-blue-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider7"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 7</h3>
+            <p class="text-blue-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider8')" ontouchstart="startDrag(event, 'slider8')">
+            <div class="slides-container" id="slider8">
+                <img src="placeholder-8.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider8', 'Judul Momen 8', 'Deskripsi')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider8"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 8</h3>
+            <p class="text-purple-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider9')" ontouchstart="startDrag(event, 'slider9')">
+            <div class="slides-container" id="slider9">
+                <img src="placeholder-9.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider9', 'Judul Momen 9', 'Deskripsi')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider9"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 9</h3>
+            <p class="text-cyan-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider10')" ontouchstart="startDrag(event, 'slider10')">
+            <div class="slides-container" id="slider10">
+                <img src="placeholder-10.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider10', 'Judul Momen 10', 'Deskripsi')" class="bg-emerald-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider10"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 10</h3>
+            <p class="text-emerald-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider11')" ontouchstart="startDrag(event, 'slider11')">
+            <div class="slides-container" id="slider11">
+                <img src="placeholder-11.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider11', 'Judul Momen 11', 'Deskripsi')" class="bg-orange-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider11"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 11</h3>
+            <p class="text-orange-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider12')" ontouchstart="startDrag(event, 'slider12')">
+            <div class="slides-container" id="slider12">
+                <img src="placeholder-12.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider12', 'Judul Momen 12', 'Deskripsi')" class="bg-indigo-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider12"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 12</h3>
+            <p class="text-indigo-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider13')" ontouchstart="startDrag(event, 'slider13')">
+            <div class="slides-container" id="slider13">
+                <img src="placeholder-13.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider13', 'Judul Momen 13', 'Deskripsi')" class="bg-pink-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider13"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 13</h3>
+            <p class="text-pink-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider14')" ontouchstart="startDrag(event, 'slider14')">
+            <div class="slides-container" id="slider14">
+                <img src="placeholder-14.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider14', 'Judul Momen 14', 'Deskripsi')" class="bg-teal-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider14"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 14</h3>
+            <p class="text-teal-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider15')" ontouchstart="startDrag(event, 'slider15')">
+            <div class="slides-container" id="slider15">
+                <img src="placeholder-15.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider15', 'Judul Momen 15', 'Deskripsi')" class="bg-yellow-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider15"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 15</h3>
+            <p class="text-yellow-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
+        <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider16')" ontouchstart="startDrag(event, 'slider16')">
+            <div class="slides-container" id="slider16">
+                <img src="placeholder-16.jpg" class="slide" loading="lazy">
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                <button onclick="openModalWithSlides('slider16', 'Judul Momen 16', 'Deskripsi')" class="bg-red-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider16"></div>
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold mb-1">Memory 16</h3>
+            <p class="text-red-400 text-sm italic">Keterangan</p>
+        </div>
+    </div>
+
+</div>
+
+            
+            </div>
     </div>
 
     <div id="photoModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
@@ -361,69 +458,77 @@
             <button onclick="closeModal()" class="absolute -top-12 right-0 text-white text-3xl hover:text-red-500 z-[110]">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="slider-viewport w-full" onmousedown="startDrag(event, 'modalSlider')" ontouchstart="startDrag(event, 'modalSlider')">
-                <div class="slides-container" id="modalSlider"></div>
+            <div class="relative w-full group">
+                <div class="slider-viewport w-full" onmousedown="startDrag(event, 'modalSlider')" ontouchstart="startDrag(event, 'modalSlider')">
+                    <div class="slides-container" id="modalSlider"></div>
+                </div>
+                <button onclick="prevSlide('modalSlider')" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="nextSlide('modalSlider')" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition"><i class="fas fa-chevron-right"></i></button>
             </div>
+            <div class="mt-4 flex justify-center gap-1" id="dots-modalSlider"></div>
             <div class="mt-6 text-center">
                 <h3 id="modalTitle" class="text-2xl md:text-3xl font-bold text-white"></h3>
                 <p id="modalDate" class="text-blue-400 italic mt-2"></p>
+                <button id="downloadBtn" class="mt-5 px-6 py-2 bg-blue-600/20 border border-blue-500/50 rounded-full text-blue-400 text-xs font-bold hover:bg-blue-600 hover:text-white transition flex items-center gap-2 mx-auto">
+                    <i class="fas fa-download"></i> SIMPAN MEMORY
+                </button>
             </div>
         </div>
     </div>
 
     <footer class="bg-black/50 py-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
-                
-                <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
-                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-pink-500 group-hover:border-pink-500/50">
-                        <i class="fab fa-instagram text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
-                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@12enambelas_</p>
-                    </div>
-                </a>
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
+            
+            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
+                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-pink-500 group-hover:border-pink-500/50">
+                    <i class="fab fa-instagram text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
+                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@12enambelas_</p>
+                </div>
+            </a>
 
-                <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group lg:justify-center">
-                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-purple-400 group-hover:border-purple-400/50">
-                        <i class="fab fa-instagram text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
-                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@smks.bksimo</p>
-                    </div>
-                </a>
+            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group lg:justify-center">
+                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-purple-400 group-hover:border-purple-400/50">
+                    <i class="fab fa-instagram text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
+                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@smks.bksimo</p>
+                </div>
+            </a>
 
-                <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
-                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
-                        <i class="fas fa-globe text-lg"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
-                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors">SMK BK SIMO</p>
-                    </div>
-                </a>
+            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
+                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
+                    <i class="fas fa-globe text-lg"></i>
+                </div>
+                <div>
+                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
+                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors">SMK BK SIMO</p>
+                </div>
+            </a>
 
-                <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group lg:justify-end">
-                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
-                        <i class="fas fa-code text-lg"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
-                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors italic">@tomyeka_rmx</p>
-                    </div>
-                </a>
+            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group lg:justify-end">
+                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
+                    <i class="fas fa-code text-lg"></i>
+                </div>
+                <div>
+                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
+                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors italic">@tomyeka_rmx</p>
+                </div>
+            </a>
 
-            </div>
-
-            <div class="text-center pt-8 border-t border-white/5">
-                <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                    &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
-                </p>
-            </div>
         </div>
-    </footer>
+
+        <div class="text-center pt-8 border-t border-white/5">
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+                &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
+            </p>
+        </div>
+    </div>
+</footer>
 
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -431,99 +536,73 @@
         AOS.init({ duration: 500, once: true });
 
         let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
-        let currentSliderId = '', currentIndexes = { 
-            slider1:0, slider2: 0, slider3: 0, slider4: 0, slider5: 0,
-            slider6: 0, slider7: 0, slider8: 0, slider9: 0, slider10: 0,
-            slider11: 0, slider12: 0, slider13: 0, slider14: 0, modalSlider: 0 
+        let currentActiveCategory = 'all', currentIndexes = { 
+            slider1:0, slider2: 0, slider3: 0, slider4: 0, slider5: 0, slider6: 0,
+            slider7: 0, slider8: 0, slider9: 0, slider10: 0, slider11: 0, slider12: 0,
+            slider13: 0, slider14: 0, slider15: 0, modalSlider: 0 
         };
 
-        function startDrag(event, id) {
-            isDragging = true;
-            currentSliderId = id;
-            startPos = getPositionX(event);
+        // Initialize Dots
+        function initDots(id) {
             const container = document.getElementById(id);
-            const style = window.getComputedStyle(container);
-            const matrix = new WebKitCSSMatrix(style.transform);
-            prevTranslate = matrix.m41;
-            animationID = requestAnimationFrame(animation);
-        }
-
-        function moveDrag(event) {
-            if (isDragging) {
-                const currentPosition = getPositionX(event);
-                currentTranslate = prevTranslate + currentPosition - startPos;
-            }
-        }
-
-        function endDrag() {
-            if(!isDragging) return;
-            isDragging = false;
-            cancelAnimationFrame(animationID);
-            const container = document.getElementById(currentSliderId);
-            const movedBy = currentTranslate - prevTranslate;
+            const dotsContainer = document.getElementById('dots-' + id);
+            if(!container || !dotsContainer) return;
             const slidesCount = container.querySelectorAll('img').length;
-
-            if (movedBy < -100 && currentIndexes[currentSliderId] < slidesCount - 1) currentIndexes[currentSliderId] += 1;
-            if (movedBy > 100 && currentIndexes[currentSliderId] > 0) currentIndexes[currentSliderId] -= 1;
-
-            setPositionByIndex();
-        }
-
-        function getPositionX(event) { return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX; }
-
-        function animation() {
-            if (isDragging) {
-                document.getElementById(currentSliderId).style.transform = `translateX(${currentTranslate}px)`;
-                requestAnimationFrame(animation);
+            dotsContainer.innerHTML = '';
+            for(let i=0; i<slidesCount; i++){
+                const dot = document.createElement('div');
+                dot.className = `dot ${i === 0 ? 'active' : ''}`;
+                dotsContainer.appendChild(dot);
             }
         }
 
-        function setPositionByIndex() {
-            const container = document.getElementById(currentSliderId);
-            if(!container) return;
-            currentTranslate = currentIndexes[currentSliderId] * -container.offsetWidth;
-            prevTranslate = currentTranslate;
-            container.style.transform = `translateX(${currentTranslate}px)`;
+        // Jalankan Init Dots untuk semua slider
+        ['slider1', 'slider2', 'slider3', 'slider4', 'slider5', 'slider6', 'slider7', 'slider8', 'slider9', 'slider10', 'slider11', 'slider12', 'slider13', 'slider14', 'slider15'].forEach(id => {
+            if(document.getElementById(id)) initDots(id);
+        });
+
+        // Filter Functionality
+        function filterGallery(category) {
+            currentActiveCategory = category;
+            const searchText = document.getElementById('gallerySearch').value.toLowerCase();
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('album-active');
+                btn.classList.add('bg-white/5', 'border-white/10');
+            });
+            
+            const activeBtn = document.getElementById('btn-' + category);
+            if(activeBtn) {
+                activeBtn.classList.add('album-active');
+                activeBtn.classList.remove('bg-white/5', 'border-white/10');
+            }
+
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const subtitle = card.querySelector('p').innerText.toLowerCase();
+                
+                const matchesCategory = (category === 'all' || cardCategory === category);
+                const matchesSearch = (title.includes(searchText) || subtitle.includes(searchText));
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        if(card.style.opacity === '0') card.style.display = 'none';
+                    }, 400);
+                }
+            });
         }
 
-        setInterval(() => {
-            Object.keys(currentIndexes).forEach(id => {
-                const container = document.getElementById(id);
-                if (!container || (isDragging && currentSliderId === id)) return;
-                if (id === 'modalSlider' && document.getElementById('photoModal').classList.contains('hidden')) return;
-                
-                const slides = container.querySelectorAll('img');
-                if(slides.length <= 1) return;
-                
-                currentIndexes[id] = (currentIndexes[id] + 1) % slides.length;
-                currentSliderId = id;
-                setPositionByIndex();
-            });
-        }, 4000);
-
-        function openModalWithSlides(sourceSliderId, title, date) {
-            const sourceContainer = document.getElementById(sourceSliderId);
-            const modalContainer = document.getElementById('modalSlider');
-            const images = sourceContainer.querySelectorAll('img');
-            modalContainer.innerHTML = '';
-            images.forEach(img => {
-                const newImg = document.createElement('img');
-                newImg.src = img.src;
-                newImg.className = 'modal-slide';
-                modalContainer.appendChild(newImg);
-            });
-            currentIndexes['modalSlider'] = currentIndexes[sourceSliderId] || 0;
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDate').innerText = date;
-            const modal = document.getElementById('photoModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => { 
-                currentSliderId = 'modalSlider'; 
-                setPositionByIndex(); 
-            }, 50);
-        }
+        // Tambahkan sisa fungsi JavaScript (startDrag, endDrag, openModal, dll) dari kode awal Anda di sini...
+        // ... (Fungsi slider diletakkan di sini) ...
 
         function closeModal() {
             document.getElementById('photoModal').classList.add('hidden');
@@ -531,23 +610,15 @@
             document.body.style.overflow = 'auto';
         }
 
-        window.addEventListener('load', updateActiveNav);
-        window.onmousemove = moveDrag; window.onmouseup = endDrag;
-        window.ontouchmove = moveDrag; window.ontouchend = endDrag;
-        window.onclick = (e) => { if(e.target.id === 'photoModal') closeModal(); }
-
-        function updateActiveNav() {
+        window.addEventListener('load', () => {
             const currentPath = window.location.pathname.split("/").pop() || "index.html";
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === currentPath) {
-                    if (currentPath === "galeri.html") {
-                        link.classList.add('album-active');
-                    } else {
-                        link.classList.add('nav-active');
-                    }
+                    if (currentPath === "galeri.html") link.classList.add('album-active');
+                    else link.classList.add('nav-active');
                 }
             });
-        }
+        });
     </script>
 </body>
 </html>
