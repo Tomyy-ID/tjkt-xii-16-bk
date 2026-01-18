@@ -67,7 +67,6 @@
         .float-btn { animation: floating 4s ease-in-out infinite; }
         @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        /* CSS Running Text */
         .marquee-wrapper {
             width: 100%;
             overflow: hidden;
@@ -126,11 +125,12 @@
     </div>
 
     <div class="relative z-10 pt-12 md:pt-20">
-        <h2 class="text-4xl md:text-9xl font-black mb-2 leading-tight text-white glow-text-strong tracking-tighter animate__animated animate__backInDown">
+        <h2 class="text-4xl md:text-9xl font-black mb-6 leading-tight text-white glow-text-strong tracking-tighter animate__animated animate__backInDown">
             WELCOME TO <br>
             <span class="gradient-text uppercase italic">CLASS XII 16</span>
         </h2>
-        <p class="text-gray-100 max-w-2xl mx-auto text-[10px] md:text-2xl mb-6 font-bold px-6 animate__animated animate__fadeInUp animate__delay-1s drop-shadow-md">
+        
+        <p class="text-gray-100 max-w-2xl mx-auto text-[10px] md:text-2xl mb-10 font-bold px-6 animate__animated animate__fadeInUp animate__delay-1s drop-shadow-md">
             <span class="bg-blue-600/40 px-3 py-1 rounded-lg backdrop-blur-sm border border-white/10">
                 🔥 Memories Never Die — Angkatan 2023-2026 🔥
             </span>
@@ -157,14 +157,27 @@
     </div>
 
     <div class="max-w-5xl mx-auto px-4">
-        <div class="text-center mb-16" data-aos="zoom-in-up">
+        <div class="text-center mb-8" data-aos="zoom-in-up">
             <h3 class="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter">
                 JADWAL <span class="gradient-text italic">KBM</span>
             </h3>
-            <div class="inline-block px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10">
+            
+            <div class="inline-block px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
                 <p class="text-blue-400 font-bold uppercase text-[10px] md:text-xs tracking-widest">
                     Tahun Pelajaran 2025 / 2026 — Revisi 4
                 </p>
+            </div>
+
+            <div class="max-w-md mx-auto p-4 md:p-5 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md flex justify-between items-center shadow-2xl animate__animated animate__fadeIn">
+                <div class="text-left">
+                    <p id="jadwal-day" class="text-white font-black text-sm md:text-lg uppercase tracking-wider italic leading-none mb-1">MEMUAT HARI...</p>
+                    <p id="jadwal-full-date" class="text-gray-400 font-bold text-[8px] md:text-[10px] uppercase tracking-widest">Memuat Tanggal...</p>
+                </div>
+                <div class="w-[2px] h-10 bg-blue-500/30"></div>
+                <div class="text-right">
+                    <p id="jadwal-time" class="text-blue-400 font-mono text-xl md:text-2xl font-black tracking-widest drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">00:00:00</p>
+                    <p class="text-gray-500 font-bold text-[8px] md:text-[10px] tracking-widest uppercase">WIB Real-time</p>
+                </div>
             </div>
         </div>
 
@@ -187,6 +200,11 @@
                         <p class="text-[10px] font-bold text-blue-400 uppercase">Jam 2 - 11 | <span class="text-white">08:15 - 15:00</span></p>
                         <p class="text-lg font-black text-white uppercase">KEJURUAN (KK TKJ)</p>
                         <p class="text-[10px] text-blue-200 font-bold mt-1 italic">Siti Mafulah, S.Kom</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mt-4 text-[8px] font-bold uppercase">
+                        <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-blue-300">MBG: 09.45-10.15</div>
+                        <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-gray-400">Istirahat: 10.15-10.30</div>
+                        <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-emerald-400">Sholat XII : 12.35 - 12.55</div>
                     </div>
                 </div>
             </div>
@@ -214,6 +232,11 @@
                         <p class="text-[10px] font-bold text-gray-400 uppercase">Jam 11 | <span class="text-cyan-400">14:25 - 15:00</span></p>
                         <p class="text-lg font-black text-cyan-500 uppercase italic">Sinkronisasi Wali Kelas & Baca Bebas</p>
                         <p class="text-[10px] text-cyan-300 font-bold italic">Nita Hastuti, S.Pd</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mt-4 text-[8px] font-bold uppercase">
+                        <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-cyan-300">MBG: 09.25-09.55</div>
+                        <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-gray-400">Istirahat: 09.55-10.10</div>
+                        <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-emerald-400">Sholat XII : 12.35-12.55</div>
                     </div>
                 </div>
             </div>
@@ -247,6 +270,11 @@
                     <p class="text-sm font-black text-purple-500 uppercase italic">Sinkronisasi Wali Kelas & Mengaji</p>
                     <p class="text-[10px] text-purple-300 font-bold italic">Nita Hastuti, S.Pd</p>
                 </div>
+                <div class="grid grid-cols-3 gap-2 mt-4 text-[8px] font-bold uppercase">
+                    <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-purple-300">MBG: 09.25-09.55</div>
+                    <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-gray-400">Istirahat: 09.55-10.10</div>
+                    <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-emerald-400">Sholat XII : 12.35-12.55</div>
+                </div>
             </div>
 
             <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-orange-600/10 hover:border-orange-500/50 hover:-translate-y-2" data-aos="fade-left">
@@ -278,6 +306,11 @@
                     <p class="text-sm font-black text-orange-500 uppercase italic">Sinkronisasi Wali Kelas & Baca Bebas</p>
                     <p class="text-[10px] text-orange-300 font-bold italic">Nita Hastuti, S.Pd</p>
                 </div>
+                <div class="grid grid-cols-3 gap-2 mt-4 text-[8px] font-bold uppercase">
+                    <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-orange-300">MBG: 09.25-09.55</div>
+                    <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-gray-400">Istirahat: 09.55-10.10</div>
+                    <div class="p-2 bg-white/5 rounded-lg border border-white/10 text-center text-emerald-400">Sholat XII : 12.35-12.55</div>
+                </div>
             </div>
 
             <div class="group bg-white/5 border border-white/10 p-6 rounded-3xl transition-all duration-500 hover:bg-emerald-600/10 hover:border-emerald-500/50 hover:-translate-y-2 md:col-span-2" data-aos="fade-up">
@@ -296,15 +329,18 @@
                         <p class="text-lg font-black text-white uppercase">KEJURUAN (KK TKJ)</p>
                         <p class="text-[10px] text-emerald-200 font-bold italic">Siti Mafulah, S.Kom</p>
                     </div>
+                    <div class="grid grid-cols-2 gap-4 text-[9px] font-bold uppercase">
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/10 text-center text-emerald-300">MBG: 09.25-09.55</div>
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/10 text-center text-gray-400">Istirahat: 09.55-10.10</div>
+                    </div>
                     <div class="py-2 text-center bg-red-500/10 rounded-lg border border-red-500/20">
-                        <p class="text-[9px] font-black text-red-500 tracking-[0.2em] uppercase italic">Waktu Sholat Jum'at & Sinkronisasi</p>
+                        <p class="text-[9px] font-black text-red-500 tracking-[0.2em] uppercase italic">Waktu Sholat Jum'at & Sinkronisasi (11.20 - 13.00)</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 <section id="struktur" class="py-20 bg-[#0f172a] text-center overflow-hidden">
     <div class="max-w-6xl mx-auto px-4">
         <h3 class="text-3xl md:text-5xl font-black text-white mb-16 tracking-tighter uppercase italic" data-aos="zoom-in">
@@ -356,7 +392,6 @@
                 <h5 class="text-[10px] md:text-xs font-black text-white uppercase italic">Asifa</h5>
                 <p class="text-purple-400 font-bold text-[7px] tracking-widest uppercase mt-1">Sekretaris I</p>
             </div>
-
             <div class="glass p-4 rounded-[1.5rem] border-white/5 group hover:bg-white/10 transition-all duration-500" data-aos="zoom-in">
                 <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3 rounded-full border-2 border-purple-500 p-1">
                     <img src="img-struktur-kelas/4.png" class="w-full h-full object-cover rounded-full bg-slate-800" alt="2">
@@ -364,7 +399,6 @@
                 <h5 class="text-[10px] md:text-xs font-black text-white uppercase italic">---</h5>
                 <p class="text-purple-400 font-bold text-[7px] tracking-widest uppercase mt-1">Sekretaris II</p>
             </div>
-
             <div class="glass p-4 rounded-[1.5rem] border-white/5 group hover:bg-white/10 transition-all duration-500" data-aos="zoom-in">
                 <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3 rounded-full border-2 border-emerald-500 p-1">
                     <img src="img-struktur-kelas/5.jpg" class="w-full h-full object-cover rounded-full bg-slate-800" alt="1">
@@ -372,7 +406,6 @@
                 <h5 class="text-[10px] md:text-xs font-black text-white uppercase italic">Isnaya</h5>
                 <p class="text-emerald-400 font-bold text-[7px] tracking-widest uppercase mt-1">Bendahara I</p>
             </div>
-
             <div class="glass p-4 rounded-[1.5rem] border-white/5 group hover:bg-white/10 transition-all duration-500" data-aos="zoom-in">
                 <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3 rounded-full border-2 border-emerald-500 p-1">
                     <img src="img-struktur-kelas/6.jpg" class="w-full h-full object-cover rounded-full bg-slate-800" alt="2">
@@ -411,49 +444,43 @@
 <footer class="bg-black/50 py-12 border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
-            
             <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
                 <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-pink-500 group-hover:border-pink-500/50">
                     <i class="fab fa-instagram text-xl"></i>
                 </div>
                 <div>
                     <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
-                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@12enambelas_</p>
+                    <p class="text-xs font-bold text-white">@12enambelas_</p>
                 </div>
             </a>
-
             <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group lg:justify-center">
                 <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-purple-400 group-hover:border-purple-400/50">
                     <i class="fab fa-instagram text-xl"></i>
                 </div>
                 <div>
                     <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
-                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@smks.bksimo</p>
+                    <p class="text-xs font-bold text-white">@smks.bksimo</p>
                 </div>
             </a>
-
             <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
                 <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
                     <i class="fas fa-globe text-lg"></i>
                 </div>
                 <div>
                     <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
-                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors">SMK BK SIMO</p>
+                    <p class="text-xs font-bold text-white">SMK BK SIMO</p>
                 </div>
             </a>
-
             <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group lg:justify-end">
                 <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
                     <i class="fas fa-code text-lg"></i>
                 </div>
                 <div>
                     <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
-                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors italic">@tomyeka_rmx</p>
+                    <p class="text-xs font-bold text-white italic">@tomyeka_rmx</p>
                 </div>
             </a>
-
         </div>
-
         <div class="text-center pt-8 border-t border-white/5">
             <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
                 &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
@@ -462,12 +489,28 @@
     </div>
 </footer>
 
-
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 500, once: true, easing: 'ease-in-out' });
 
-    // SOUND LOGIC
+    // REAL-TIME CLOCK LOGIC
+    function updateRealTime() {
+        const now = new Date();
+        const optionsDay = { weekday: 'long' };
+        const optionsDate = { day: 'numeric', month: 'long', year: 'numeric' };
+        
+        const dayName = now.toLocaleDateString('id-ID', optionsDay);
+        const fullDate = now.toLocaleDateString('id-ID', optionsDate);
+        const timeStr = now.toLocaleTimeString('id-ID', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }).replace(/\./g, ':');
+        
+        document.getElementById('jadwal-day').innerText = dayName;
+        document.getElementById('jadwal-full-date').innerText = fullDate;
+        document.getElementById('jadwal-time').innerText = timeStr;
+    }
+    setInterval(updateRealTime, 1000);
+    updateRealTime();
+
+    // SFX LOGIC
     const welcomeSfx = document.getElementById('welcomeSound');
     const clickSfx = document.getElementById('clickSound');
 
@@ -475,10 +518,8 @@
         welcomeSfx.volume = 0.5;
         welcomeSfx.play().catch(() => {});
         window.removeEventListener('click', playWelcome);
-        window.removeEventListener('scroll', playWelcome);
     };
     window.addEventListener('click', playWelcome);
-    window.addEventListener('scroll', playWelcome);
 
     document.querySelectorAll('a, button, .btn-click').forEach(elem => {
         elem.addEventListener('mousedown', () => {
@@ -487,30 +528,20 @@
         });
     });
 
-    // NAVIGATION LOGIC
+    // NAV ACTIVE LOGIC
     function updateActiveNav() {
         const currentPath = window.location.pathname.split("/").pop() || "index.html";
         const currentHash = window.location.hash;
-        
         document.querySelectorAll('.nav-link').forEach(link => {
             const href = link.getAttribute('href');
-            link.classList.remove('nav-active', 'text-blue-400', 'album-active');
-            
-            // Logika untuk link anchor (#struktur atau #home)
+            link.classList.remove('nav-active', 'text-blue-400');
             if (currentHash && href.includes(currentHash)) {
                 link.classList.add('nav-active', 'text-blue-400');
-            } 
-            // Logika untuk halaman lain (siswa.html, nilai-TKA.html)
-            else if (!currentHash && href === currentPath) {
-                if (href === "galeri.html") {
-                    link.classList.add('album-active');
-                } else {
-                    link.classList.add('nav-active', 'text-blue-400');
-                }
+            } else if (!currentHash && href === currentPath) {
+                link.classList.add('nav-active', 'text-blue-400');
             }
         });
     }
-
     window.addEventListener('load', updateActiveNav);
     window.addEventListener('hashchange', updateActiveNav);
 </script>
