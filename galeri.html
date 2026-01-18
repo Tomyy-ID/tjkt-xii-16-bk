@@ -171,7 +171,7 @@
                         <img src="img-album/Foto-ijazah-perempuan-2.jpg" class="slide">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider3', 'Momen Guru', 'Best Memory')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        <button onclick="openModalWithSlides('slider3', 'Fotbar Setelah Foto Ijazah', 'Perempuan XII.16')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="p-6 text-center">
@@ -183,16 +183,56 @@
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="400">
                 <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider4')" ontouchstart="startDrag(event, 'slider4')">
                     <div class="slides-container" id="slider4">
-                        <img src="img-album/" class="slide">
-                        <img src="img-album/" class="slide">
+                        <img src="img-album/Foto-ijazah-1.jpg" class="slide">
+                        <img src="img-album/Foto-ijazah-2.jpg" class="slide">
+                        <img src="img-album/Foto-ijazah-3.jpg" class="slide">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider4', 'Kebersamaan', 'Class Moment')" class="bg-emerald-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        <button onclick="openModalWithSlides('slider4', 'Fotbar Setelah Foto Ijazah', 'Full Kelas XII.16')" class="bg-emerald-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="p-6 text-center">
                     <h3 class="text-xl font-bold mb-1">Fotbar Setelah Foto Ijazah </h3>
                     <p class="text-emerald-400 text-sm italic">Full Kelas XII.16</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="photoModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
+        <div class="relative max-w-4xl w-full flex flex-col items-center animate__animated animate__zoomIn">
+            <button onclick="closeModal()" class="absolute -top-12 right-0 text-white text-3xl hover:text-red-500 z-[110]">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="slider-viewport w-full" onmousedown="startDrag(event, 'modalSlider')" ontouchstart="startDrag(event, 'modalSlider')">
+                <div class="slides-container" id="modalSlider"></div>
+            </div>
+            <div class="mt-6 text-center">
+                <h3 id="modalTitle" class="text-2xl md:text-3xl font-bold text-white"></h3>
+                <p id="modalDate" class="text-blue-400 italic mt-2"></p>
+            </div>
+        </div>
+    </div>
+
+<div class="glass-card rounded-3xl overflow-hidden shadow-2xl" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative group slider-viewport" onmousedown="startDrag(event, 'slider4')" ontouchstart="startDrag(event, 'slider4')">
+                    <div class="slides-container" id="slider4">
+                        <img src="img-album/Hari-batik-1.jpg" class="slide">
+                        <img src="img-album/Hari-batik-2.jpg" class="slide">
+                        <img src="img-album/Hari-batik-3.jpg" class="slide">
+                        <img src="img-album/Hari-batik-4.jpg" class="slide">
+                        <img src="img-album/Hari-batik-5.jpg" class="slide">
+                        <img src="img-album/Hari-batik-6.jpg" class="slide">
+                        <img src="img-album/Hari-batik-7.jpg" class="slide">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider4', 'Hari Batik Nasional', '2 Oktober 2024')" class="bg-emerald-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Hari Batik Nasional</h3>
+                    <p class="text-emerald-400 text-sm italic">2 Oktober 2024</p>
                 </div>
             </div>
 
