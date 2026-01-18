@@ -81,7 +81,7 @@
 </head>
 <body class="font-sans min-h-screen flex flex-col">
 
-<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-50.mp3" preload="auto"></audio>
+<audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
 
 <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
     <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0 uppercase">
@@ -215,15 +215,33 @@
 <script>
     AOS.init({ duration: 800, once: true });
 
-    const names = [
-        "---", "---", "---", "---", "---", "---", "---", 
-        "SISWA 08", "SISWA 09", "SISWA 10", "SISWA 11", "SISWA 12", "SISWA 13", "SISWA 14", "SISWA 15", 
-        "SISWA 16", "SISWA 17", "SISWA 18", "SISWA 19", "SISWA 20", "SISWA 21", "SISWA 22", "SISWA 23", 
-        "SISWA 24", "SISWA 25", "SISWA 26", "SISWA 27", "SISWA 28", "SISWA 29", "SISWA 30", "SISWA 31", 
-        "SISWA 32", "SISWA 33", "SISWA 34", "SISWA 35", "SISWA 36"
-    ];
+    // SFX LOGIC
+    const clickSfx = document.getElementById('clickSound');
+    document.querySelectorAll('a, button, .btn-status').forEach(elem => {
+        elem.addEventListener('mousedown', () => {
+            if(clickSfx) {
+                clickSfx.currentTime = 0;
+                clickSfx.play().catch(() => {});
+            }
+        });
+    });
 
-    const audio = document.getElementById('clickSound');
+    // NAV ACTIVE LOGIC
+    function updateActiveNav() {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            link.classList.remove('nav-active', 'text-blue-400');
+            if (href === currentPath) {
+                link.classList.add('nav-active', 'text-blue-400');
+            }
+        });
+    }
+    window.addEventListener('load', updateActiveNav);
+
+    // ISI NAMA SEMUA --- SESUAI PERMINTAAN (36 SISWA)
+    const names = Array(36).fill("---");
+
     const tbody = document.getElementById('student-list');
     
     const renderStudents = () => {
@@ -248,9 +266,9 @@
     renderStudents();
 
     function playReveal(index) {
-        if (audio) {
-            audio.currentTime = 0;
-            audio.play().catch(e => console.log("Audio play failed:", e));
+        if (clickSfx) {
+            clickSfx.currentTime = 0;
+            clickSfx.play().catch(e => console.log("Audio play failed:", e));
         }
     }
 
