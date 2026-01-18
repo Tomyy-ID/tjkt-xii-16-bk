@@ -174,12 +174,13 @@
     <div class="flex flex-wrap justify-center gap-3 mb-12 px-6" data-aos="fade-up">
         <button onclick="filterGallery('all')" id="btn-all" class="filter-btn album-active px-5 py-2 rounded-full border border-blue-500/30 text-[10px] font-bold uppercase tracking-widest transition-all">Semua</button>
         <button onclick="filterGallery('kegiatan')" id="btn-kegiatan" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Kegiatan</button>
-        <button onclick="filterGallery('formal')" id="btn-formal" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Formal</button>
+        <button onclick="filterGallery('formal')" id="btn-formal" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Praktek</button>
         <button onclick="filterGallery('momen')" id="btn-momen" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Momen</button>
     </div>
 
     <div class="container mx-auto px-6 pb-20">
         <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
                 <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider1')" ontouchstart="startDrag(event, 'slider1')">
                     <div class="slides-container" id="slider1">
@@ -196,12 +197,16 @@
                 </div>
             </div>
 
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="Momen" data-aos="fade-up">
                 <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider2')" ontouchstart="startDrag(event, 'slider2')">
                     <div class="slides-container" id="slider2">
                         <img src="img-album/Hari-guru-2025-1.jpg" class="slide" loading="lazy">
                         <img src="img-album/Hari-guru-2025-2.jpg" class="slide" loading="lazy">
                         <img src="img-album/Hari-guru-2025-3.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Hari-guru-2025-4.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Hari-guru-2025-5.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Hari-guru-2025-6.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Hari-guru-2025-7.jpg" class="slide" loading="lazy">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
                         <button onclick="openModalWithSlides('slider2', 'Hari Guru Nasional', '25 November 2025')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
@@ -214,22 +219,141 @@
                 </div>
             </div>
 
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="Kegiatan" data-aos="fade-up">
                 <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider3')" ontouchstart="startDrag(event, 'slider3')">
                     <div class="slides-container" id="slider3">
                         <img src="img-album/Foto-ijazah-perempuan-1.jpg" class="slide" loading="lazy">
                         <img src="img-album/Foto-ijazah-perempuan-2.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Foto-ijazah-perempuan-3.jpg" class="slide" loading="lazy">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
-                        <button onclick="openModalWithSlides('slider3', 'Fotbar Foto Ijazah', 'Perempuan XII.16')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        <button onclick="openModalWithSlides('slider3', 'Fotbar Foto Ijazah', 'Siswi Perempuan XII.16')" class="bg-cyan-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
                     </div>
                 </div>
                 <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider3"></div>
                 <div class="p-6 text-center">
                     <h3 class="text-xl font-bold mb-1">Fotbar Ijazah</h3>
-                    <p class="text-cyan-400 text-sm italic">Perempuan XII.16</p>
+                    <p class="text-cyan-400 text-sm italic">Siswi Perempuan XII.16</p>
                 </div>
             </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+                <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider4')" ontouchstart="startDrag(event, 'slider4')">
+                    <div class="slides-container" id="slider4">
+                        <img src="img-album/Fotbar-ijazah-1.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Fotbar-ijazah-2.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Fotbar-ijazah-3.jpg" class="slide" loading="lazy">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider4', 'Fotbar Ijazah, 'Siswa-Siswi XII.16')" class="bg-orange-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider4"></div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Fotbar Ijazah</h3>
+                    <p class="text-orange-400 text-sm italic">Siswa-Siswi XII.16</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="Kegiatan" data-aos="fade-up">
+                <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider5')" ontouchstart="startDrag(event, 'slider5')">
+                    <div class="slides-container" id="slider5">
+                        <img src="img-album/Praktek-Masak-1.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Praktek-Masak-2.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Praktek-Masak-3.jpg" class="slide" loading="lazy">
+                        <img src="img-album/Praktek-Masak-4.jpg" class="slide" loading="lazy">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider5', 'Fotbar Kelompok Memasak', 'Project Work Mapel B. Jawa')" class="bg-emerald-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider5"></div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Fotbar Kelompok Memasak</h3>
+                    <p class="text-emerald-400 text-sm italic">Project Work Mapel B. Jawa</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
+                <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider6')" ontouchstart="startDrag(event, 'slider6')">
+                    <div class="slides-container" id="slider6">
+                        <img src="img-album/" class="slide" loading="lazy">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider6', 'Makan Bersama', 'Momen Kebersamaan')" class="bg-red-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider6"></div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Makan Bersama</h3>
+                    <p class="text-red-400 text-sm italic">Kantin Memory</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+                <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider7')" ontouchstart="startDrag(event, 'slider7')">
+                    <div class="slides-container" id="slider7">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc48?q=80&w=800" class="slide" loading="lazy">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider7', 'Praktikum Jaringan', 'Lab TJKT')" class="bg-indigo-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider7"></div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Praktikum Lab</h3>
+                    <p class="text-indigo-400 text-sm italic">Teknik Jaringan</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
+                <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider8')" ontouchstart="startDrag(event, 'slider8')">
+                    <div class="slides-container" id="slider8">
+                        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=800" class="slide" loading="lazy">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider8', 'Surprise Party', 'Birthday Moment')" class="bg-pink-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider8"></div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Birthday Surprise</h3>
+                    <p class="text-pink-400 text-sm italic">Sweet Moment</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+                <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider9')" ontouchstart="startDrag(event, 'slider9')">
+                    <div class="slides-container" id="slider9">
+                        <img src="https://images.unsplash.com/photo-1590076215667-873d310639d6?q=80&w=800" class="slide" loading="lazy">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider9', 'Kegiatan Keagamaan', 'Masjid Sekolah')" class="bg-yellow-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider9"></div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Religiusitas</h3>
+                    <p class="text-yellow-400 text-sm italic">Ibadah Bersama</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
+                <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider10')" ontouchstart="startDrag(event, 'slider10')">
+                    <div class="slides-container" id="slider10">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800" class="slide" loading="lazy">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                        <button onclick="openModalWithSlides('slider10', 'Persiapan Ujian', 'Fokus Belajar')" class="bg-slate-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider10"></div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-1">Ujian Akhir</h3>
+                    <p class="text-slate-400 text-sm italic">Pejuang Ijazah</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -373,7 +497,6 @@
             goToSlide(id, currentIndexes[id]);
         }
 
-        // UPDATED: Added updateDownloadLink call inside goToSlide
         function goToSlide(id, index) {
             const slider = document.getElementById(id);
             if(!slider) return;
@@ -384,7 +507,6 @@
             slider.style.transform = `translateX(${currentTranslate}px)`;
             updateDots(id);
             
-            // Sync download button if modal slider is moving
             if (id === 'modalSlider') {
                 updateDownloadLink();
             }
@@ -405,7 +527,6 @@
             }
         }
 
-        // NEW FUNCTION: Handle dynamic download link
         function updateDownloadLink() {
             const modalSlider = document.getElementById('modalSlider');
             const downloadBtn = document.getElementById('downloadBtn');
@@ -415,7 +536,6 @@
             if (images[index]) {
                 const imgSrc = images[index].src;
                 downloadBtn.href = imgSrc;
-                // Generate filename from title
                 const title = document.getElementById('modalTitle').innerText || 'memory';
                 downloadBtn.download = title.replace(/\s+/g, '-').toLowerCase() + '-' + (index + 1) + '.jpg';
             }
@@ -442,7 +562,7 @@
             currentIndexes['modalSlider'] = 0;
             goToSlide('modalSlider', 0);
             updateDots('modalSlider');
-            updateDownloadLink(); // Initial sync
+            updateDownloadLink();
         }
 
         function closeModal() {
