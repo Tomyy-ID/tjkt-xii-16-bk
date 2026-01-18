@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Yearbook | XII-16 TJKT</title>
+
+    <link rel="icon" type="image/png" href="logo-kelas.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body { 
+            background: radial-gradient(circle at top, #1e293b, #0f172a);
+            color: white;
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth; 
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .nav-active { color: #3b82f6 !important; border-bottom: 2px solid #3b82f6; }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #a855f7, #60a5fa);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 3s linear infinite;
+        }
+
+        @keyframes gradientText { to { background-position: 200% center; } }
+
+        .quote-style {
+            position: relative;
+            padding: 20px;
+        }
+
+        .quote-style::before {
+            content: '“';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            font-size: 60px;
+            color: rgba(59, 130, 246, 0.2);
+            font-family: serif;
+        }
+
+        .student-photo {
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: 0.5s;
+        }
+
+        .glass-card:hover .student-photo {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
+        <div class="text-xl md:text-2xl font-black tracking-tighter uppercase">
+            TJKT <span class="text-blue-500">XII-16</span>
+        </div>
+        <div class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
+            <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Beranda</a>
+            <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Siswa</a>
+            <a href="yearbook.html" class="nav-link nav-active text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Yearbook</a>
+            <a href="galeri.html" class="px-4 py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 transition text-[10px] md:text-sm font-black italic uppercase">Album</a>
+        </div>
+    </nav>
+
+    <header class="py-20 px-6 text-center" data-aos="zoom-in">
+        <h1 class="text-5xl md:text-8xl font-black gradient-text italic tracking-tighter uppercase">Yearbook</h1>
+        <p class="text-gray-400 mt-4 max-w-2xl mx-auto text-sm md:text-lg font-medium italic">
+            "Bukan tentang seberapa lama kita bersama, tapi tentang seberapa berharga kenangan yang kita ciptakan."
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pb-24">
+        <div class="glass-card p-8 rounded-[2.5rem] mb-12 border-dashed border-2 border-blue-500/30" data-aos="fade-up">
+            <h2 class="text-2xl font-black italic uppercase mb-4 text-blue-400">Kontribusi File Kenangan</h2>
+            
+            <div class="flex flex-col gap-6">
+                <input type="file" id="fileUpload" accept="image/*,video/*" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                
+                <div id="previewContainer" class="hidden">
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Preview:</p>
+                    <div class="relative w-40 h-40 rounded-2xl overflow-hidden border-2 border-blue-500">
+                        <img id="imagePreview" src="#" class="w-full h-full object-cover hidden">
+                        <video id="videoPreview" class="w-full h-full object-cover hidden" controls></video>
+                    </div>
+                </div>
+
+                <button id="btnUpload" class="bg-white text-black px-8 py-2 rounded-full font-black uppercase italic hover:bg-blue-500 hover:text-white transition w-full md:w-max">
+                    Kirim File
+                </button>
+            </div>
+            <div id="uploadStatus" class="mt-4 text-xs font-bold uppercase tracking-widest text-gray-500"></div>
+        </div>
+
+        <div id="yearbook-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+    </main>
+
+    <footer class="bg-black/50 py-10 border-t border-white/5 text-center">
+        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">&copy; 2026 XII-16 TJKT. STAY PRESTIGE.</p>
+    </footer>
+
+    <audio id="clickSound" src="sfx-click.mp3" preload="auto"></audio>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyALlRJ6cB6Tu7pvWEvIsAhc98thefPBgJw",
+            authDomain: "yearbook-xii-16-tkj-bk.firebaseapp.com",
+            projectId: "yearbook-xii-16-tkj-bk",
+            storageBucket: "yearbook-xii-16-tkj-bk.firebasestorage.app",
+            messagingSenderId: "121767748414",
+            appId: "1:121767748414:web:8211e9958bd8945b17426f",
+            measurementId: "G-YZQX5VGV0T"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+
+        // Preview Logic
+        const fileInput = document.getElementById('fileUpload');
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            const previewContainer = document.getElementById('previewContainer');
+            const imgPreview = document.getElementById('imagePreview');
+            const videoPreview = document.getElementById('videoPreview');
+
+            if (file) {
+                previewContainer.classList.remove('hidden');
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (file.type.startsWith('image/')) {
+                        imgPreview.src = e.target.result;
+                        imgPreview.classList.remove('hidden');
+                        videoPreview.classList.add('hidden');
+                    } else if (file.type.startsWith('video/')) {
+                        videoPreview.src = e.target.result;
+                        videoPreview.classList.remove('hidden');
+                        imgPreview.classList.add('hidden');
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Upload Logic
+        window.uploadKeFirebase = async () => {
+            const file = fileInput.files[0];
+            const status = document.getElementById('uploadStatus');
+            const btn = document.getElementById('btnUpload');
+
+            if (!file) return alert("Pilih file terlebih dahulu!");
+
+            try {
+                btn.disabled = true;
+                btn.innerText = "MENGUNGGAH...";
+                status.innerText = "Proses pengiriman file...";
+
+                const storageRef = ref(storage, 'yearbook_files/' + Date.now() + "_" + file.name);
+                await uploadBytes(storageRef, file);
+                
+                status.innerHTML = `<span class="text-green-500">BERHASIL DIUNGGAH!</span>`;
+                alert("File berhasil masuk ke folder kelas!");
+                location.reload();
+            } catch (error) {
+                console.error(error);
+                status.innerText = "Gagal upload. Cek koneksi atau rules Firebase.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "KIRIM FILE";
+            }
+        };
+
+        document.getElementById('btnUpload').addEventListener('click', window.uploadKeFirebase);
+    </script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        const students = [
+            { name: "Anisyahira", ig: "@anisyhr_", quote: "Masa depan adalah milik mereka yang percaya pada keindahan mimpi mereka." },
+            { name: "Tomy Eka Ardianto", ig: "@tomyeka_rmx", quote: "Hidup itu seperti coding, kalau ada error jangan menyerah, cari solusinya." },
+            { name: "Hilal Ade Pratama", ig: "@hilalade_", quote: "Memimpin bukan tentang menjadi yang terbaik, tapi membuat orang lain menjadi lebih baik." },
+            { name: "Thalita", ig: "@thalitaaa", quote: "Teruslah bersinar, bahkan jika dunia mencoba memadamkan cahayamu." },
+            { name: "Fulan bin Fulan", ig: "@ig_kamu", quote: "Datang terlambat, pulang tercepat, nilai tetap hebat." },
+            { name: "Siswa Aktif", ig: "@aktif_selalu", quote: "Pendidikan adalah senjata paling mematikan di dunia." }
+        ];
+
+        function renderYearbook() {
+            const container = document.getElementById('yearbook-container');
+            container.innerHTML = students.map((s, i) => `
+                <div class="glass-card rounded-[2.5rem] overflow-hidden group" data-aos="fade-up" data-aos-delay="${i * 50}">
+                    <div class="relative overflow-hidden">
+                        <img src="img-siswa/${i + 1}.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=PHOTO'" class="student-photo w-full">
+                        <div class="absolute bottom-4 left-6">
+                            <h3 class="text-2xl font-black italic uppercase tracking-tighter text-white drop-shadow-lg">${s.name}</h3>
+                            <p class="text-blue-400 text-[10px] font-bold uppercase tracking-widest">${s.ig}</p>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="quote-style">
+                            <p class="text-gray-300 italic text-sm md:text-base leading-relaxed relative z-10">
+                                "${s.quote}"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        const clickSfx = document.getElementById('clickSound');
+        document.addEventListener('mousedown', (e) => {
+            if (e.target.closest('a') || e.target.closest('.glass-card')) {
+                clickSfx.currentTime = 0;
+                clickSfx.play().catch(() => {});
+            }
+        });
+
+        window.addEventListener('load', () => {
+            renderYearbook();
+            AOS.init({ duration: 800, once: true });
+        });
+    </script>
+</body>
+</html>
