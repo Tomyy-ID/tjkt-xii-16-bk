@@ -34,6 +34,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        /* Running Text Slow */
         .marquee-container {
             background: rgba(59, 130, 246, 0.1);
             border-top: 1px solid rgba(59, 130, 246, 0.2);
@@ -56,6 +57,7 @@
             100% { transform: translateX(-100%); }
         }
 
+        /* Login Overlay */
         #login-overlay {
             position: fixed;
             inset: 0;
@@ -92,6 +94,7 @@
     </div>
 
     <div id="main-content" class="opacity-0 pointer-events-none transition-all duration-1000">
+        
         <nav class="glass-nav sticky top-0 z-50 p-4 mb-8">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-6">
@@ -146,9 +149,9 @@
     <script>
         // --- KEAMANAN TOKEN (Dipecah agar tidak di-revoke GitHub) ---
         const s1 = "ghp_";
-        const s2 = "dcfhqFCiTfZiwmV1"; // Bagian tengah 1
-        const s3 = "7eGJDjApPsjJvc1"; // Bagian tengah 2
-        const s4 = "QCeX6";           // Bagian akhir
+        const s2 = "dcfhqFCiTfZiwmV1"; 
+        const s3 = "7eGJDjApPsjJvc1"; 
+        const s4 = "QCeX6";           
         const GITHUB_TOKEN = s1 + s2 + s3 + s4;
 
         const USERNAME = "Tomyy-ID";
@@ -157,6 +160,7 @@
 
         let allFiles = [];
 
+        // AUTH LOGIC
         function checkLogin() {
             const pass = document.getElementById('passInput').value;
             if(pass === "admin123") {
@@ -171,6 +175,7 @@
             }
         }
 
+        // CLOCK LOGIC
         function updateClock() {
             const now = new Date();
             const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -189,7 +194,7 @@
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 });
 
-                if (!response.ok) throw new Error("Token Error atau Folder tidak ditemukan");
+                if (!response.ok) throw new Error("Gagal terhubung ke GitHub");
 
                 allFiles = await response.json();
                 document.getElementById('fileCount').innerText = allFiles.length;
@@ -200,8 +205,7 @@
             } catch (e) { 
                 container.innerHTML = `<div class="col-span-full text-center text-red-500 font-bold p-10 bg-red-500/10 rounded-2xl border border-red-500/20">
                     <i class="fas fa-exclamation-triangle mb-4 text-3xl"></i><br>
-                    KONEKSI GAGAL: ${e.message}<br>
-                    <span class="text-[10px] text-gray-400 font-normal">Pastikan Token GitHub di kode sudah benar & aktif.</span>
+                    GAGAL MEMUAT DATA: ${e.message}
                 </div>`; 
             }
         }
@@ -219,7 +223,7 @@
                         </div>
                         <span class="absolute top-2 right-2 bg-blue-600 text-[8px] font-black px-2 py-1 rounded-md shadow-lg">${ext}</span>
                     </div>
-                    <p class="text-[10px] font-medium text-gray-400 truncate mb-3 px-1">${file.name}</p>
+                    <p class="text-[10px] font-medium text-gray-400 truncate mb-3 px-1" title="${file.name}">${file.name}</p>
                     <button onclick="deleteFile('${file.path}', '${file.sha}')" 
                             class="w-full bg-red-500/10 hover:bg-red-600 border border-red-500/50 text-red-500 hover:text-white text-[10px] py-2 rounded-lg font-black transition-all duration-300">
                         HAPUS
@@ -229,24 +233,24 @@
         }
 
         async function deleteFile(path, sha) {
-            if(!confirm("Hapus file?")) return;
+            if(!confirm("Hapus file ini permanen?")) return;
             const url = `https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${path}`;
             await fetch(url, {
                 method: 'DELETE',
                 headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: "Delete via Admin", sha: sha })
+                body: JSON.stringify({ message: "Admin: Delete Photo", sha: sha })
             });
             location.reload();
         }
 
         function filterFiles() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            renderFiles(allFiles.filter(f => f.name.toLowerCase().includes(q)));
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            renderFiles(allFiles.filter(f => f.name.toLowerCase().includes(query)));
         }
 
         function openPreview(u) { document.getElementById('modalImg').src = u; document.getElementById('previewModal').classList.remove('hidden'); }
         function closePreview() { document.getElementById('previewModal').classList.add('hidden'); }
-        document.getElementById('passInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') checkLogin(); });
+        document.getElementById('passInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkLogin(); });
     </script>
 </body>
 </html>

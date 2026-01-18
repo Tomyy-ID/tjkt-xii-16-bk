@@ -19,7 +19,7 @@
             scroll-behavior: smooth; 
         }
 
-        /* Logo Animation & Glow (Sama dengan file lain) */
+        /* Logo Animation & Glow */
         @keyframes floatingLogo {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -223,11 +223,12 @@
         const USERNAME = "Tomyy-ID";
         const REPO_NAME = "tjkt-xii-16-bk";
         const DB_FILE = "students_db.json";
+        // Variabel baru untuk folder kontribusi
+        const CONTRIBUTION_FOLDER = "kontribusi-siswa";
 
         let studentsData = [];
         let currentSha = "";
 
-        // Fungsi Pencarian (Search)
         function searchStudent() {
             const input = document.getElementById('yearbookSearch').value.toLowerCase();
             const cards = document.querySelectorAll('.student-card');
@@ -340,10 +341,11 @@
             if(fileInput.files[0]) {
                 const photoBase64 = await compressImage(fileInput.files[0]);
                 
-                const upload = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/img-siswa/u${Date.now()}.jpg`, {
+                // Alamat folder diubah ke kontribusi-siswa
+                const upload = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${CONTRIBUTION_FOLDER}/u${Date.now()}.jpg`, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` },
-                    body: JSON.stringify({ message: "Update photo", content: photoBase64 })
+                    body: JSON.stringify({ message: "Update photo via contribution", content: photoBase64 })
                 });
                 const res = await upload.json();
                 if(res.content) {
