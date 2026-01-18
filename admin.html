@@ -21,6 +21,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1); 
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         .admin-card:hover {
             transform: translateY(-5px);
@@ -168,6 +169,8 @@
     </div>
 
     <div id="main-content" class="opacity-0 pointer-events-none transition-all duration-1000">
+        <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleFileUpload(event)">
+
         <nav class="glass-nav sticky top-0 z-50 p-4 mb-4">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                 <div>
@@ -197,6 +200,16 @@
                 <button onclick="changeFolder('img-album', this)" class="filter-btn"><i class="fas fa-images mr-1"></i> img-album</button>
                 <button onclick="changeFolder('img-struktur-kelas', this)" class="filter-btn"><i class="fas fa-sitemap mr-1"></i> img-struktur-kelas</button>
                 <button onclick="changeFolder('kontribusi-siswa', this)" class="filter-btn"><i class="fas fa-hand-holding-heart mr-1"></i> kontribusi-siswa</button>
+            </div>
+
+            <div id="upload-progress-container" class="max-w-7xl mx-auto mt-4 hidden">
+                <div class="bg-white/5 border border-white/10 rounded-full h-3 overflow-hidden p-0.5">
+                    <div id="upload-progress-bar" class="bg-blue-500 h-full w-0 transition-all duration-300 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
+                </div>
+                <div class="flex justify-between mt-2 px-2">
+                    <p id="upload-status-text" class="text-[8px] font-black uppercase tracking-widest text-blue-400 animate-pulse">Initializing...</p>
+                    <p id="upload-stats" class="text-[8px] font-black uppercase tracking-widest text-gray-400">0% • 0 KB • 0 KB/s</p>
+                </div>
             </div>
         </nav>
 
@@ -290,6 +303,50 @@
         </footer>
     </div>
 
+    <div id="preview-modal" class="fixed inset-0 z-[10000] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="bg-slate-900 border border-white/10 p-6 rounded-3xl max-w-sm w-full animate__animated animate__zoomIn">
+            <h3 class="text-xs font-black uppercase tracking-widest text-blue-500 mb-4 text-center">Konfirmasi Upload</h3>
+            <div class="aspect-square w-full rounded-2xl overflow-hidden bg-black/50 border border-white/5 mb-4">
+                <img id="img-preview-target" class="w-full h-full object-cover">
+            </div>
+            <p id="preview-filename" class="text-[10px] text-gray-400 text-center truncate mb-2 font-mono"></p>
+            <p id="preview-filesize" class="text-[9px] text-blue-400 text-center mb-6 font-black uppercase"></p>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="cancelUpload()" class="py-3 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black uppercase tracking-widest transition-all">Batal</button>
+                <button id="confirm-upload-btn" class="py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 transition-all">Unggah</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-modal" class="fixed inset-0 z-[10000] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="bg-slate-900 border border-white/10 p-6 rounded-3xl max-w-sm w-full animate__animated animate__fadeInUp">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xs font-black uppercase tracking-widest text-blue-500">File Management</h3>
+                <button onclick="closeEditModal()" class="text-gray-500 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="aspect-video w-full rounded-2xl overflow-hidden bg-black/50 border border-white/5 mb-6">
+                <img id="edit-preview-img" class="w-full h-full object-cover">
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[9px] font-black uppercase text-gray-500 tracking-widest ml-1">Nama File Baru</label>
+                    <input type="text" id="edit-name-input" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 mt-1 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button id="btn-delete-action" class="py-3 rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all">
+                        <i class="fas fa-trash-alt mr-1"></i> Hapus
+                    </button>
+                    <button id="btn-rename-action" class="py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-blue-500/20">
+                        <i class="fas fa-save mr-1"></i> Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const s1 = "ghp_";
         const s2 = "dcfhqFCiTfZiwmV1"; 
@@ -301,6 +358,8 @@
         
         let ACTIVE_FOLDER = "img-siswa"; 
         let allFiles = [];
+        let pendingFile = null;
+        let selectedFileData = null;
 
         window.onload = function() {
             if (sessionStorage.getItem('adminAuth') === 'true') { bypassLogin(); }
@@ -345,11 +404,8 @@
         }
         setInterval(updateClock, 1000); updateClock();
 
-        // FITUR LOKASI HYBRID (GPS + IP FALLBACK)
         function getLocation() {
             const cityEl = document.getElementById('full-city');
-            
-            // Coba akses GPS Browser terlebih dahulu
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     async (pos) => {
@@ -358,34 +414,21 @@
                             const data = await res.json();
                             const cityName = data.address.city || data.address.town || data.address.village || "IDN";
                             cityEl.innerText = cityName.toUpperCase();
-                        } catch(e) { 
-                            getIPFallback(); // Jika API Reverse Geocode gagal
-                        }
+                        } catch(e) { getIPFallback(); }
                     },
-                    () => { 
-                        getIPFallback(); // Jika user menolak izin GPS atau terjadi error
-                    },
+                    () => { getIPFallback(); },
                     { timeout: 5000 }
                 );
-            } else {
-                getIPFallback(); // Jika browser tidak mendukung Geolocation
-            }
+            } else { getIPFallback(); }
         }
 
-        // Fungsi Cadangan menggunakan IP Address (Tidak perlu izin user)
         async function getIPFallback() {
             const cityEl = document.getElementById('full-city');
             try {
                 const res = await fetch('https://ipapi.co/json/');
                 const data = await res.json();
-                if (data.city) {
-                    cityEl.innerText = data.city.toUpperCase();
-                } else {
-                    cityEl.innerText = "INDONESIA";
-                }
-            } catch (e) {
-                cityEl.innerText = "INDONESIA";
-            }
+                cityEl.innerText = data.city ? data.city.toUpperCase() : "INDONESIA";
+            } catch (e) { cityEl.innerText = "INDONESIA"; }
         }
 
         async function loadAdminFiles() {
@@ -396,12 +439,9 @@
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 });
                 allFiles = await response.json();
-                
-                // OTOMATIS DETEKSI KATEGORI FILE
                 const exts = allFiles.map(f => f.name.split('.').pop().toUpperCase());
                 const uniqueExts = [...new Set(exts)];
                 document.getElementById('folder-category').innerText = uniqueExts.join(', ') || "NONE";
-                
                 document.getElementById('folder-total').innerText = `${allFiles.length} ITEM`;
                 executeFilter();
             } catch (e) { container.innerHTML = "Gagal memuat file."; }
@@ -412,12 +452,11 @@
             const filtered = allFiles.filter(file => file.name.toLowerCase().includes(query));
             const container = document.getElementById('admin-list');
             container.innerHTML = filtered.map(file => `
-                <div class="admin-card p-3 rounded-2xl animate__animated animate__fadeInUp">
+                <div onclick='openEditModal(${JSON.stringify(file)})' class="admin-card p-3 rounded-2xl animate__animated animate__fadeInUp">
                     <div class="h-32 bg-black/20 rounded-xl mb-3 flex items-center justify-center overflow-hidden">
                         <img src="${file.download_url}" class="w-full h-full object-cover">
                     </div>
-                    <p class="text-[10px] font-bold truncate">${file.name}</p>
-                    <button onclick="deleteFile('${file.path}', '${file.sha}')" class="w-full mt-2 py-2 bg-red-500/10 text-red-500 text-[9px] font-black rounded-lg hover:bg-red-500">HAPUS</button>
+                    <p class="text-[10px] font-black truncate text-center">${file.name}</p>
                 </div>`).join('');
         }
 
@@ -426,20 +465,150 @@
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById('active-folder-name').innerText = path;
+            document.getElementById('marquee-active-folder').innerText = path;
             loadAdminFiles();
         }
 
-        async function deleteFile(path, sha) {
-            if(!confirm("Hapus file?")) return;
-            await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${path}`, {
+        // --- UPLOAD LOGIC WITH STATS ---
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        function openUploadModal() { document.getElementById('fileInput').click(); }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            pendingFile = file;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('img-preview-target').src = e.target.result;
+                document.getElementById('preview-filename').innerText = file.name;
+                document.getElementById('preview-filesize').innerText = `SIZE: ${formatBytes(file.size)}`;
+                document.getElementById('preview-modal').classList.replace('hidden', 'flex');
+            };
+            reader.readAsDataURL(file);
+
+            document.getElementById('confirm-upload-btn').onclick = () => {
+                document.getElementById('preview-modal').classList.replace('flex', 'hidden');
+                processFinalUpload(pendingFile);
+            };
+        }
+
+        function cancelUpload() {
+            document.getElementById('preview-modal').classList.replace('flex', 'hidden');
+            pendingFile = null;
+            document.getElementById('fileInput').value = '';
+        }
+
+        async function processFinalUpload(file) {
+            const container = document.getElementById('upload-progress-container');
+            const bar = document.getElementById('upload-progress-bar');
+            const status = document.getElementById('upload-status-text');
+            const stats = document.getElementById('upload-stats');
+            
+            container.classList.remove('hidden');
+            let startTime = Date.now();
+
+            const reader = new FileReader();
+            reader.onload = async () => {
+                const base64Content = reader.result.split(',')[1];
+                const now = new Date();
+                const ts = now.getFullYear() + (now.getMonth()+1).toString().padStart(2,'0') + now.getDate().toString().padStart(2,'0') + "-" + now.getHours().toString().padStart(2,'0') + now.getMinutes().toString().padStart(2,'0') + now.getSeconds().toString().padStart(2,'0');
+                const ext = file.name.split('.').pop();
+                const newName = `${ACTIVE_FOLDER}-${ts}.${ext}`;
+
+                status.innerText = "Uploading to GitHub...";
+                bar.style.width = "40%";
+                
+                // Simulate Speed & Stats
+                let duration = (Date.now() - startTime) / 1000;
+                let speed = (file.size / 1024) / (duration + 0.5); // KB/s
+                stats.innerText = `40% • ${formatBytes(file.size)} • ${speed.toFixed(1)} KB/s`;
+
+                try {
+                    const response = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${ACTIVE_FOLDER}/${newName}`, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: `Admin Upload: ${newName}`, content: base64Content })
+                    });
+
+                    if (response.ok) {
+                        bar.style.width = "100%";
+                        status.innerText = "Upload Complete!";
+                        stats.innerText = `100% • ${formatBytes(file.size)} • Done`;
+                        setTimeout(() => {
+                            container.classList.add('hidden');
+                            loadAdminFiles();
+                        }, 1000);
+                    }
+                } catch (e) { alert("Upload Failed!"); container.classList.add('hidden'); }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // --- EDIT & DELETE LOGIC ---
+        function openEditModal(file) {
+            selectedFileData = file;
+            document.getElementById('edit-preview-img').src = file.download_url;
+            document.getElementById('edit-name-input').value = file.name;
+            document.getElementById('edit-modal').classList.replace('hidden', 'flex');
+            
+            document.getElementById('btn-delete-action').onclick = () => deleteFileAction();
+            document.getElementById('btn-rename-action').onclick = () => renameFileAction();
+        }
+
+        function closeEditModal() {
+            document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+        }
+
+        async function deleteFileAction() {
+            if(!confirm("Hapus file ini secara permanen?")) return;
+            closeEditModal();
+            const res = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${selectedFileData.path}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: "Admin Delete", sha: sha })
+                body: JSON.stringify({ message: "Admin Delete", sha: selectedFileData.sha })
             });
-            loadAdminFiles();
+            if(res.ok) loadAdminFiles();
+            else alert("Gagal menghapus.");
         }
 
-        function openUploadModal() { alert("Fungsi upload sedang disiapkan."); }
+        async function renameFileAction() {
+            const newName = document.getElementById('edit-name-input').value;
+            if(!newName || newName === selectedFileData.name) return;
+            
+            closeEditModal();
+            // Rename di GitHub = Ambil konten -> Simpan nama baru -> Hapus nama lama
+            try {
+                const getFile = await fetch(selectedFileData.url, { headers: { 'Authorization': `token ${GITHUB_TOKEN}` } });
+                const fileData = await getFile.json();
+                
+                // 1. Create new file
+                const createRes = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${ACTIVE_FOLDER}/${newName}`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: `Rename to ${newName}`, content: fileData.content })
+                });
+
+                if(createRes.ok) {
+                    // 2. Delete old file
+                    await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${selectedFileData.path}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: "Delete old after rename", sha: selectedFileData.sha })
+                    });
+                    loadAdminFiles();
+                }
+            } catch(e) { alert("Gagal mengubah nama."); }
+        }
+
         function forgotPassword() { alert("Hubungi Tomyy-ID."); }
         document.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkLogin(); });
     </script>
