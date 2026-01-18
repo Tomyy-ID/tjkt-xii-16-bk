@@ -19,6 +19,19 @@
             scroll-behavior: smooth; 
         }
 
+        /* Logo Animation & Glow (Sama dengan file lain) */
+        @keyframes floatingLogo {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-floating {
+            animation: floatingLogo 3s ease-in-out infinite;
+            display: inline-block;
+        }
+        .logo-glow {
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
@@ -28,7 +41,7 @@
 
         .glass-card:hover {
             border-color: #3b82f6;
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             background: rgba(255, 255, 255, 0.07);
         }
 
@@ -46,8 +59,8 @@
 
         .quote-style {
             position: relative;
-            padding: 20px;
-            min-height: 80px;
+            padding: 15px;
+            min-height: 60px;
         }
 
         .quote-style::before {
@@ -55,7 +68,7 @@
             position: absolute;
             top: -10px;
             left: 0;
-            font-size: 60px;
+            font-size: 40px;
             color: rgba(59, 130, 246, 0.2);
             font-family: serif;
         }
@@ -73,11 +86,11 @@
         }
 
         .name-shadow {
-            text-shadow: 2px 2px 12px rgba(0,0,0,1), 0px 0px 25px rgba(0,0,0,0.9);
+            text-shadow: 2px 2px 10px rgba(0,0,0,1);
         }
         
         .bottom-gradient {
-            background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%);
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -87,61 +100,122 @@
 <body class="overflow-x-hidden">
 
     <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
-        <div class="text-xl md:text-2xl font-black tracking-tighter uppercase">
+        <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0 uppercase">
             TJKT <span class="text-blue-500">XII-16</span>
         </div>
-        <div class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
-            <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Beranda</a>
-            <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Siswa</a>
-            <a href="yearbook.html" class="nav-link nav-active text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap">Yearbook</a>
-            <a href="galeri.html" class="px-4 py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 transition text-[10px] md:text-sm font-black italic uppercase">Album</a>
+        <div id="nav-container" class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
+            <a href="index.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
+            <a href="index.html#struktur" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Struktur</a>
+            <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
+            <a href="nilai-TKA.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Nilai TKA</a>
+            <a href="yearbook.html" class="nav-link nav-active hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Yearbook</a>
+            <a href="galeri.html" class="nav-link px-3 py-1 md:px-4 md:py-1 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:text-white transition text-[9px] md:text-sm font-black italic whitespace-nowrap shrink-0">
+                <i class="fas fa-images mr-1"></i> ALBUM
+            </a>
         </div>
     </nav>
 
-    <header class="py-20 px-6 text-center" data-aos="zoom-in">
-        <h1 class="text-5xl md:text-8xl font-black gradient-text italic tracking-tighter uppercase">Yearbook</h1>
-        <p class="text-gray-400 mt-4 max-w-2xl mx-auto text-sm md:text-lg font-medium italic">
-            "Klik pada kartu siswa untuk mengisi nama, quotes, atau mengganti foto profil."
+    <div class="bg-black/30 border-b border-white/5 py-2">
+        <marquee scrollamount="5" class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400 italic">
+            Selamat Datang di Digital Yearbook XII-16 TJKT • Abadikan Momen Terbaik • Angkatan 2026 Solid Selamanya • Klik Kartu Siswa Untuk Mengubah Profil Anda •
+        </marquee>
+    </div>
+
+    <header class="py-16 px-6 text-center" data-aos="zoom-in">
+        <h1 class="text-4xl md:text-7xl font-black gradient-text italic tracking-tighter uppercase">Yearbook</h1>
+        
+        <div class="max-w-md mx-auto mt-8 relative px-4">
+            <input type="text" id="yearbookSearch" onkeyup="searchStudent()" placeholder="Cari nama siswa..." 
+                class="w-full bg-white/5 border border-white/10 px-6 py-3 rounded-full focus:border-blue-500 outline-none transition text-sm text-center italic font-medium">
+            <i class="fas fa-search absolute right-8 top-1/2 -translate-y-1/2 text-blue-500/50"></i>
+        </div>
+
+        <p class="text-gray-400 mt-6 max-w-2xl mx-auto text-xs md:text-sm font-medium italic">
+            Klik kartu untuk mengedit Nama, Foto, atau Quotes.
         </p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 pb-24">
-        <div id="yearbook-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <main class="max-w-[1400px] mx-auto px-6 pb-24">
+        <div id="yearbook-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <div class="col-span-full text-center py-20">
-                <div class="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                <p class="mt-4 text-gray-500 font-bold uppercase tracking-widest">Sinkronisasi 36 Slot Siswa...</p>
+                <div class="inline-block w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
         </div>
     </main>
 
     <div id="editModal" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
-        <div class="glass-card w-full max-w-lg p-8 rounded-[3rem] border-blue-500/50">
-            <h2 class="text-2xl font-black italic uppercase mb-6 text-blue-400">Update Profile</h2>
+        <div class="glass-card w-full max-w-lg p-8 rounded-[2.5rem] border-blue-500/50">
+            <h2 class="text-xl font-black italic uppercase mb-6 text-blue-400">Update Profile</h2>
             <div class="space-y-4">
                 <input type="hidden" id="editIndex">
                 <div>
-                    <label class="text-[10px] font-bold uppercase text-gray-400 ml-2">Nama Siswa</label>
-                    <input type="text" id="editName" placeholder="Masukkan Nama..." class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl focus:border-blue-500 outline-none transition">
+                    <label class="text-[9px] font-bold uppercase text-gray-500 ml-2">Nama Lengkap</label>
+                    <input type="text" id="editName" class="w-full bg-white/5 border border-white/10 p-3 rounded-xl focus:border-blue-500 outline-none transition text-sm">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold uppercase text-gray-400 ml-2">Quotes Kenangan</label>
-                    <textarea id="editQuote" placeholder="Tulis quotes di sini..." class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl focus:border-blue-500 outline-none h-28 resize-none transition"></textarea>
+                    <label class="text-[9px] font-bold uppercase text-gray-500 ml-2">Quotes Kenangan</label>
+                    <textarea id="editQuote" class="w-full bg-white/5 border border-white/10 p-3 rounded-xl focus:border-blue-500 outline-none h-24 resize-none transition text-sm"></textarea>
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold uppercase text-gray-400 ml-2">Foto Profil</label>
+                    <label class="text-[9px] font-bold uppercase text-gray-500 ml-2">Ganti Foto</label>
                     <input type="file" id="editPhoto" accept="image/*" class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-600 file:text-white cursor-pointer">
                 </div>
                 <div class="flex gap-3 pt-4">
-                    <button onclick="closeModal()" class="flex-1 px-6 py-3 rounded-full font-bold uppercase text-xs border border-white/10">Batal</button>
-                    <button onclick="saveChanges()" id="btnSave" class="flex-1 px-6 py-3 rounded-full font-bold uppercase text-xs bg-blue-600">Simpan Data</button>
+                    <button onclick="closeModal()" class="flex-1 px-4 py-2 rounded-full font-bold uppercase text-[10px] border border-white/10">Batal</button>
+                    <button onclick="saveChanges()" id="btnSave" class="flex-1 px-4 py-2 rounded-full font-bold uppercase text-[10px] bg-blue-600">Simpan</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-black/50 py-10 border-t border-white/5 text-center">
-        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">&copy; 2026 XII-16 TJKT. STAY PRESTIGE.</p>
+    <footer class="bg-black/50 py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
+                <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-pink-500 group-hover:border-pink-500/50">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
+                        <p class="text-xs font-bold text-white">@12enambelas_</p>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group lg:justify-center">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-purple-400 group-hover:border-purple-400/50">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
+                        <p class="text-xs font-bold text-white">@smks.bksimo</p>
+                    </div>
+                </a>
+                <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
+                        <i class="fas fa-globe text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
+                        <p class="text-xs font-bold text-white">SMK BK SIMO</p>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group lg:justify-end">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
+                        <i class="fas fa-code text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
+                        <p class="text-xs font-bold text-white italic">@tomyeka_rmx</p>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center pt-8 border-t border-white/5">
+                <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+                    &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
+                </p>
+            </div>
+        </div>
     </footer>
+
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -153,32 +227,41 @@
         let studentsData = [];
         let currentSha = "";
 
+        // Fungsi Pencarian (Search)
+        function searchStudent() {
+            const input = document.getElementById('yearbookSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.student-card');
+            
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name').toLowerCase();
+                if (name.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
         async function init() {
             try {
                 const response = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${DB_FILE}`, {
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 });
-                
                 if(response.ok) {
                     const data = await response.json();
                     currentSha = data.sha;
                     studentsData = JSON.parse(atob(data.content));
                 }
-            } catch (e) { console.log("Init database baru."); }
+            } catch (e) { console.log("Init..."); }
 
-            // FORCE 36 SLOTS
             const finalData = [];
             for (let i = 0; i < 36; i++) {
-                if (studentsData[i]) {
-                    finalData.push(studentsData[i]);
-                } else {
-                    finalData.push({
-                        name: `Nama Siswa ${i + 1}`,
-                        quote: "", // DIKOSONGKAN AGAR BISA DIEDIT
-                        photo: `img-siswa/${i + 1}.jpg`,
-                        updateInfo: "Belum Diupdate"
-                    });
-                }
+                finalData.push(studentsData[i] || {
+                    name: `Siswa ${i + 1}`,
+                    quote: "",
+                    photo: `img-siswa/${i + 1}.jpg`,
+                    updateInfo: "Slot Kosong"
+                });
             }
             studentsData = finalData;
             render();
@@ -187,22 +270,22 @@
         function render() {
             const container = document.getElementById('yearbook-container');
             container.innerHTML = studentsData.map((s, i) => `
-                <div class="glass-card rounded-[2.5rem] overflow-hidden group cursor-pointer relative" 
-                     data-aos="fade-up" onclick="openEdit(${i})">
+                <div class="student-card glass-card rounded-[2rem] overflow-hidden group cursor-pointer relative" 
+                     data-name="${s.name}"
+                     data-aos="fade-up" data-aos-delay="${(i % 4) * 50}" onclick="openEdit(${i})">
                     
                     <div class="relative overflow-hidden aspect-square">
-                        <img src="${s.photo}" onerror="this.src='https://via.placeholder.com/400x400?text=FOTO+${i+1}'" class="student-photo w-full h-full">
-                        
-                        <div class="absolute inset-0 bottom-gradient flex flex-col justify-end p-8">
-                            <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-white name-shadow leading-none">${s.name}</h3>
-                            <p class="text-blue-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-2 opacity-80">${s.updateInfo}</p>
+                        <img src="${s.photo}" onerror="this.src='https://via.placeholder.com/400?text=Siswa+${i+1}'" class="student-photo w-full h-full">
+                        <div class="absolute inset-0 bottom-gradient flex flex-col justify-end p-5">
+                            <h3 class="text-lg md:text-xl font-black italic uppercase tracking-tighter text-white name-shadow leading-tight">${s.name}</h3>
+                            <p class="text-blue-400 text-[8px] font-bold uppercase tracking-widest mt-1 opacity-70">${s.updateInfo}</p>
                         </div>
                     </div>
 
-                    <div class="p-8">
+                    <div class="p-5">
                         <div class="quote-style">
-                            <p class="text-gray-300 italic text-sm leading-relaxed">
-                                ${s.quote ? `"${s.quote}"` : `<span class="text-gray-600">[ Quotes Masih Kosong ]</span>`}
+                            <p class="text-gray-400 italic text-[11px] leading-relaxed">
+                                ${s.quote ? `"${s.quote}"` : `[ Quotes Kosong ]`}
                             </p>
                         </div>
                     </div>
@@ -219,26 +302,53 @@
 
         function closeModal() { document.getElementById('editModal').classList.add('hidden'); }
 
+        async function compressImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 800; 
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.7).split(',')[1]);
+                    };
+                };
+            });
+        }
+
         async function saveChanges() {
             const i = document.getElementById('editIndex').value;
             const btn = document.getElementById('btnSave');
-            btn.disabled = true; btn.innerText = "SINKRONISASI...";
+            btn.disabled = true; 
+            btn.innerHTML = '<i class="fas fa-spinner animate-spin"></i>';
 
             const fileInput = document.getElementById('editPhoto');
             if(fileInput.files[0]) {
-                const reader = new FileReader();
-                const photoBase64 = await new Promise(r => {
-                    reader.onload = () => r(reader.result.split(',')[1]);
-                    reader.readAsDataURL(fileInput.files[0]);
-                });
+                const photoBase64 = await compressImage(fileInput.files[0]);
                 
-                const upload = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/img-siswa/upd_${Date.now()}.jpg`, {
+                const upload = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/img-siswa/u${Date.now()}.jpg`, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` },
-                    body: JSON.stringify({ message: "upload photo", content: photoBase64 })
+                    body: JSON.stringify({ message: "Update photo", content: photoBase64 })
                 });
-                const resUpload = await upload.json();
-                studentsData[i].photo = resUpload.content.download_url;
+                const res = await upload.json();
+                if(res.content) {
+                    studentsData[i].photo = res.content.download_url;
+                }
             }
 
             studentsData[i].name = document.getElementById('editName').value;
@@ -249,15 +359,14 @@
             await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${DB_FILE}`, {
                 method: 'PUT',
                 headers: { 'Authorization': `token ${GITHUB_TOKEN}` },
-                body: JSON.stringify({ message: "update yearbook", content: content, sha: currentSha })
+                body: JSON.stringify({ message: "Update student data", content: content, sha: currentSha })
             });
-
             location.reload();
         }
 
         window.addEventListener('load', () => {
             init();
-            AOS.init({ duration: 800, once: true });
+            AOS.init({ duration: 600, once: true });
         });
     </script>
 </body>

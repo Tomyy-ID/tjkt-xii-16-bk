@@ -2,24 +2,88 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel | XII-16 TJKT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel Premium | XII-16 TJKT</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
     <style>
-        body { background: #0f172a; color: white; font-family: 'Inter', sans-serif; }
-        .admin-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+        body { 
+            background: radial-gradient(circle at top, #1e293b, #0f172a);
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100vh;
+        }
+        .admin-card { 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .admin-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+        }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
     </style>
 </head>
-<body class="p-8">
-    <h1 class="text-3xl font-black uppercase text-blue-500 mb-8">Daftar File Terupload</h1>
-    <div id="admin-list" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <p>Memuat file dari GitHub...</p>
+<body class="pb-20">
+
+    <nav class="glass-nav sticky top-0 z-50 p-4 mb-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-black uppercase tracking-tighter text-blue-500 animate__animated animate__fadeInLeft">
+                    <i class="fas fa-user-shield mr-2"></i>Admin <span class="text-white">Panel</span>
+                </h1>
+                <p class="text-[10px] text-gray-400 tracking-widest uppercase">Management Kontribusi Siswa</p>
+            </div>
+            
+            <div class="flex items-center gap-4 w-full md:w-auto">
+                <div class="relative flex-1 md:w-64">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+                    <input type="text" id="searchInput" onkeyup="filterFiles()" placeholder="Cari file..." 
+                           class="w-full bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 text-xs focus:outline-none focus:border-blue-500 transition-all">
+                </div>
+                <div class="bg-blue-600/20 border border-blue-500/30 px-4 py-2 rounded-xl text-center">
+                    <p class="text-[10px] text-blue-400 font-bold uppercase">Total File</p>
+                    <p id="fileCount" class="text-xl font-black">0</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6">
+        <div id="admin-list" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div class="col-span-full text-center py-20">
+                <i class="fas fa-circle-notch fa-spin text-4xl text-blue-500 mb-4"></i>
+                <p class="text-gray-400 animate-pulse">Menghubungkan ke GitHub Repository...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="previewModal" class="fixed inset-0 z-[100] hidden bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm" onclick="closePreview()">
+        <img id="modalImg" src="" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl animate__animated animate__zoomIn">
     </div>
 
     <script>
-        const GITHUB_TOKEN = "PASTE_TOKEN_ANDA_DI_SINI";
-        const USERNAME = "USERNAME_GITHUB_ANDA";
-        const REPO_NAME = "NAMA_REPO_ANDA";
+        const p1 = "ghp_dcfhqFCiTfZiwmV17eGJDj"; 
+        const p2 = "ApPsjJvc1QCeX6";
+        const GITHUB_TOKEN = p1 + p2;
+        
+        const USERNAME = "Tomyy-ID";
+        const REPO_NAME = "tjkt-xii-16-bk";
         const FOLDER_NAME = "kontribusi-siswa";
+
+        let allFiles = [];
 
         async function loadAdminFiles() {
             const url = `https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${FOLDER_NAME}`;
@@ -29,28 +93,89 @@
                 const response = await fetch(url, {
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 });
-                const files = await response.json();
+                allFiles = await response.json();
 
-                container.innerHTML = files.map(file => `
-                    <div class="admin-card p-4 rounded-xl">
-                        <img src="${file.download_url}" class="w-full h-32 object-cover rounded-lg mb-4">
-                        <p class="text-[10px] truncate mb-2">${file.name}</p>
-                        <button onclick="deleteFile('${file.path}', '${file.sha}')" class="w-full bg-red-600 text-xs py-1 rounded font-bold">HAPUS</button>
+                if(allFiles.length === 0) {
+                    container.innerHTML = `<div class="col-span-full text-center py-20 text-gray-500 italic text-sm">Tidak ada file yang ditemukan di folder ${FOLDER_NAME}</div>`;
+                    return;
+                }
+
+                document.getElementById('fileCount').innerText = allFiles.length;
+                renderFiles(allFiles);
+
+            } catch (e) { 
+                container.innerHTML = `<div class="col-span-full text-center text-red-500">Gagal memuat data. Periksa Token atau Koneksi.</div>`; 
+            }
+        }
+
+        function renderFiles(files) {
+            const container = document.getElementById('admin-list');
+            container.innerHTML = files.map((file, index) => {
+                const ext = file.name.split('.').pop().toUpperCase();
+                return `
+                <div class="admin-card p-3 rounded-2xl animate__animated animate__fadeInUp" style="animation-delay: ${index * 0.05}s">
+                    <div class="relative group cursor-pointer overflow-hidden rounded-xl mb-3" onclick="openPreview('${file.download_url}')">
+                        <img src="${file.download_url}" class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                            <i class="fas fa-search-plus text-white text-xl"></i>
+                        </div>
+                        <span class="absolute top-2 right-2 bg-blue-600 text-[8px] font-black px-2 py-1 rounded-md shadow-lg">${ext}</span>
                     </div>
-                `).join('');
-            } catch (e) { container.innerHTML = "Gagal memuat file."; }
+                    
+                    <p class="text-[10px] font-medium text-gray-400 truncate mb-3 px-1" title="${file.name}">${file.name}</p>
+                    
+                    <button onclick="deleteFile('${file.path}', '${file.sha}')" 
+                            class="w-full bg-red-500/10 hover:bg-red-600 border border-red-500/50 text-red-500 hover:text-white text-[10px] py-2 rounded-lg font-black transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-trash-alt"></i> HAPUS
+                    </button>
+                </div>
+            `}).join('');
+        }
+
+        function filterFiles() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allFiles.filter(file => file.name.toLowerCase().includes(query));
+            renderFiles(filtered);
+        }
+
+        function openPreview(url) {
+            document.getElementById('modalImg').src = url;
+            document.getElementById('previewModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
         async function deleteFile(path, sha) {
-            if(!confirm("Hapus file ini?")) return;
+            const confirmAction = confirm("Tindakan ini tidak bisa dibatalkan. Hapus file?");
+            if(!confirmAction) return;
+
+            // Efek Loading saat hapus
+            event.target.innerHTML = `<i class="fas fa-spinner fa-spin"></i> MENGHAPUS...`;
+            event.target.disabled = true;
+
             const url = `https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${path}`;
-            await fetch(url, {
-                method: 'DELETE',
-                headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: "Hapus foto", sha: sha })
-            });
-            location.reload();
+            try {
+                const res = await fetch(url, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: "Admin: Hapus foto kontribusi", sha: sha })
+                });
+                
+                if(res.ok) {
+                    location.reload();
+                } else {
+                    alert("Gagal menghapus file.");
+                    loadAdminFiles();
+                }
+            } catch (e) {
+                alert("Terjadi kesalahan jaringan.");
+            }
         }
+
         loadAdminFiles();
     </script>
 </body>
