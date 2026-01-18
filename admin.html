@@ -2,141 +2,56 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel | XII-16 TJKT</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
     <style>
-        body { 
-            background: #0f172a; 
-            color: white; 
-            font-family: 'Inter', sans-serif; 
-        }
-        .admin-card { 
-            background: rgba(255, 255, 255, 0.03); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        .admin-card:hover {
-            border-color: #3b82f6;
-            background: rgba(255, 255, 255, 0.06);
-        }
+        body { background: #0f172a; color: white; font-family: 'Inter', sans-serif; }
+        .admin-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
-<body class="p-6 md:p-12">
-    <div class="max-w-7xl mx-auto">
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
-            <div>
-                <h1 class="text-4xl font-black italic uppercase tracking-tighter text-blue-500">Admin Panel</h1>
-                <p class="text-gray-400 font-medium uppercase tracking-widest text-xs mt-1">Manajemen Kontribusi File XII-16 TJKT</p>
-            </div>
-            <div class="flex gap-3">
-                <button onclick="window.location.reload()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-bold text-xs uppercase transition">
-                    <i class="fas fa-sync-alt mr-2"></i> Refresh
-                </button>
-                <a href="yearbook.html" class="border border-white/20 hover:bg-white/10 text-white px-6 py-2 rounded-full font-bold text-xs uppercase transition">
-                    Kembali ke Web
-                </a>
-            </div>
-        </header>
-
-        <div class="mb-8 flex items-center justify-between border-b border-white/5 pb-4">
-            <div id="adminStatus" class="text-sm font-bold uppercase tracking-widest text-blue-400">
-                Menghubungkan ke Firebase...
-            </div>
-        </div>
-
-        <div id="fileList" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            </div>
+<body class="p-8">
+    <h1 class="text-3xl font-black uppercase text-blue-500 mb-8">Daftar File Terupload</h1>
+    <div id="admin-list" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <p>Memuat file dari GitHub...</p>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getStorage, ref, listAll, getDownloadURL, deleteObject, getMetadata } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+    <script>
+        const GITHUB_TOKEN = "PASTE_TOKEN_ANDA_DI_SINI";
+        const USERNAME = "USERNAME_GITHUB_ANDA";
+        const REPO_NAME = "NAMA_REPO_ANDA";
+        const FOLDER_NAME = "kontribusi-siswa";
 
-        // CONFIG FIREBASE (Sesuai milik Anda)
-        const firebaseConfig = {
-            apiKey: "AIzaSyALlRJ6cB6Tu7pvWEvIsAhc98thefPBgJw",
-            authDomain: "yearbook-xii-16-tkj-bk.firebaseapp.com",
-            projectId: "yearbook-xii-16-tkj-bk",
-            storageBucket: "yearbook-xii-16-tkj-bk.firebasestorage.app",
-            messagingSenderId: "121767748414",
-            appId: "1:121767748414:web:8211e9958bd8945b17426f",
-            measurementId: "G-YZQX5VGV0T"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const storage = getStorage(app);
-
-        async function loadFiles() {
-            const listRef = ref(storage, 'yearbook_files/');
-            const container = document.getElementById('fileList');
-            const status = document.getElementById('adminStatus');
+        async function loadAdminFiles() {
+            const url = `https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${FOLDER_NAME}`;
+            const container = document.getElementById('admin-list');
 
             try {
-                const res = await listAll(listRef);
-                container.innerHTML = '';
-                
-                if (res.items.length === 0) {
-                    status.innerText = "Belum ada file yang dikirim oleh siswa.";
-                    return;
-                }
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                const files = await response.json();
 
-                status.innerText = `Total: ${res.items.length} file ditemukan di folder.`;
-
-                for (const itemRef of res.items) {
-                    const url = await getDownloadURL(itemRef);
-                    const metadata = await getMetadata(itemRef);
-                    
-                    const isVideo = metadata.contentType.startsWith('video/');
-                    const isImage = metadata.contentType.startsWith('image/');
-
-                    const card = document.createElement('div');
-                    card.className = "admin-card p-4 rounded-3xl flex flex-col gap-4";
-                    card.innerHTML = `
-                        <div class="relative aspect-square overflow-hidden rounded-2xl bg-black flex items-center justify-center">
-                            ${isImage ? `<img src="${url}" class="w-full h-full object-cover">` : ''}
-                            ${isVideo ? `<video src="${url}" class="w-full h-full object-cover"></video><div class="absolute inset-0 flex items-center justify-center bg-black/40"><i class="fas fa-play text-white"></i></div>` : ''}
-                            ${!isImage && !isVideo ? `<i class="fas fa-file text-4xl text-gray-600"></i>` : ''}
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-[10px] text-gray-500 font-mono truncate mb-3">${itemRef.name}</p>
-                            <div class="flex gap-2">
-                                <a href="${url}" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition">
-                                    Buka
-                                </a>
-                                <button onclick="hapusFile('${itemRef.fullPath}')" class="flex-1 bg-red-600/20 text-red-500 hover:bg-red-600 hover:text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition">
-                                    Hapus
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                }
-            } catch (error) {
-                status.innerText = "Error: Pastikan Firebase Storage Rules sudah diset ke 'public'.";
-                console.error(error);
-            }
+                container.innerHTML = files.map(file => `
+                    <div class="admin-card p-4 rounded-xl">
+                        <img src="${file.download_url}" class="w-full h-32 object-cover rounded-lg mb-4">
+                        <p class="text-[10px] truncate mb-2">${file.name}</p>
+                        <button onclick="deleteFile('${file.path}', '${file.sha}')" class="w-full bg-red-600 text-xs py-1 rounded font-bold">HAPUS</button>
+                    </div>
+                `).join('');
+            } catch (e) { container.innerHTML = "Gagal memuat file."; }
         }
 
-        // Fungsi Hapus Global
-        window.hapusFile = async (path) => {
-            if(confirm("Hapus file ini secara permanen dari folder?")) {
-                const fileRef = ref(storage, path);
-                try {
-                    await deleteObject(fileRef);
-                    alert("File berhasil dihapus!");
-                    loadFiles();
-                } catch (error) {
-                    alert("Gagal menghapus: " + error.message);
-                }
-            }
+        async function deleteFile(path, sha) {
+            if(!confirm("Hapus file ini?")) return;
+            const url = `https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${path}`;
+            await fetch(url, {
+                method: 'DELETE',
+                headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: "Hapus foto", sha: sha })
+            });
+            location.reload();
         }
-
-        // Load saat halaman siap
-        window.onload = loadFiles;
+        loadAdminFiles();
     </script>
 </body>
 </html>

@@ -94,29 +94,29 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-6 pb-24">
+        
         <div class="glass-card p-8 rounded-[2.5rem] mb-12 border-dashed border-2 border-blue-500/30" data-aos="fade-up">
-            <h2 class="text-2xl font-black italic uppercase mb-4 text-blue-400">Kontribusi File Kenangan</h2>
-            
+            <h2 class="text-2xl font-black italic uppercase mb-4 text-blue-400">Kontribusi Kenangan</h2>
             <div class="flex flex-col gap-6">
-                <input type="file" id="fileUpload" accept="image/*,video/*" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                <input type="file" id="fileInput" accept="image/*,video/*" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
                 
-                <div id="previewContainer" class="hidden">
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Preview:</p>
-                    <div class="relative w-40 h-40 rounded-2xl overflow-hidden border-2 border-blue-500">
-                        <img id="imagePreview" src="#" class="w-full h-full object-cover hidden">
-                        <video id="videoPreview" class="w-full h-full object-cover hidden" controls></video>
-                    </div>
+                <div id="previewArea" class="hidden w-32 h-32 rounded-2xl overflow-hidden border-2 border-blue-500">
+                    <img id="imgPreview" class="w-full h-full object-cover">
                 </div>
 
-                <button id="btnUpload" class="bg-white text-black px-8 py-2 rounded-full font-black uppercase italic hover:bg-blue-500 hover:text-white transition w-full md:w-max">
-                    Kirim File
+                <button onclick="uploadToGithub()" id="btnUpload" class="bg-white text-black px-8 py-2 rounded-full font-black uppercase italic hover:bg-blue-500 hover:text-white transition w-full md:w-max">
+                    Kirim ke Repositori
                 </button>
+                <p id="uploadStatus" class="text-xs font-bold text-gray-500 uppercase tracking-widest"></p>
             </div>
-            <div id="uploadStatus" class="mt-4 text-xs font-bold uppercase tracking-widest text-gray-500"></div>
         </div>
 
-        <div id="yearbook-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="yearbook-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+
+        <h2 class="text-3xl font-black italic uppercase text-blue-500 mt-20 mb-10 text-center" data-aos="fade-up">Foto Kenangan Terbaru</h2>
+        <div id="gallery-auto" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
+
     </main>
 
     <footer class="bg-black/50 py-10 border-t border-white/5 text-center">
@@ -125,82 +125,15 @@
 
     <audio id="clickSound" src="sfx-click.mp3" preload="auto"></audio>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyALlRJ6cB6Tu7pvWEvIsAhc98thefPBgJw",
-            authDomain: "yearbook-xii-16-tkj-bk.firebaseapp.com",
-            projectId: "yearbook-xii-16-tkj-bk",
-            storageBucket: "yearbook-xii-16-tkj-bk.firebasestorage.app",
-            messagingSenderId: "121767748414",
-            appId: "1:121767748414:web:8211e9958bd8945b17426f",
-            measurementId: "G-YZQX5VGV0T"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const storage = getStorage(app);
-
-        // Preview Logic
-        const fileInput = document.getElementById('fileUpload');
-        fileInput.addEventListener('change', function() {
-            const file = this.files[0];
-            const previewContainer = document.getElementById('previewContainer');
-            const imgPreview = document.getElementById('imagePreview');
-            const videoPreview = document.getElementById('videoPreview');
-
-            if (file) {
-                previewContainer.classList.remove('hidden');
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    if (file.type.startsWith('image/')) {
-                        imgPreview.src = e.target.result;
-                        imgPreview.classList.remove('hidden');
-                        videoPreview.classList.add('hidden');
-                    } else if (file.type.startsWith('video/')) {
-                        videoPreview.src = e.target.result;
-                        videoPreview.classList.remove('hidden');
-                        imgPreview.classList.add('hidden');
-                    }
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Upload Logic
-        window.uploadKeFirebase = async () => {
-            const file = fileInput.files[0];
-            const status = document.getElementById('uploadStatus');
-            const btn = document.getElementById('btnUpload');
-
-            if (!file) return alert("Pilih file terlebih dahulu!");
-
-            try {
-                btn.disabled = true;
-                btn.innerText = "MENGUNGGAH...";
-                status.innerText = "Proses pengiriman file...";
-
-                const storageRef = ref(storage, 'yearbook_files/' + Date.now() + "_" + file.name);
-                await uploadBytes(storageRef, file);
-                
-                status.innerHTML = `<span class="text-green-500">BERHASIL DIUNGGAH!</span>`;
-                alert("File berhasil masuk ke folder kelas!");
-                location.reload();
-            } catch (error) {
-                console.error(error);
-                status.innerText = "Gagal upload. Cek koneksi atau rules Firebase.";
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "KIRIM FILE";
-            }
-        };
-
-        document.getElementById('btnUpload').addEventListener('click', window.uploadKeFirebase);
-    </script>
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // --- KONFIGURASI GITHUB (WAJIB DIISI) ---
+        const GITHUB_TOKEN = "PASTE_TOKEN_GITHUB_ANDA_DI_SINI";
+        const USERNAME = "USERNAME_GITHUB_ANDA";
+        const REPO_NAME = "NAMA_REPO_ANDA";
+        const FOLDER_NAME = "kontribusi-siswa";
+
+        // DATA SISWA TETAP
         const students = [
             { name: "Anisyahira", ig: "@anisyhr_", quote: "Masa depan adalah milik mereka yang percaya pada keindahan mimpi mereka." },
             { name: "Tomy Eka Ardianto", ig: "@tomyeka_rmx", quote: "Hidup itu seperti coding, kalau ada error jangan menyerah, cari solusinya." },
@@ -210,6 +143,7 @@
             { name: "Siswa Aktif", ig: "@aktif_selalu", quote: "Pendidikan adalah senjata paling mematikan di dunia." }
         ];
 
+        // 1. Fungsi Render Siswa Tetap
         function renderYearbook() {
             const container = document.getElementById('yearbook-container');
             container.innerHTML = students.map((s, i) => `
@@ -223,15 +157,101 @@
                     </div>
                     <div class="p-8">
                         <div class="quote-style">
-                            <p class="text-gray-300 italic text-sm md:text-base leading-relaxed relative z-10">
-                                "${s.quote}"
-                            </p>
+                            <p class="text-gray-300 italic text-sm md:text-base leading-relaxed relative z-10">"${s.quote}"</p>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
+        // 2. Logika Preview & Upload ke GitHub
+        document.getElementById('fileInput').onchange = function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    document.getElementById('imgPreview').src = e.target.result;
+                    document.getElementById('previewArea').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        async function uploadToGithub() {
+            const fileInput = document.getElementById('fileInput');
+            const status = document.getElementById('uploadStatus');
+            const btn = document.getElementById('btnUpload');
+
+            if (!fileInput.files[0]) return alert("Pilih file!");
+
+            const file = fileInput.files[0];
+            const fileName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
+            const reader = new FileReader();
+
+            btn.disabled = true;
+            btn.innerText = "MENGUNGGAH...";
+
+            reader.onload = async function() {
+                const content = reader.result.split(',')[1];
+                const url = `https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${FOLDER_NAME}/${fileName}`;
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${GITHUB_TOKEN}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Upload dari web: ${fileName}`,
+                            content: content
+                        })
+                    });
+
+                    if (response.ok) {
+                        alert("Berhasil! Foto akan muncul dalam beberapa saat.");
+                        location.reload();
+                    } else {
+                        throw new Error("Gagal mengunggah.");
+                    }
+                } catch (err) {
+                    alert("Error: " + err.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerText = "Kirim ke Repositori";
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 3. Fungsi Ambil Foto Otomatis dari GitHub
+        async function loadAutoGallery() {
+            const url = `https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${FOLDER_NAME}`;
+            const container = document.getElementById('gallery-auto');
+
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                const files = await response.json();
+
+                if (files.length > 0) {
+                    container.innerHTML = files.map(file => `
+                        <div class="glass-card rounded-[2.5rem] overflow-hidden group" data-aos="fade-up">
+                            <div class="relative overflow-hidden">
+                                <img src="${file.download_url}" class="student-photo w-full">
+                                <div class="absolute bottom-4 left-6">
+                                    <h3 class="text-xl font-black italic text-white uppercase">Kenangan Baru</h3>
+                                    <p class="text-blue-400 text-[10px] font-bold">XII-16 TJKT</p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) { console.log("Belum ada foto tambahan."); }
+        }
+
+        // SFX & Inisialisasi
         const clickSfx = document.getElementById('clickSound');
         document.addEventListener('mousedown', (e) => {
             if (e.target.closest('a') || e.target.closest('.glass-card')) {
@@ -242,6 +262,7 @@
 
         window.addEventListener('load', () => {
             renderYearbook();
+            loadAutoGallery();
             AOS.init({ duration: 800, once: true });
         });
     </script>
