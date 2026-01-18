@@ -75,10 +75,11 @@
             border-bottom: 2px solid #3b82f6;
         }
         
-        .album-active {
-            background-color: #2563eb !important;
-            color: white !important;
-            border-color: white !important;
+        /* Style tambahan untuk tombol filter aktif */
+        .filter-active {
+            background: #3b82f6 !important;
+            border-color: #60a5fa !important;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
         }
     </style>
 </head>
@@ -100,12 +101,18 @@
     </nav>
 
     <header class="text-center py-12" data-aos="zoom-in">
-        <h1 class="text-4xl md:text-7xl font-black gradient-text italic tracking-tighter uppercase">List Siswa</h1>
+        <h1 class="text-4xl md:text-7xl font-black gradient-text italic tracking-tighter uppercase">Daftar Nama Siswa</h1>
         <div class="max-w-md mx-auto px-6 mt-6">
             <div class="relative">
                 <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
                 <input type="text" id="searchInput" onkeyup="searchStudent()" placeholder="Cari nama siswa..." 
                 class="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-12 pr-6 focus:outline-none focus:border-blue-500 transition shadow-2xl text-white">
+            </div>
+            
+            <div class="flex justify-center gap-2 mt-6 overflow-x-auto no-scrollbar">
+                <button onclick="setFilter('all')" class="btn-filter filter-active px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[11px] font-bold uppercase tracking-widest transition whitespace-nowrap">Semua</button>
+                <button onclick="setFilter('L')" class="btn-filter px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[11px] font-bold uppercase tracking-widest transition whitespace-nowrap"><i class="fas fa-mars mr-1 text-blue-400"></i> Laki-Laki</button>
+                <button onclick="setFilter('P')" class="btn-filter px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[11px] font-bold uppercase tracking-widest transition whitespace-nowrap"><i class="fas fa-venus mr-1 text-pink-400"></i> Perempuan</button>
             </div>
         </div>
     </header>
@@ -182,36 +189,38 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+    // Menambahkan Properti gender (L/P) pada data siswa
     const students = [
-        { name: "Anisyahira", nis: "001" }, { name: "---", nis: "003" },
-        { name: "Arham Dhuhati Achmad", nis: "004" }, { name: "---", nis: "005" },
-        { name: "---", nis: "006" }, { name: "---", nis: "007" },
-        { name: "---", nis: "008" }, { name: "---", nis: "009" },
-        { name: "--", nis: "010" }, { name: "---", nis: "011" },
-        { name: "---", nis: "012" }, { name: "---", nis: "013" },
-        { name: "---", nis: "014" }, { name: "Hilal Ade Pratama", nis: "13654" },
-        { name: "Maya", nis: "016" }, { name: "Nico", nis: "017" },
-        { name: "Olivia", nis: "018" }, { name: "Putra", nis: "019" },
-        { name: "Rani", nis: "020" }, { name: "Santi", nis: "021" },
-        { name: "---", nis: "022" }, { name: "Umar", nis: "023" },
-        { name: "Vina", nis: "024" }, { name: "Wahyu", nis: "025" },
-        { name: "Xena", nis: "026" }, { name: "Yayan", nis: "027" },
-        { name: "Zaki", nis: "028" }, { name: "Aris", nis: "029" },
-        { name: "Bella", nis: "030" }, { name: "Catur", nis: "031" },
-        { name: "Thalita", nis: "032" }, { name: "Tiara", nis: "033" },
-        { name: "Tiara", nis: "033" }, { name: "Tomy Eka Ardianto", nis: "13236" },
-        { name: "Widya", nis: "035" },
-        { name: "Yusita", nis: "036" } // Tambahan data ke-36 (Silakan ganti nama & NIS sesuai keinginan)
+        { name: "Anisyahira", nis: "001", gender: "P" }, { name: "---", nis: "003", gender: "L" },
+        { name: "Arham Dhuhati Achmad", nis: "004", gender: "L" }, { name: "---", nis: "005", gender: "L" },
+        { name: "---", nis: "006", gender: "L" }, { name: "---", nis: "007", gender: "L" },
+        { name: "---", nis: "008", gender: "L" }, { name: "---", nis: "009", gender: "L" },
+        { name: "--", nis: "010", gender: "L" }, { name: "---", nis: "011", gender: "L" },
+        { name: "---", nis: "012", gender: "L" }, { name: "---", nis: "013", gender: "L" },
+        { name: "---", nis: "014", gender: "L" }, { name: "Hilal Ade Pratama", nis: "13654", gender: "L" },
+        { name: "Maya", nis: "016", gender: "P" }, { name: "Nico", nis: "017", gender: "L" },
+        { name: "Olivia", nis: "018", gender: "P" }, { name: "Putra", nis: "019", gender: "L" },
+        { name: "Rani", nis: "020", gender: "P" }, { name: "Santi", nis: "021", gender: "P" },
+        { name: "---", nis: "022", gender: "L" }, { name: "Umar", nis: "023", gender: "L" },
+        { name: "Vina", nis: "024", gender: "P" }, { name: "Wahyu", nis: "025", gender: "L" },
+        { name: "Xena", nis: "026", gender: "P" }, { name: "Yayan", nis: "027", gender: "L" },
+        { name: "Zaki", nis: "028", gender: "L" }, { name: "Aris", nis: "029", gender: "L" },
+        { name: "Bella", nis: "030", gender: "P" }, { name: "Catur", nis: "031", gender: "L" },
+        { name: "Thalita", nis: "032", gender: "P" }, { name: "Tiara", nis: "033", gender: "P" },
+        { name: "Tiara", nis: "033", gender: "P" }, { name: "Tomy Eka Ardianto", nis: "13236", gender: "L" },
+        { name: "Widya", nis: "035", gender: "P" },
+        { name: "Yusita", nis: "036", gender: "P" }
     ];
 
     const grid = document.getElementById('studentGrid');
+    let currentGenderFilter = 'all';
 
     function renderStudents() {
         grid.innerHTML = students.map((student, i) => {
             const absen = i + 1;
             return `
                 <div class="student-card glass-card rounded-2xl overflow-hidden group cursor-pointer shadow-xl border border-white/5 hover:border-blue-500/50 transition-all duration-300" 
-                     data-aos="fade-up" onclick="openModal(${i})">
+                     data-aos="fade-up" data-gender="${student.gender}" onclick="openModal(${i})">
                     <div class="relative overflow-hidden bg-slate-900">
                         <img src="img-siswa/${absen}.jpg" onerror="this.src='https://via.placeholder.com/300x400?text=ABSEN+${absen}'" 
                              class="photo-frame grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-500">
@@ -230,11 +239,40 @@
         }).join('');
     }
 
+    // Fungsi Filter Jenis Kelamin
+    function setFilter(gender) {
+        currentGenderFilter = gender;
+        
+        // Update UI tombol filter
+        document.querySelectorAll('.btn-filter').forEach(btn => {
+            btn.classList.remove('filter-active');
+        });
+        event.currentTarget.classList.add('filter-active');
+        
+        applyAllFilters();
+    }
+
+    // Fungsi Pencarian
     function searchStudent() {
+        applyAllFilters();
+    }
+
+    // Gabungan Logika Search dan Filter Gender
+    function applyAllFilters() {
         const input = document.getElementById('searchInput').value.toLowerCase();
+        
         document.querySelectorAll('.student-card').forEach(card => {
             const name = card.querySelector('.student-name').innerText.toLowerCase();
-            card.style.display = name.includes(input) ? "block" : "none";
+            const gender = card.getAttribute('data-gender');
+            
+            const matchesSearch = name.includes(input);
+            const matchesGender = (currentGenderFilter === 'all' || gender === currentGenderFilter);
+
+            if (matchesSearch && matchesGender) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
         });
     }
 
