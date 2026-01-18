@@ -70,15 +70,6 @@
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
-        #login-overlay {
-            position: fixed; inset: 0;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 9999;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            transition: 0.5s;
-        }
         .info-box {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -96,67 +87,13 @@
             background: #3b82f6; color: white; border-color: #3b82f6;
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
         }
-        .secure-pulse {
-            width: 8px; height: 8px; background: #10b981;
-            border-radius: 50%; display: inline-block;
-            box-shadow: 0 0 10px #10b981; animation: pulse-green 2s infinite;
-        }
-        @keyframes pulse-green {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="login-overlay">
-        <div class="flex-1 flex items-center justify-center w-full">
-            <div id="login-card" class="bg-white/5 border border-blue-500/30 p-8 rounded-3xl w-[90%] max-w-[400px] text-center animate__animated animate__fadeInDown relative overflow-hidden">
-                <div class="absolute top-4 right-6 flex items-center gap-2">
-                    <span class="text-[8px] font-black uppercase text-emerald-500 tracking-widest">Secure</span>
-                    <span class="secure-pulse"></span>
-                </div>
-                <div class="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.2)]">
-                    <i id="lock-icon" class="fas fa-lock text-2xl text-blue-500 transition-all duration-500"></i>
-                </div>
-                <h2 class="text-xl font-black uppercase tracking-tighter mb-1">Admin Authentication</h2>
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-6">Encrypted Connection Active</p>
-                <div class="mb-3">
-                    <input type="text" id="userInput" placeholder="Username" 
-                        class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-center focus:outline-none focus:border-blue-500 transition-all text-sm font-bold tracking-widest text-white">
-                </div>
-                <div class="relative mb-2">
-                    <input type="password" id="passInput" placeholder="Password" 
-                        class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-center focus:outline-none focus:border-blue-500 transition-all text-sm tracking-[0.3em] text-white">
-                    <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-500 transition-colors">
-                        <i id="eye-icon" class="fas fa-eye-slash text-xs"></i>
-                    </button>
-                </div>
-                <div class="text-right mb-6">
-                    <a href="javascript:void(0)" onclick="forgotPassword()" class="text-[9px] font-bold text-gray-500 hover:text-blue-400 uppercase tracking-widest transition-colors">Lupa kata sandi?</a>
-                </div>
-                <button onclick="checkLogin()" id="loginBtn"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest transition-all active:scale-95 shadow-lg shadow-blue-500/20">
-                    Access Dashboard
-                </button>
-                <p id="loginError" class="text-red-500 text-[10px] mt-4 font-bold uppercase hidden animate__animated animate__headShake">
-                    <i class="fas fa-exclamation-triangle mr-1"></i> Access Denied: Invalid Credentials
-                </p>
-            </div>
-        </div>
-        <div id="login-footer" class="w-full py-8 border-t border-white/5 bg-black/20">
-            <div class="max-w-7xl mx-auto px-6 text-center">
-                <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                    &copy; 2026 XII-16 TJKT. Protected by Encrypted System
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div id="main-content" class="opacity-0 pointer-events-none transition-all duration-1000">
+    <div id="main-content" class="transition-all duration-1000">
         <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleFileSelect(event)">
 
         <nav class="glass-nav sticky top-0 z-50 p-4 mb-4">
@@ -303,6 +240,12 @@
     </div>
 
     <script>
+        // --- 1. PROTEKSI HALAMAN ---
+        if (sessionStorage.getItem('adminAuth') !== 'true') {
+            window.location.href = "login.html";
+        }
+
+        // --- 2. CONFIGURATION ---
         const s1 = "ghp_";
         const s2 = "dcfhqFCiTfZiwmV1"; 
         const s3 = "7eGJDjApPsjJvc1"; 
@@ -313,71 +256,29 @@
         
         let ACTIVE_FOLDER = "img-siswa"; 
         let allFiles = [];
-        let selectedFileToUpload = null;
         let selectedFiles = new Set(); 
 
+        // --- 3. INITIALIZATION ---
         window.onload = function() {
-            if (sessionStorage.getItem('adminAuth') === 'true') { bypassLogin(); }
-        };
-
-        function bypassLogin() {
-            document.getElementById('login-overlay').style.display = 'none';
-            document.getElementById('main-content').classList.remove('opacity-0', 'pointer-events-none');
             loadAdminFiles();
             getLocation();
+            setInterval(updateClock, 1000); 
+            updateClock();
+        };
+
+        function logout() { 
+            sessionStorage.removeItem('adminAuth'); 
+            window.location.href = "login.html"; 
         }
 
-        function logout() { sessionStorage.removeItem('adminAuth'); window.location.reload(); }
-
-        function togglePassword() {
-            const passField = document.getElementById('passInput');
-            const eyeIcon = document.getElementById('eye-icon');
-            if (passField.type === "password") {
-                passField.type = "text"; eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
-            } else {
-                passField.type = "password"; eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
-            }
-        }
-
-        async function checkLogin() {
-            const user = document.getElementById('userInput').value;
-            const pass = document.getElementById('passInput').value;
-            if(user === "Admin" && pass === "admin123") {
-                sessionStorage.setItem('adminAuth', 'true');
-                bypassLogin();
-            } else {
-                document.getElementById('loginError').classList.remove('hidden');
-                document.getElementById('login-card').classList.add('animate__headShake');
-                setTimeout(() => document.getElementById('login-card').classList.remove('animate__headShake'), 500);
-            }
-        }
-
+        // --- 4. CORE FUNCTIONS (SAMA SEPERTI ASLI) ---
         function updateClock() {
             const now = new Date();
-            document.getElementById('full-date').innerText = now.toLocaleDateString('id-ID', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+            document.getElementById('full-date').innerText = now.toLocaleDateString('id-ID', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }).toUpperCase();
             document.getElementById('real-time').innerText = now.toLocaleTimeString('id-ID', { hour12: false });
         }
-        setInterval(updateClock, 1000); updateClock();
 
-        function getLocation() {
-            const cityEl = document.getElementById('full-city');
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    async (pos) => {
-                        try {
-                            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`);
-                            const data = await res.json();
-                            const cityName = data.address.city || data.address.town || data.address.village || "IDN";
-                            cityEl.innerText = cityName.toUpperCase();
-                        } catch(e) { getIPFallback(); }
-                    },
-                    () => { getIPFallback(); },
-                    { timeout: 5000 }
-                );
-            } else { getIPFallback(); }
-        }
-
-        async function getIPFallback() {
+        async function getLocation() {
             const cityEl = document.getElementById('full-city');
             try {
                 const res = await fetch('https://ipapi.co/json/');
@@ -489,16 +390,15 @@
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (!file) return;
-            selectedFileToUpload = file;
             const reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('upload-preview-img').src = e.target.result;
                 document.getElementById('upload-size-info').innerText = formatBytes(file.size);
                 document.getElementById('upload-time-info').innerText = new Date().toLocaleTimeString();
                 document.getElementById('upload-modal').classList.remove('hidden');
+                document.getElementById('confirm-upload-btn').onclick = function() { uploadToGithub(file); }
             }
             reader.readAsDataURL(file);
-            document.getElementById('confirm-upload-btn').onclick = function() { uploadToGithub(file); }
         }
 
         function closeUploadModal() {
@@ -584,9 +484,6 @@
             });
             loadAdminFiles();
         }
-
-        function forgotPassword() { alert("Hubungi Tomyy-ID."); }
-        document.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkLogin(); });
     </script>
 </body>
 </html>
