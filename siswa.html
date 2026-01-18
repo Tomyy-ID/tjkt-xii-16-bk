@@ -75,7 +75,6 @@
             border-bottom: 2px solid #3b82f6;
         }
         
-        /* Style tambahan untuk tombol filter aktif */
         .filter-active {
             background: #3b82f6 !important;
             border-color: #60a5fa !important;
@@ -83,46 +82,99 @@
         }
     </style>
 </head>
-<body class="font-sans text-xs md:text-base">
+<body class="font-sans text-xs md:text-base min-h-screen flex flex-col">
 
-
-<nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
-    <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0 uppercase">
-        TJKT <span class="text-blue-500">XII-16</span>
-    </div>
-    <div id="nav-container" class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
-        <a href="index.html#home" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
-        <a href="yearbook.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Yearbook</a>
-        <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
-        <a href="nilai-TKA.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Nilai TKA</a>
-        <a href="galeri.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Album</a>
-        <a href="login.html" class="nav-link px-3 py-1 md:px-4 md:py-1 rounded-full text-white/40 hover:text-red-500 transition text-[9px] md:text-sm font-black italic whitespace-nowrap shrink-0 border-l border-white/10 ml-2">
-            <i class="fas fa-sign-in-alt mr-1"></i> LOGIN
+    <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
+        <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0 uppercase">
+            TJKT <span class="text-blue-500">XII-16</span>
+        </div>
+        <div id="nav-container" class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
+            <a href="index.html#home" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
+            <a href="yearbook.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Yearbook</a>
+            <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
+            <a href="nilai-TKA.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Nilai TKA</a>
+            <a href="galeri.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Album</a>
+            <a href="login.html" class="nav-link px-3 py-1 md:px-4 md:py-1 rounded-full text-white/40 hover:text-red-500 transition text-[9px] md:text-sm font-black italic whitespace-nowrap shrink-0 border-l border-white/10 ml-2">
+                <i class="fas fa-sign-in-alt mr-1"></i> LOGIN
             </a>
         </div>
     </nav>
 
-    <header class="text-center py-12" data-aos="zoom-in">
-        <h1 class="text-4xl md:text-7xl font-black gradient-text italic tracking-tighter uppercase">Daftar Nama Siswa</h1>
-        <div class="max-w-md mx-auto px-6 mt-6">
-            <div class="relative">
-                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
-                <input type="text" id="searchInput" onkeyup="searchStudent()" placeholder="Cari nama siswa..." 
-                class="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-12 pr-6 focus:outline-none focus:border-blue-500 transition shadow-2xl text-white">
+    <div class="flex-grow">
+        <header class="text-center py-12" data-aos="zoom-in">
+            <h1 class="text-4xl md:text-7xl font-black gradient-text italic tracking-tighter uppercase">Daftar Nama Siswa</h1>
+            <div class="max-w-md mx-auto px-6 mt-6">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                    <input type="text" id="searchInput" onkeyup="searchStudent()" placeholder="Cari nama siswa..." 
+                    class="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-12 pr-6 focus:outline-none focus:border-blue-500 transition shadow-2xl text-white">
+                </div>
+                
+                <div class="flex justify-center gap-2 mt-6 overflow-x-auto no-scrollbar">
+                    <button onclick="setFilter('all')" class="btn-filter filter-active px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[11px] font-bold uppercase tracking-widest transition whitespace-nowrap">Semua</button>
+                    <button onclick="setFilter('L')" class="btn-filter px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[11px] font-bold uppercase tracking-widest transition whitespace-nowrap"><i class="fas fa-mars mr-1 text-blue-400"></i> Laki-Laki</button>
+                    <button onclick="setFilter('P')" class="btn-filter px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[11px] font-bold uppercase tracking-widest transition whitespace-nowrap"><i class="fas fa-venus mr-1 text-pink-400"></i> Perempuan</button>
+                </div>
             </div>
-            
-            <div class="flex justify-center gap-2 mt-6 overflow-x-auto no-scrollbar">
-                <button onclick="setFilter('all')" class="btn-filter filter-active px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[11px] font-bold uppercase tracking-widest transition whitespace-nowrap">Semua</button>
-                <button onclick="setFilter('L')" class="btn-filter px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[11px] font-bold uppercase tracking-widest transition whitespace-nowrap"><i class="fas fa-mars mr-1 text-blue-400"></i> Laki-Laki</button>
-                <button onclick="setFilter('P')" class="btn-filter px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[9px] md:text-[11px] font-bold uppercase tracking-widest transition whitespace-nowrap"><i class="fas fa-venus mr-1 text-pink-400"></i> Perempuan</button>
+        </header>
+
+        <div class="container mx-auto px-6 pb-24">
+            <div id="studentGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+                </div>
+        </div>
+    </div>
+
+    <footer class="bg-black/50 py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
+                <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-pink-500 group-hover:border-pink-500/50">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
+                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@12enambelas_</p>
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group lg:justify-center">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-purple-400 group-hover:border-purple-400/50">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
+                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@smks.bksimo</p>
+                    </div>
+                </a>
+
+                <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
+                        <i class="fas fa-globe text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
+                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors">SMK BK SIMO</p>
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group lg:justify-end">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
+                        <i class="fas fa-code text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
+                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors italic">@tomyeka_rmx</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="text-center pt-8 border-t border-white/5">
+                <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+                    &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
+                </p>
             </div>
         </div>
-    </header>
-
-    <div class="container mx-auto px-6 pb-24">
-        <div id="studentGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-            </div>
-    </div>
+    </footer>
 
     <div id="photoModal" onclick="closeModal()">
         <div class="relative max-w-[85%] md:max-w-sm w-full p-4" onclick="event.stopPropagation()">
@@ -134,64 +186,8 @@
         </div>
     </div>
 
-    <footer class="bg-black/50 py-12 border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
-            
-            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
-                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-pink-500 group-hover:border-pink-500/50">
-                    <i class="fab fa-instagram text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
-                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@12enambelas_</p>
-                </div>
-            </a>
-
-            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group lg:justify-center">
-                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-purple-400 group-hover:border-purple-400/50">
-                    <i class="fab fa-instagram text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
-                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@smks.bksimo</p>
-                </div>
-            </a>
-
-            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
-                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
-                    <i class="fas fa-globe text-lg"></i>
-                </div>
-                <div>
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
-                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors">SMK BK SIMO</p>
-                </div>
-            </a>
-
-            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group lg:justify-end">
-                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
-                    <i class="fas fa-code text-lg"></i>
-                </div>
-                <div>
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
-                    <p class="text-xs font-bold text-white group-hover:text-white transition-colors italic">@tomyeka_rmx</p>
-                </div>
-            </a>
-
-        </div>
-
-        <div class="text-center pt-8 border-t border-white/5">
-            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
-            </p>
-        </div>
-    </div>
-</footer>
-
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-    // Menambahkan Properti gender (L/P) pada data siswa
     const students = [
         { name: "Anisyahira", nis: "001", gender: "P" }, { name: "---", nis: "003", gender: "L" },
         { name: "Arham Dhuhati Achmad", nis: "004", gender: "L" }, { name: "---", nis: "005", gender: "L" },
@@ -241,32 +237,24 @@
         }).join('');
     }
 
-    // Fungsi Filter Jenis Kelamin
     function setFilter(gender) {
         currentGenderFilter = gender;
-        
-        // Update UI tombol filter
         document.querySelectorAll('.btn-filter').forEach(btn => {
             btn.classList.remove('filter-active');
         });
         event.currentTarget.classList.add('filter-active');
-        
         applyAllFilters();
     }
 
-    // Fungsi Pencarian
     function searchStudent() {
         applyAllFilters();
     }
 
-    // Gabungan Logika Search dan Filter Gender
     function applyAllFilters() {
         const input = document.getElementById('searchInput').value.toLowerCase();
-        
         document.querySelectorAll('.student-card').forEach(card => {
             const name = card.querySelector('.student-name').innerText.toLowerCase();
             const gender = card.getAttribute('data-gender');
-            
             const matchesSearch = name.includes(input);
             const matchesGender = (currentGenderFilter === 'all' || gender === currentGenderFilter);
 
