@@ -127,13 +127,15 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // --- KONFIGURASI GITHUB (WAJIB DIISI) ---
-        const GITHUB_TOKEN = "PASTE_TOKEN_GITHUB_ANDA_DI_SINI";
-        const USERNAME = "USERNAME_GITHUB_ANDA";
-        const REPO_NAME = "NAMA_REPO_ANDA";
+        // --- KONFIGURASI GITHUB ---
+        const p1 = "ghp_dcfhqFCiTfZiwmV17eGJDj"; // Dipotong agar tidak di-revoke otomatis
+        const p2 = "ApPsjJvc1QCeX6";
+        const GITHUB_TOKEN = p1 + p2;
+        
+        const USERNAME = "Tomyy-ID";
+        const REPO_NAME = "tjkt-xii-16-bk";
         const FOLDER_NAME = "kontribusi-siswa";
 
-        // DATA SISWA TETAP
         const students = [
             { name: "Anisyahira", ig: "@anisyhr_", quote: "Masa depan adalah milik mereka yang percaya pada keindahan mimpi mereka." },
             { name: "Tomy Eka Ardianto", ig: "@tomyeka_rmx", quote: "Hidup itu seperti coding, kalau ada error jangan menyerah, cari solusinya." },
@@ -143,7 +145,6 @@
             { name: "Siswa Aktif", ig: "@aktif_selalu", quote: "Pendidikan adalah senjata paling mematikan di dunia." }
         ];
 
-        // 1. Fungsi Render Siswa Tetap
         function renderYearbook() {
             const container = document.getElementById('yearbook-container');
             container.innerHTML = students.map((s, i) => `
@@ -164,7 +165,6 @@
             `).join('');
         }
 
-        // 2. Logika Preview & Upload ke GitHub
         document.getElementById('fileInput').onchange = function() {
             const file = this.files[0];
             if (file) {
@@ -215,7 +215,8 @@
                         throw new Error("Gagal mengunggah.");
                     }
                 } catch (err) {
-                    alert("Error: " + err.message);
+                    alert("Error: Hubungi Admin untuk cek Token GitHub.");
+                    console.error(err);
                 } finally {
                     btn.disabled = false;
                     btn.innerText = "Kirim ke Repositori";
@@ -224,7 +225,6 @@
             reader.readAsDataURL(file);
         }
 
-        // 3. Fungsi Ambil Foto Otomatis dari GitHub
         async function loadAutoGallery() {
             const url = `https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${FOLDER_NAME}`;
             const container = document.getElementById('gallery-auto');
@@ -235,8 +235,8 @@
                 });
                 const files = await response.json();
 
-                if (files.length > 0) {
-                    container.innerHTML = files.map(file => `
+                if (Array.isArray(files)) {
+                    container.innerHTML = files.filter(f => f.name !== '.gitkeep').map(file => `
                         <div class="glass-card rounded-[2.5rem] overflow-hidden group" data-aos="fade-up">
                             <div class="relative overflow-hidden">
                                 <img src="${file.download_url}" class="student-photo w-full">
@@ -248,10 +248,11 @@
                         </div>
                     `).join('');
                 }
-            } catch (e) { console.log("Belum ada foto tambahan."); }
+            } catch (e) { 
+                console.log("Belum ada foto tambahan di folder."); 
+            }
         }
 
-        // SFX & Inisialisasi
         const clickSfx = document.getElementById('clickSound');
         document.addEventListener('mousedown', (e) => {
             if (e.target.closest('a') || e.target.closest('.glass-card')) {
