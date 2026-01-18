@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { 
-            background: radial-gradient(circle at top, #1e293b, #0f172a);
-        }
+        body { background: radial-gradient(circle at top, #1e293b, #0f172a); }
         .secure-pulse {
             width: 8px; height: 8px; background: #10b981;
             border-radius: 50%; display: inline-block;
@@ -21,11 +19,8 @@
             70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            filter: grayscale(1);
-        }
+        button:disabled { opacity: 0.6; cursor: not-allowed; filter: grayscale(1); }
+        .modal-blur { backdrop-filter: blur(12px); background: rgba(15, 23, 42, 0.9); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -49,11 +44,12 @@
             <div class="relative mb-2">
                 <input type="password" id="passInput" placeholder="Password" 
                     class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-center focus:outline-none focus:border-blue-500 transition-all text-sm tracking-[0.3em] text-white">
-                <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-500 transition-colors">
+                <button type="button" onclick="togglePassword('passInput', 'eye-icon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-500 transition-colors">
                     <i id="eye-icon" class="fas fa-eye-slash text-xs"></i>
                 </button>
             </div>
-            <div class="text-right mb-6">
+            <div class="flex justify-between items-center mb-6 px-1">
+                <button onclick="openManageModal()" class="text-[9px] font-bold text-blue-400 hover:underline uppercase tracking-widest transition-colors">Kelola Akun</button>
                 <a href="javascript:void(0)" onclick="forgotPassword()" class="text-[9px] font-bold text-gray-500 hover:text-blue-400 uppercase tracking-widest transition-colors">Lupa kata sandi?</a>
             </div>
             <button onclick="checkLogin()" id="loginBtn"
@@ -67,128 +63,91 @@
     </main>
 
     <footer class="bg-black/50 py-10 border-t border-white/5 w-full">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
-                <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
-                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-pink-500 group-hover:border-pink-500/50">
-                        <i class="fab fa-instagram text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
-                        <p class="text-xs font-bold text-white">@12enambelas_</p>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group lg:justify-center">
-                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-purple-400 group-hover:border-purple-400/50">
-                        <i class="fab fa-instagram text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
-                        <p class="text-xs font-bold text-white">@smks.bksimo</p>
-                    </div>
-                </a>
-                <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
-                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
-                        <i class="fas fa-globe text-lg"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
-                        <p class="text-xs font-bold text-white">SMK BK SIMO</p>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group lg:justify-end">
-                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
-                        <i class="fas fa-code text-lg"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
-                        <p class="text-xs font-bold text-white italic">@tomyeka_rmx</p>
-                    </div>
-                </a>
-            </div>
-            <div class="text-center pt-8 border-t border-white/5">
-                <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                    &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
-                </p>
-            </div>
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+                &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
+            </p>
         </div>
     </footer>
 
-    <script>
-        // Script tetap sama dengan milik Anda
-        let attemptCount = 0;
-        const maxAttempts = 3;
-        const cooldownTime = 60;
+    <div id="manageModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-blur">
+        <div class="bg-slate-900 border border-white/10 p-6 rounded-3xl w-full max-w-[380px] animate__animated animate__zoomIn shadow-2xl">
+            <h3 class="text-white font-black uppercase text-center mb-4 tracking-tighter">Manage Credentials</h3>
+            <div class="space-y-3 mb-6 text-left">
+                <p class="text-[8px] text-blue-400 uppercase font-bold tracking-widest ml-1">Verifikasi Admin</p>
+                <input type="text" id="verifyUser" placeholder="Username Lama" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-2.5 text-white text-xs outline-none focus:border-blue-500">
+                <input type="password" id="verifyPass" placeholder="Password Lama" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-2.5 text-white text-xs outline-none focus:border-blue-500">
+                
+                <p class="text-[8px] text-emerald-400 uppercase font-bold tracking-widest ml-1 pt-2">Data Target</p>
+                <input type="text" id="newUser" placeholder="Username Target" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-2.5 text-white text-xs outline-none focus:border-emerald-500">
+                <input type="password" id="newPass" placeholder="Password (Kosongi jika Hapus)" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-2.5 text-white text-xs outline-none focus:border-emerald-500">
+            </div>
+            <div class="flex flex-col gap-2">
+                <button onclick="handleAction('upsert')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold py-3.5 rounded-xl uppercase transition-all">Simpan Akun</button>
+                <button onclick="handleAction('delete')" class="w-full bg-red-600/20 text-red-500 border border-red-500/30 text-[10px] font-bold py-3.5 rounded-xl uppercase transition-all">Hapus Akun</button>
+                <button onclick="closeManageModal()" class="w-full bg-white/5 text-gray-400 text-[10px] font-bold py-3 rounded-xl uppercase">Kembali</button>
+            </div>
+        </div>
+    </div>
 
-        function togglePassword() {
-            const passField = document.getElementById('passInput');
-            const eyeIcon = document.getElementById('eye-icon');
-            if (passField.type === "password") {
-                passField.type = "text"; eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
-            } else {
-                passField.type = "password"; eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
-            }
+    <script>
+        const DEFAULT_USERS = [{user: "Tomy", pass: "adminweb"}, {user: "Admin", pass: "admin123"}];
+        function getAllUsers() {
+            const stored = localStorage.getItem('adminUsers');
+            if (!stored) { localStorage.setItem('adminUsers', JSON.stringify(DEFAULT_USERS)); return DEFAULT_USERS; }
+            return JSON.parse(stored);
+        }
+
+        function togglePassword(id, iconId) {
+            const field = document.getElementById(id);
+            const icon = document.getElementById(iconId);
+            if (field.type === "password") { field.type = "text"; icon.classList.replace('fa-eye-slash', 'fa-eye'); } 
+            else { field.type = "password"; icon.classList.replace('fa-eye', 'fa-eye-slash'); }
         }
 
         function checkLogin() {
-            const user = document.getElementById('userInput').value;
-            const pass = document.getElementById('passInput').value;
-            const loginBtn = document.getElementById('loginBtn');
-            const errorMsg = document.getElementById('loginError');
-            const card = document.getElementById('login-card');
-
-            if(user === "Admin" && pass === "admin123") {
+            const u = document.getElementById('userInput').value;
+            const p = document.getElementById('passInput').value;
+            const match = getAllUsers().find(acc => acc.user === u && acc.pass === p);
+            if(match) {
                 sessionStorage.setItem('adminAuth', 'true');
+                sessionStorage.setItem('activeAdmin', match.user);
                 window.location.href = "admin.html";
             } else {
-                attemptCount++;
-                errorMsg.classList.remove('hidden');
-                card.classList.add('animate__headShake');
-                setTimeout(() => card.classList.remove('animate__headShake'), 500);
-
-                if(attemptCount >= maxAttempts) {
-                    startCooldown();
-                }
+                document.getElementById('loginError').classList.remove('hidden');
+                document.getElementById('login-card').classList.add('animate__headShake');
+                setTimeout(() => document.getElementById('login-card').classList.remove('animate__headShake'), 500);
             }
         }
 
-        function startCooldown() {
-            const loginBtn = document.getElementById('loginBtn');
-            const userInput = document.getElementById('userInput');
-            const passInput = document.getElementById('passInput');
-            const errorMsg = document.getElementById('loginError');
-            
-            let timeLeft = cooldownTime;
-            loginBtn.disabled = true;
-            userInput.disabled = true;
-            passInput.disabled = true;
-            
-            const timer = setInterval(() => {
-                loginBtn.innerText = `LOCKED (${timeLeft}s)`;
-                errorMsg.innerHTML = `<i class="fas fa-clock mr-1"></i> Terlalu banyak percobaan. Tunggu ${timeLeft} detik.`;
-                timeLeft--;
+        function openManageModal() { document.getElementById('manageModal').classList.remove('hidden'); }
+        function closeModal() { document.getElementById('manageModal').classList.add('hidden'); }
 
-                if (timeLeft < 0) {
-                    clearInterval(timer);
-                    attemptCount = 0;
-                    loginBtn.disabled = false;
-                    userInput.disabled = false;
-                    passInput.disabled = false;
-                    loginBtn.innerText = "Access Dashboard";
-                    errorMsg.classList.add('hidden');
-                }
-            }, 1000);
+        function handleAction(type) {
+            const vU = document.getElementById('verifyUser').value;
+            const vP = document.getElementById('verifyPass').value;
+            const nU = document.getElementById('newUser').value;
+            const nP = document.getElementById('newPass').value;
+            let users = getAllUsers();
+            if(!users.some(u => u.user === vU && u.pass === vP)) return alert("Verifikasi Gagal!");
+            if(!nU) return alert("Isi Username Target!");
+
+            if(type === 'upsert') {
+                if(!nP) return alert("Isi Password!");
+                const i = users.findIndex(u => u.user === nU);
+                if(i !== -1) users[i].pass = nP; else users.push({user: nU, pass: nP});
+                alert("Berhasil!");
+            } else {
+                if(nU === "Tomy") return alert("Master tidak bisa dihapus!");
+                users = users.filter(u => u.user !== nU);
+                alert("Terhapus!");
+            }
+            localStorage.setItem('adminUsers', JSON.stringify(users));
+            location.reload();
         }
 
-        function forgotPassword() {
-            const phone = "6288980517964";
-            const message = encodeURIComponent("Halo Tomyy-ID, saya lupa kata sandi untuk Admin Panel XII-16 TJKT. Mohon bantuannya ya.");
-            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-        }
-
-        document.addEventListener('keypress', (e) => { 
-            if (e.key === 'Enter' && !document.getElementById('loginBtn').disabled) checkLogin(); 
-        });
+        function forgotPassword() { window.open(`https://wa.me/6288980517964`, '_blank'); }
+        document.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkLogin(); });
     </script>
 </body>
 </html>
