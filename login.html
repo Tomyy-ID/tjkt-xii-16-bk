@@ -161,7 +161,10 @@
         }
 
         function openManageModal() { document.getElementById('manageModal').classList.remove('hidden'); }
-        function closeModal() { document.getElementById('manageModal').classList.add('hidden'); }
+        
+        // --- BAGIAN INI DIPERBAIKI ---
+        function closeManageModal() { document.getElementById('manageModal').classList.add('hidden'); }
+        // -----------------------------
 
         function handleAction(type) {
             const vU = document.getElementById('verifyUser').value;
