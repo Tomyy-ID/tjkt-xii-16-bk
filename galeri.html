@@ -461,206 +461,251 @@
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 500, once: true });
+<script>
+    AOS.init({ duration: 500, once: true });
 
-        // SFX LOGIC (DARI INDEX)
-        const clickSfx = document.getElementById('clickSound');
-        document.querySelectorAll('a, button, .filter-btn, .btn-click').forEach(elem => {
-            elem.addEventListener('mousedown', () => {
-                if(clickSfx) {
-                    clickSfx.currentTime = 0;
-                    clickSfx.play().catch(() => {});
-                }
-            });
+    // SFX LOGIC
+    const clickSfx = document.getElementById('clickSound');
+    document.querySelectorAll('a, button, .filter-btn').forEach(elem => {
+        elem.addEventListener('mousedown', () => {
+            if(clickSfx) {
+                clickSfx.currentTime = 0;
+                clickSfx.play().catch(() => {});
+            }
+        });
+    });
+
+    // --- LOGIKA SLIDER DENGAN AUTO-PLAY ---
+    let currentActiveCategory = 'all';
+    let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
+    let activeSliderId = '';
+    let currentIndexes = {};
+    let autoPlayIntervals = {}; // Menyimpan interval untuk setiap slider
+
+    function initAllSliders() {
+        document.querySelectorAll('.slides-container').forEach(slider => {
+            const id = slider.id;
+            currentIndexes[id] = 0;
+            updateDots(id);
+            startAutoPlay(id); // Jalankan auto-play saat load
+
+            // Berhenti auto-play saat mouse masuk, jalankan lagi saat keluar
+            const viewport = slider.parentElement;
+            viewport.addEventListener('mouseenter', () => stopAutoPlay(id));
+            viewport.addEventListener('mouseleave', () => startAutoPlay(id));
+            viewport.addEventListener('touchstart', () => stopAutoPlay(id));
+            viewport.addEventListener('touchend', () => startAutoPlay(id));
+        });
+    }
+
+    // Fungsi untuk menjalankan slide otomatis
+    function startAutoPlay(id) {
+        if (id === 'modalSlider') return; // Jangan auto-play di dalam modal zoom
+        
+        stopAutoPlay(id); // Bersihkan interval lama jika ada
+        autoPlayIntervals[id] = setInterval(() => {
+            const slider = document.getElementById(id);
+            if (!slider) return;
+            
+            const slidesCount = slider.querySelectorAll('img').length;
+            if (slidesCount <= 1) return;
+
+            // Jika sudah di akhir, kembali ke awal, jika belum, lanjut ke slide berikutnya
+            if (currentIndexes[id] >= slidesCount - 1) {
+                currentIndexes[id] = 0;
+            } else {
+                currentIndexes[id]++;
+            }
+            goToSlide(id, currentIndexes[id]);
+        }, 4000); // Waktu ganti slide (4 detik)
+    }
+
+    function stopAutoPlay(id) {
+        if (autoPlayIntervals[id]) {
+            clearInterval(autoPlayIntervals[id]);
+        }
+    }
+
+    // --- LOGIKA DRAG & TOUCH (DIPERBAIKI) ---
+    function startDrag(event, id) {
+        activeSliderId = id;
+        const slider = document.getElementById(id);
+        isDragging = true;
+        startPos = getPositionX(event);
+        
+        const style = window.getComputedStyle(slider);
+        const matrix = new WebKitCSSMatrix(style.transform);
+        prevTranslate = matrix.m41; 
+        
+        slider.style.transition = 'none';
+        stopAutoPlay(id); // Berhenti auto-play saat sedang di-drag manual
+        animationID = requestAnimationFrame(animation);
+    }
+
+    function endDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        cancelAnimationFrame(animationID);
+        
+        const slider = document.getElementById(activeSliderId);
+        if (!slider) return;
+
+        slider.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        const movedBy = currentTranslate - prevTranslate;
+        const width = slider.parentElement.clientWidth;
+
+        if (movedBy < -width/4) nextSlide(activeSliderId);
+        else if (movedBy > width/4) prevSlide(activeSliderId);
+        else goToSlide(activeSliderId, currentIndexes[activeSliderId]);
+        
+        startAutoPlay(activeSliderId); // Jalankan kembali auto-play setelah drag selesai
+    }
+
+    function moveDrag(event) {
+        if (isDragging) {
+            const currentPosition = getPositionX(event);
+            currentTranslate = prevTranslate + currentPosition - startPos;
+        }
+    }
+
+    function getPositionX(event) {
+        return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+    }
+
+    function animation() {
+        setSliderTransform();
+        if (isDragging) requestAnimationFrame(animation);
+    }
+
+    function setSliderTransform() {
+        const slider = document.getElementById(activeSliderId);
+        if(slider) slider.style.transform = `translateX(${currentTranslate}px)`;
+    }
+
+    function nextSlide(id) {
+        const slider = document.getElementById(id);
+        const slidesCount = slider.querySelectorAll('img').length;
+        if (currentIndexes[id] < slidesCount - 1) {
+            currentIndexes[id]++;
+        } else {
+            currentIndexes[id] = 0; // Loop kembali ke awal
+        }
+        goToSlide(id, currentIndexes[id]);
+    }
+
+    function prevSlide(id) {
+        const slider = document.getElementById(id);
+        const slidesCount = slider.querySelectorAll('img').length;
+        if (currentIndexes[id] > 0) {
+            currentIndexes[id]--;
+        } else {
+            currentIndexes[id] = slidesCount - 1; // Kembali ke akhir
+        }
+        goToSlide(id, currentIndexes[id]);
+    }
+
+    function goToSlide(id, index) {
+        const slider = document.getElementById(id);
+        if(!slider) return;
+        currentIndexes[id] = index;
+        const width = slider.parentElement.clientWidth;
+        
+        slider.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        currentTranslate = -index * width;
+        prevTranslate = currentTranslate;
+        slider.style.transform = `translateX(${currentTranslate}px)`;
+        updateDots(id);
+        
+        if (id === 'modalSlider') updateDownloadLink();
+    }
+
+    function updateDots(id) {
+        const slider = document.getElementById(id);
+        const dotsContainer = document.getElementById('dots-' + id);
+        if(!slider || !dotsContainer) return;
+        const slidesCount = slider.querySelectorAll('img').length;
+        
+        dotsContainer.innerHTML = '';
+        for(let i=0; i<slidesCount; i++) {
+            const dot = document.createElement('div');
+            dot.className = `dot ${i === currentIndexes[id] ? 'active' : ''}`;
+            dot.onclick = (e) => {
+                e.stopPropagation();
+                goToSlide(id, i);
+            };
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    // --- FUNGSI MODAL & FILTER (TETAP SAMA) ---
+    function openModalWithSlides(sourceSliderId, title, date) {
+        const sourceSlider = document.getElementById(sourceSliderId);
+        const modalSlider = document.getElementById('modalSlider');
+        const images = sourceSlider.querySelectorAll('img');
+        
+        modalSlider.innerHTML = '';
+        images.forEach(img => {
+            const newImg = document.createElement('img');
+            newImg.src = img.src;
+            newImg.className = 'modal-slide';
+            modalSlider.appendChild(newImg);
         });
 
-        // NAV ACTIVE LOGIC (DARI INDEX)
-        function updateActiveNav() {
-            const currentPath = window.location.pathname.split("/").pop() || "index.html";
-            document.querySelectorAll('.nav-link').forEach(link => {
-                const href = link.getAttribute('href');
-                link.classList.remove('nav-active', 'text-blue-400');
-                if (href === currentPath) {
-                    link.classList.add('nav-active', 'text-blue-400');
-                }
-            });
-        }
-        window.addEventListener('load', updateActiveNav);
-
-        // --- LOGIKA ASLI SLIDER ANDA ---
-        let currentActiveCategory = 'all';
-        let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0;
-        let activeSliderId = '';
-        let currentIndexes = {};
-
-        function initAllSliders() {
-            document.querySelectorAll('.slides-container').forEach(slider => {
-                const id = slider.id;
-                currentIndexes[id] = 0;
-                updateDots(id);
-            });
-        }
-
-        function startDrag(event, id) {
-            activeSliderId = id;
-            isDragging = true;
-            startPos = getPositionX(event);
-            animationID = requestAnimationFrame(animation);
-        }
-
-        function endDrag() {
-            isDragging = false;
-            cancelAnimationFrame(animationID);
-            const slider = document.getElementById(activeSliderId);
-            if (!slider) return;
-            const movedBy = currentTranslate - prevTranslate;
-
-            if (movedBy < -100) nextSlide(activeSliderId);
-            else if (movedBy > 100) prevSlide(activeSliderId);
-            else goToSlide(activeSliderId, currentIndexes[activeSliderId]);
-        }
-
-        function moveDrag(event) {
-            if (isDragging) {
-                const currentPosition = getPositionX(event);
-                currentTranslate = prevTranslate + currentPosition - startPos;
-            }
-        }
-
-        function getPositionX(event) {
-            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-        }
-
-        function animation() {
-            setSliderTransform();
-            if (isDragging) requestAnimationFrame(animation);
-        }
-
-        function setSliderTransform() {
-            const slider = document.getElementById(activeSliderId);
-            if(slider) slider.style.transform = `translateX(${currentTranslate}px)`;
-        }
-
-        function nextSlide(id) {
-            const slider = document.getElementById(id);
-            const slidesCount = slider.querySelectorAll('img').length;
-            if (currentIndexes[id] < slidesCount - 1) currentIndexes[id]++;
-            goToSlide(id, currentIndexes[id]);
-        }
-
-        function prevSlide(id) {
-            if (currentIndexes[id] > 0) currentIndexes[id]--;
-            goToSlide(id, currentIndexes[id]);
-        }
-
-        function goToSlide(id, index) {
-            const slider = document.getElementById(id);
-            if(!slider) return;
-            currentIndexes[id] = index;
-            const width = slider.parentElement.clientWidth;
-            currentTranslate = -index * width;
-            prevTranslate = currentTranslate;
-            slider.style.transform = `translateX(${currentTranslate}px)`;
-            updateDots(id);
-            
-            if (id === 'modalSlider') {
-                updateDownloadLink();
-            }
-        }
-
-        function updateDots(id) {
-            const slider = document.getElementById(id);
-            const dotsContainer = document.getElementById('dots-' + id);
-            if(!slider || !dotsContainer) return;
-            const slidesCount = slider.querySelectorAll('img').length;
-            
-            dotsContainer.innerHTML = '';
-            for(let i=0; i<slidesCount; i++) {
-                const dot = document.createElement('div');
-                dot.className = `dot ${i === currentIndexes[id] ? 'active' : ''}`;
-                dot.onclick = () => goToSlide(id, i);
-                dotsContainer.appendChild(dot);
-            }
-        }
-
-        function updateDownloadLink() {
-            const modalSlider = document.getElementById('modalSlider');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const images = modalSlider.querySelectorAll('img');
-            const index = currentIndexes['modalSlider'] || 0;
-            
-            if (images[index]) {
-                const imgSrc = images[index].src;
-                downloadBtn.href = imgSrc;
-                const title = document.getElementById('modalTitle').innerText || 'memory';
-                downloadBtn.download = title.replace(/\s+/g, '-').toLowerCase() + '-' + (index + 1) + '.jpg';
-            }
-        }
-
-        function openModalWithSlides(sourceSliderId, title, date) {
-            const sourceSlider = document.getElementById(sourceSliderId);
-            const modalSlider = document.getElementById('modalSlider');
-            const images = sourceSlider.querySelectorAll('img');
-            
-            modalSlider.innerHTML = '';
-            images.forEach(img => {
-                const newImg = document.createElement('img');
-                newImg.src = img.src;
-                newImg.className = 'modal-slide';
-                modalSlider.appendChild(newImg);
-            });
-
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDate').innerText = date;
-            document.getElementById('photoModal').classList.remove('hidden');
-            document.getElementById('photoModal').classList.add('flex');
-            
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalDate').innerText = date;
+        const modal = document.getElementById('photoModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        
+        setTimeout(() => {
             currentIndexes['modalSlider'] = 0;
             goToSlide('modalSlider', 0);
             updateDots('modalSlider');
-            updateDownloadLink();
-        }
+        }, 50);
+    }
 
-        function closeModal() {
-            document.getElementById('photoModal').classList.add('hidden');
-            document.getElementById('photoModal').classList.remove('flex');
-        }
+    function closeModal() {
+        document.getElementById('photoModal').classList.add('hidden');
+        document.getElementById('photoModal').classList.remove('flex');
+    }
 
-        function filterGallery(category) {
-            currentActiveCategory = category;
-            const searchText = document.getElementById('gallerySearch').value.toLowerCase();
-            
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('album-active');
-                btn.classList.add('bg-white/5', 'border-white/10');
-            });
-            document.getElementById('btn-' + category)?.classList.add('album-active');
-
-            document.querySelectorAll('.glass-card').forEach(card => {
-                const cardCategory = card.getAttribute('data-category');
-                const title = card.querySelector('h3').innerText.toLowerCase();
-                const matchesCategory = (category === 'all' || cardCategory === category);
-                const matchesSearch = title.includes(searchText);
-
-                if (matchesCategory && matchesSearch) {
-                    card.style.display = 'block';
-                    setTimeout(() => card.style.opacity = '1', 10);
-                } else {
-                    card.style.opacity = '0';
-                    setTimeout(() => card.style.display = 'none', 400);
-                }
-            });
-        }
-
-        window.onmousemove = moveDrag;
-        window.onmouseup = endDrag;
-        window.ontouchmove = moveDrag;
-        window.ontouchend = endDrag;
-
-        window.addEventListener('load', () => {
-            initAllSliders();
+    function filterGallery(category) {
+        currentActiveCategory = category;
+        const searchText = document.getElementById('gallerySearch').value.toLowerCase();
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('album-active');
+            btn.classList.add('bg-white/5', 'border-white/10');
         });
-    </script>
+        document.getElementById('btn-' + category)?.classList.add('album-active');
+
+        document.querySelectorAll('.glass-card').forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            const title = card.querySelector('h3').innerText.toLowerCase();
+            const matchesCategory = (category === 'all' || cardCategory === category);
+            const matchesSearch = title.includes(searchText);
+
+            if (matchesCategory && matchesSearch) {
+                card.style.display = 'block';
+                setTimeout(() => card.style.opacity = '1', 10);
+            } else {
+                card.style.opacity = '0';
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    window.addEventListener('mousemove', moveDrag);
+    window.addEventListener('mouseup', endDrag);
+    window.addEventListener('touchmove', moveDrag);
+    window.addEventListener('touchend', endDrag);
+    
+    window.addEventListener('resize', () => {
+        Object.keys(currentIndexes).forEach(id => goToSlide(id, currentIndexes[id]));
+    });
+
+    window.addEventListener('load', initAllSliders);
+</script>
+
 </body>
 </html>
