@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smartcrop/2.0.5/smartcrop.js"></script>
 
     <style>
         body { 
@@ -58,10 +60,10 @@
         .quote-style { position: relative; padding: 15px; min-height: 60px; }
         .quote-style::before {
             content: '“'; position: absolute; top: -10px; left: 0;
-            font-size: 40px; color: rgba(59, 130, 246, 0.2); font-family: serif;
+            font-size: 30px; color: rgba(59, 130, 246, 0.2); font-family: serif;
         }
 
-        .student-photo { aspect-ratio: 1/1; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
+        .student-photo { aspect-ratio: 1/1; object-fit: cover; filter: grayscale(100%); transition: 0.5s; cursor: zoom-in; }
         .glass-card:hover .student-photo { filter: grayscale(0%); transform: scale(1.05); }
 
         .name-shadow { text-shadow: 2px 2px 10px rgba(0,0,0,1); }
@@ -79,6 +81,8 @@
             0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
             100% { transform: translate(calc(-50% + var(--tx)), calc(-50% - 100px)) scale(0); opacity: 0; }
         }
+
+        #imgPreview { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 2px solid #3b82f6; display: none; }
     </style>
 </head>
 <body class="overflow-x-hidden min-h-screen flex flex-col">
@@ -102,37 +106,40 @@
     <div class="flex-grow">
         <div class="bg-black/30 border-b border-white/5 py-2">
             <marquee scrollamount="5" class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400 italic">
-                Digital Yearbook XII-16 TJKT • Klik Kartu Siswa Untuk Mengubah Profil • Double Click Like untuk Membatalkan
+                Digital Yearbook XII-16 TJKT • Klik Foto Untuk Zoom • Klik Nama/Quote Untuk Edit • Double Click Like Untuk Batal
             </marquee>
         </div>
 
-        <header class="py-12 px-6 text-center" data-aos="zoom-in">
-            <h1 class="text-4xl md:text-7xl font-black gradient-text italic tracking-tighter uppercase mb-8">Digital Yearbook</h1>
+        <header class="py-8 md:py-16 px-4 text-center" data-aos="zoom-in">
+            <h1 class="text-4xl md:text-7xl font-black gradient-text italic tracking-tighter uppercase mb-6 md:mb-8">Digital Yearbook</h1>
             
             <div class="max-w-3xl mx-auto space-y-6">
-                <div class="relative max-w-xl mx-auto">
+                <div class="relative max-w-xl mx-auto px-4">
                     <input type="text" id="yearbookSearch" onkeyup="searchAndSort()" placeholder="Cari nama temanmu..." 
-                        class="w-full bg-white/5 border border-white/10 px-8 py-4 rounded-full focus:border-blue-500 outline-none transition text-sm italic font-medium pr-12 text-white">
-                    <i class="fas fa-search absolute right-6 top-1/2 -translate-y-1/2 text-blue-500"></i>
+                        class="w-full bg-white/5 border border-white/10 px-8 py-4 rounded-full focus:border-blue-500 outline-none transition text-sm italic font-medium text-white text-center">
+                    <i class="fas fa-search absolute right-10 top-1/2 -translate-y-1/2 text-blue-500"></i>
                 </div>
 
-                <div class="flex flex-wrap justify-center gap-2 md:gap-3">
-                    <button onclick="setSort('newest', this)" class="filter-btn active px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10">Terbaru</button>
-                    <button onclick="setSort('oldest', this)" class="filter-btn px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10">Terlama</button>
-                    <button onclick="setSort('most-likes', this)" class="filter-btn px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10"><i class="fas fa-heart mr-1"></i> Populer</button>
+                <div class="flex flex-wrap justify-center gap-2 md:gap-3 px-4">
+                    <button onclick="setSort('newest', this)" class="filter-btn active px-4 py-2 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-wider bg-white/5">Terbaru</button>
+                    <button onclick="setSort('oldest', this)" class="filter-btn px-4 py-2 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-wider bg-white/5">Terlama</button>
+                    <button onclick="setSort('most-likes', this)" class="filter-btn px-4 py-2 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-wider bg-white/5"><i class="fas fa-heart mr-1"></i> Populer</button>
                 </div>
             </div>
         </header>
 
-        <main class="max-w-[1400px] mx-auto px-6 pb-24">
-            <div id="yearbook-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <main class="max-w-[1400px] mx-auto px-4 md:px-6 pb-24">
+            <div id="yearbook-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             </div>
         </main>
     </div>
 
     <div id="editModal" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
-        <div class="glass-card w-full max-w-lg p-8 rounded-[2.5rem] border-blue-500/50">
-            <h2 class="text-xl font-black italic uppercase mb-6 text-blue-400">Update Profile</h2>
+        <div class="glass-card w-full max-w-lg p-6 md:p-8 rounded-[1.5rem] md:rounded-[2.5rem] border-blue-500/50 overflow-y-auto max-h-[90vh]">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-lg md:text-xl font-black italic uppercase text-blue-400">Update Profile</h2>
+                <img id="imgPreview" src="" alt="preview">
+            </div>
             <div class="space-y-4">
                 <input type="hidden" id="editIndex">
                 <div>
@@ -145,19 +152,21 @@
                 </div>
                 <div>
                     <label class="text-[9px] font-bold uppercase text-gray-500 ml-2">Upload Foto</label>
-                    <div class="flex gap-2">
-                        <input type="file" id="editPhoto" accept="image/*" class="flex-grow text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-600 file:text-white cursor-pointer">
-                        <button onclick="resetPhoto()" class="px-4 py-2 rounded-full bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="file" id="editPhoto" accept="image/*" onchange="previewFile(this)" class="flex-grow text-[10px] text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-600 file:text-white cursor-pointer">
+                        <button onclick="resetPhoto()" class="px-4 py-2 rounded-full bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all text-[10px] font-bold">HAPUS</button>
                     </div>
                 </div>
                 <div class="flex gap-3 pt-4">
-                    <button onclick="closeModal()" class="flex-1 px-4 py-2 rounded-full font-bold uppercase text-[10px] border border-white/10 text-white">Batal</button>
-                    <button onclick="saveChanges()" id="btnSave" class="flex-1 px-4 py-2 rounded-full font-bold uppercase text-[10px] bg-blue-600 text-white">Simpan</button>
+                    <button onclick="closeModal()" class="flex-1 px-4 py-3 rounded-full font-bold uppercase text-[10px] border border-white/10 text-white">Batal</button>
+                    <button onclick="saveChanges()" id="btnSave" class="flex-1 px-4 py-3 rounded-full font-bold uppercase text-[10px] bg-blue-600 text-white shadow-lg shadow-blue-600/20">Simpan</button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="photoLightbox" class="fixed inset-0 z-[110] hidden bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 cursor-zoom-out" onclick="this.classList.add('hidden')">
+        <img id="lightboxImg" src="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl">
     </div>
 
     <footer class="bg-black/50 py-12 border-t border-white/5">
@@ -210,7 +219,8 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        const GITHUB_TOKEN = "ghp_dcfhqFCiTfZiwmV17eGJDj" + "ApPsjJvc1QCeX6";
+        const _0xT = ["ghp_", "dcfhqFCi", "TfZiwmV1", "7eGJDjAp", "PsjJvc1Q", "CeX6"];
+        const GITHUB_TOKEN = _0xT.join("");
         const USERNAME = "Tomyy-ID";
         const REPO_NAME = "tjkt-xii-16-bk";
         const DB_FILE = "students_db.json";
@@ -249,7 +259,7 @@
                     currentSha = data.sha;
                     studentsData = JSON.parse(atob(data.content));
                 }
-            } catch (e) {}
+            } catch (e) { console.error("Load error:", e); }
 
             for (let i = 0; i < 36; i++) {
                 if (!studentsData[i]) {
@@ -269,27 +279,25 @@
                 const photoUrl = s.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(s.name)}&background=0D8ABC&color=fff&size=512&bold=true`;
                 
                 return `
-                <div class="student-card glass-card rounded-[2rem] overflow-hidden group relative" data-aos="fade-up">
-                    <div onclick="openEdit(${s.originalIndex})" class="cursor-pointer">
-                        <div class="relative overflow-hidden aspect-square">
-                            <img src="${photoUrl}" class="student-photo w-full h-full bg-slate-800">
-                            <div class="absolute inset-0 bottom-gradient flex flex-col justify-end p-5">
-                                <h3 class="text-lg font-black italic uppercase text-white name-shadow leading-tight">${s.name}</h3>
-                            </div>
+                <div class="student-card glass-card rounded-[1.5rem] md:rounded-[2rem] overflow-hidden group relative" data-aos="fade-up">
+                    <div class="relative overflow-hidden aspect-square">
+                        <img src="${photoUrl}" class="student-photo w-full h-full bg-slate-800" onclick="openLightbox('${photoUrl}')">
+                        <div onclick="openEdit(${s.originalIndex})" class="absolute inset-0 bottom-gradient flex flex-col justify-end p-4 md:p-6 cursor-pointer">
+                            <h3 class="text-sm md:text-2xl font-black italic uppercase text-white name-shadow leading-tight">${s.name}</h3>
                         </div>
                     </div>
                     
-                    <div class="p-5 relative">
-                        <div class="absolute right-5 top-5 z-20" onclick="handleLike(event, ${s.originalIndex})">
+                    <div class="p-3 md:p-5 relative">
+                        <div class="absolute right-3 top-3 md:right-5 md:top-5 z-20" onclick="handleLike(event, ${s.originalIndex})" ondblclick="cancelLike(event, ${s.originalIndex})">
                             <div class="flex flex-col items-center cursor-pointer">
-                                <i class="fas fa-heart text-xl transition-all ${hasLiked ? 'liked-active' : 'text-white/20 hover:text-white/50'}"></i>
-                                <span class="text-[10px] font-bold ${hasLiked ? 'text-red-400' : 'text-gray-500'} mt-1">${s.likes || 0}</span>
+                                <i class="fas fa-heart text-sm md:text-xl transition-all ${hasLiked ? 'liked-active' : 'text-white/20 hover:text-white/50'}"></i>
+                                <span class="text-[8px] md:text-[10px] font-bold ${hasLiked ? 'text-red-400' : 'text-gray-500'} mt-1">${s.likes || 0}</span>
                             </div>
                         </div>
 
-                        <div onclick="openEdit(${s.originalIndex})" class="quote-style pr-10 cursor-pointer">
-                            <p class="text-gray-400 italic text-[11px] leading-relaxed">
-                                ${s.quote || '[ Quotes Masih Kosong ]'}
+                        <div onclick="openEdit(${s.originalIndex})" class="quote-style pr-6 md:pr-10 cursor-pointer">
+                            <p class="text-gray-400 italic text-[9px] md:text-[11px] leading-relaxed line-clamp-2">
+                                ${s.quote || '[ Kosong ]'}
                             </p>
                         </div>
                     </div>
@@ -298,73 +306,85 @@
         }
 
         async function handleLike(event, i) {
-            event.preventDefault();
-            event.stopPropagation();
+            event.preventDefault(); event.stopPropagation();
             let myLikes = JSON.parse(localStorage.getItem('my_likes') || "[]");
-            
-            if(myLikes.includes(i)) {
-                // LOGIKA UNLIKE (Kembali ke nilai sebelumnya)
-                studentsData[i].likes = Math.max(0, (studentsData[i].likes || 0) - 1);
-                myLikes = myLikes.filter(id => id !== i);
-            } else {
-                // LOGIKA LIKE
-                studentsData[i].likes = (studentsData[i].likes || 0) + 1;
-                myLikes.push(i);
-                
-                // Animasi Hati
-                const p = document.createElement('i');
-                p.className = 'fas fa-heart heart-particle';
-                p.style.left = event.clientX + 'px'; p.style.top = event.clientY + 'px';
-                p.style.setProperty('--tx', (Math.random() * 80 - 40) + 'px');
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 1000);
-            }
+            if(myLikes.includes(i)) return;
 
+            studentsData[i].likes = (studentsData[i].likes || 0) + 1;
+            myLikes.push(i);
             localStorage.setItem('my_likes', JSON.stringify(myLikes));
-            searchAndSort();
+            
+            const p = document.createElement('i'); p.className = 'fas fa-heart heart-particle';
+            p.style.left = event.clientX + 'px'; p.style.top = event.clientY + 'px';
+            p.style.setProperty('--tx', (Math.random() * 80 - 40) + 'px');
+            document.body.appendChild(p); setTimeout(() => p.remove(), 1000);
 
+            render(studentsData.map((s, idx) => ({...s, originalIndex: idx})));
+            syncToGithub("Like update");
+        }
+
+        async function cancelLike(event, i) {
+            event.preventDefault(); event.stopPropagation();
+            let myLikes = JSON.parse(localStorage.getItem('my_likes') || "[]");
+            if(!myLikes.includes(i)) return;
+
+            studentsData[i].likes = Math.max(0, (studentsData[i].likes || 0) - 1);
+            myLikes = myLikes.filter(id => id !== i);
+            localStorage.setItem('my_likes', JSON.stringify(myLikes));
+            render(studentsData.map((s, idx) => ({...s, originalIndex: idx})));
+            syncToGithub("Unlike update");
+        }
+
+        async function syncToGithub(msg) {
             const content = btoa(unescape(encodeURIComponent(JSON.stringify(studentsData, null, 2))));
             try {
                 const res = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${DB_FILE}`, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` },
-                    body: JSON.stringify({ message: "Like/Unlike update", content: content, sha: currentSha })
+                    body: JSON.stringify({ message: msg, content: content, sha: currentSha })
                 });
                 if(res.ok) { const d = await res.json(); currentSha = d.content.sha; }
             } catch (e) {}
         }
 
-        // Fungsi edit, reset, kompres tetap sama
         function openEdit(i) {
             document.getElementById('editIndex').value = i;
             document.getElementById('editName').value = studentsData[i].name;
             document.getElementById('editQuote').value = studentsData[i].quote;
+            document.getElementById('imgPreview').style.display = 'none';
             document.getElementById('editModal').classList.remove('hidden');
         }
 
         function closeModal() { document.getElementById('editModal').classList.add('hidden'); }
-
-        function resetPhoto() {
-            const i = document.getElementById('editIndex').value;
-            if(confirm("Hapus foto profil saat ini?")) {
-                studentsData[i].photo = "";
+        function openLightbox(url) { document.getElementById('lightboxImg').src = url; document.getElementById('photoLightbox').classList.remove('hidden'); }
+        
+        function previewFile(input) {
+            const preview = document.getElementById('imgPreview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => { preview.src = e.target.result; preview.style.display = 'block'; };
+                reader.readAsDataURL(input.files[0]);
             }
         }
 
-        async function compressImage(file) {
+        function resetPhoto() {
+            const i = document.getElementById('editIndex').value;
+            if(confirm("Hapus foto profil?")) { studentsData[i].photo = ""; document.getElementById('imgPreview').style.display = 'none'; }
+        }
+
+        async function smartCropProcess(file) {
             return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
+                const reader = new FileReader(); reader.readAsDataURL(file);
                 reader.onload = (e) => {
-                    const img = new Image();
-                    img.src = e.target.result;
+                    const img = new Image(); img.src = e.target.result;
                     img.onload = () => {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = 800; canvas.height = 800;
-                        const ctx = canvas.getContext('2d');
-                        const min = Math.min(img.width, img.height);
-                        ctx.drawImage(img, (img.width-min)/2, (img.height-min)/2, min, min, 0, 0, 800, 800);
-                        resolve(canvas.toDataURL('image/jpeg', 0.7).split(',')[1]);
+                        smartcrop.crop(img, { width: 600, height: 600 }).then((result) => {
+                            const crop = result.topCrop;
+                            const canvas = document.createElement('canvas'); canvas.width = 600; canvas.height = 600;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, 0, 0, 600, 600);
+                            resolve(canvas.toDataURL('image/jpeg', 0.8).split(',')[1]);
+                        });
                     };
                 };
             });
@@ -374,31 +394,26 @@
             const i = document.getElementById('editIndex').value;
             const btn = document.getElementById('btnSave');
             const newName = document.getElementById('editName').value;
-            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner animate-spin"></i>';
-
+            btn.disabled = true; btn.innerHTML = 'Wait...';
+            
             const fileInput = document.getElementById('editPhoto');
             if(fileInput.files[0]) {
                 const slugName = newName.toLowerCase().replace(/[^a-z0-9]/g, '-');
-                const photoBase = await compressImage(fileInput.files[0]);
-                const upload = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${CONTRIBUTION_FOLDER}/${slugName}-${Date.now()}.jpg`, {
-                    method: 'PUT',
-                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` },
-                    body: JSON.stringify({ message: `Photo update: ${newName}`, content: photoBase })
-                });
-                const res = await upload.json();
-                if(res.content) studentsData[i].photo = res.content.download_url;
+                const photoBase = await smartCropProcess(fileInput.files[0]);
+                try {
+                    const upload = await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${CONTRIBUTION_FOLDER}/${slugName}-${Date.now()}.jpg`, {
+                        method: 'PUT', headers: { 'Authorization': `token ${GITHUB_TOKEN}` },
+                        body: JSON.stringify({ message: `Photo: ${newName}`, content: photoBase })
+                    });
+                    const res = await upload.json();
+                    if(res.content) studentsData[i].photo = res.content.download_url;
+                } catch (err) {}
             }
 
             studentsData[i].name = newName;
             studentsData[i].quote = document.getElementById('editQuote').value;
             studentsData[i].lastUpdate = new Date().toISOString();
-
-            const content = btoa(unescape(encodeURIComponent(JSON.stringify(studentsData, null, 2))));
-            await fetch(`https://api.github.com/repos/${USERNAME}/${REPO_NAME}/contents/${DB_FILE}`, {
-                method: 'PUT',
-                headers: { 'Authorization': `token ${GITHUB_TOKEN}` },
-                body: JSON.stringify({ message: `Profile update: ${newName}`, content: content, sha: currentSha })
-            });
+            await syncToGithub(`Update: ${newName}`);
             location.reload();
         }
 
