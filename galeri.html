@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeri Animasi - TJKT XII 16</title>
+    <title>Memory Gallery | TJKT XII 16</title>
 
     <link rel="icon" type="image/png" href="logo-kelas.png">
     <link rel="apple-touch-icon" href="logo-kelas.png">
@@ -196,6 +196,29 @@
             <button onclick="filterGallery('praktek')" id="btn-praktek" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Praktek</button>
         </div>
 
+        <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
+                    <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider2')" ontouchstart="startDrag(event, 'slider2')">
+                        <div class="slides-container" id="slider2">
+                            <img src="img-album/Sosialisasi-KUA-1.jpg" class="slide" loading="lazy">
+                            <img src="img-album/Sosialisasi-KUA-2.jpg" class="slide" loading="lazy">
+                            <img src="img-album/Sosialisasi-KUA-3.jpg" class="slide" loading="lazy">
+                            <img src="img-album/Sosialisasi-KUA-4.jpg" class="slide" loading="lazy">
+                            <img src="img-album/Sosialisasi-KUA-5.jpg" class="slide" loading="lazy">
+                            <img src="img-album/Sosialisasi-KUA-6.jpg" class="slide" loading="lazy">
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                            <button onclick="openModalWithSlides('slider2', 'Sosialisasi Dari KUA Simo', 'Kamis, 22 Januari 2025')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider2"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold mb-1">Sosialisasi Dari KUA Simo</h3>
+                        <p class="text-purple-400 text-sm italic">Kamis, 22 Januari 2025</p>
+                    </div>
+                </div>
+
+
+
         <div class="container mx-auto px-6 pb-20">
             <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 
@@ -214,6 +237,7 @@
                         <p class="text-blue-400 text-sm italic">Jum'at, 19 Desember 2025</p>
                     </div>
                 </div>
+
 
                 <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
                     <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider2')" ontouchstart="startDrag(event, 'slider2')">
@@ -237,7 +261,7 @@
                     </div>
                 </div>
 
-                <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+                <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
                     <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider3')" ontouchstart="startDrag(event, 'slider3')">
                         <div class="slides-container" id="slider3">
                             <img src="img-album/Foto-ijazah-perempuan-1.jpg" class="slide" loading="lazy">
@@ -255,7 +279,7 @@
                     </div>
                 </div>
 
-                <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+                <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="momen" data-aos="fade-up">
                     <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider4')" ontouchstart="startDrag(event, 'slider4')">
                         <div class="slides-container" id="slider4">
                             <img src="img-album/Fotbar-ijazah-1.jpg" class="slide" loading="lazy">
