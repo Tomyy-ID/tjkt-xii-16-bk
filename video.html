@@ -21,14 +21,17 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            margin: 0;
         }
 
         .main-content { flex: 1 0 auto; }
+        footer { flex-shrink: 0; }
 
         @keyframes floatingLogo {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
         }
+
         .animate-floating { animation: floatingLogo 3s ease-in-out infinite; display: inline-block; }
         .logo-glow { text-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
 
@@ -44,29 +47,18 @@
         }
 
         .marquee-container {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            background: rgba(59, 130, 246, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 10px 0;
+            width: 100%; overflow: hidden; white-space: nowrap;
+            background: rgba(59, 130, 246, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 10px 0;
         }
         .marquee-text {
-            display: inline-block;
-            animation: marquee 30s linear infinite;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.5);
+            display: inline-block; animation: marquee 30s linear infinite;
+            font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: rgba(255, 255, 255, 0.5);
         }
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
         .gradient-text {
             background: linear-gradient(90deg, #60a5fa, #a855f7, #60a5fa);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: shine 4s linear infinite;
         }
         @keyframes shine { to { background-position: 200% center; } }
@@ -76,46 +68,39 @@
         .like-active { color: #ef4444 !important; }
         
         #videoModal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            display: none; position: fixed; inset: 0; z-index: 1000;
+            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px);
+            align-items: center; justify-content: center; padding: 20px;
         }
-        #modalContent { transform: scale(0.8); transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        #videoModal.active #modalContent { transform: scale(1); }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
 
-        /* Style Komentar */
         .comment-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 8px 12px;
-            margin-top: 6px;
-            border-left: 2px solid #3b82f6;
+            background: rgba(255, 255, 255, 0.05); border-radius: 12px;
+            padding: 8px 12px; margin-top: 6px; border-left: 2px solid #3b82f6;
             animation: fadeIn 0.3s ease;
         }
+        /* Style tambahan untuk komen yang di PIN */
+        .comment-pinned { border-left: 2px solid #f59e0b; background: rgba(245, 158, 11, 0.1); }
+        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+
     <div class="main-content">
         <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-lg border-b border-white/5 bg-black/20">
             <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow uppercase">
                 TJKT <span class="text-blue-500">XII-16</span>
-    </div>
-    <div id="nav-container" class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
-        <a href="index.html#home" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
-        <a href="yearbook.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Yearbook</a>
-        <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
-        <a href="nilai-TKA.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Nilai TKA</a>
-        <a href="galeri.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Album</a>
+            </div>
+            <div id="nav-container" class="flex items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar ml-4 py-1">
+                <a href="index.html#home" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Beranda</a>
+                <a href="yearbook.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Yearbook</a>
+                <a href="siswa.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Siswa</a>
+                <a href="nilai-TKA.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Nilai TKA</a>
+                <a href="galeri.html" class="nav-link hover:text-blue-400 transition text-[10px] md:text-sm font-bold uppercase tracking-widest whitespace-nowrap shrink-0">Album</a>
                 <a href="video.html" class="nav-active text-[10px] md:text-sm font-bold uppercase whitespace-nowrap">Video</a>
             </div>
         </nav>
@@ -128,7 +113,7 @@
 
         <header class="pt-12 pb-8 px-6 text-center">
             <h1 class="text-4xl md:text-6xl font-black gradient-text italic mb-4 tracking-tighter uppercase">CINEMA ROOM</h1>
-            <p class="text-gray-400 max-w-xl mx-auto text-xs md:text-sm italic italic">
+            <p class="text-gray-400 max-w-xl mx-auto text-xs md:text-sm italic">
                 Dokumentasi Cinematic Perjalanan XII-16 TKJ.
             </p>
         </header>
@@ -149,181 +134,299 @@
         </div>
 
         <main class="max-w-[1600px] mx-auto px-6 pb-24">
-            <div id="videoGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div id="videoGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 
-                <div class="video-card glass-card rounded-[2rem] overflow-hidden flex flex-col" data-category="cinematic" data-aos="zoom-in">
-                    <div class="aspect-video bg-black relative group cursor-pointer" onclick="openVideo('https://youtu.be/PmLRJC2txI0?si=YzNJpowv71haxpve')">
-                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500" class="w-full h-full object-cover opacity-60">
+                <div class="video-card glass-card rounded-[2rem] overflow-hidden flex flex-col group" data-category="cinematic" data-video-id="vid_002" data-aos="zoom-in">
+                    <div class="relative w-full aspect-video cursor-pointer" 
+                         onclick="openVideo('https://res.cloudinary.com/dgrv0oyi8/video/upload/v1769851292/CINEMATIC_HARI_GURU_25_NOVEMBER_2025_dayrnp.mp4', 'mp4')">
+                        <img src="https://res.cloudinary.com/dgrv0oyi8/video/upload/v1769851292/CINEMATIC_HARI_GURU_25_NOVEMBER_2025_dayrnp.jpg" 
+                             class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition" 
+                             onerror="this.src='https://placehold.co/600x400/000000/FFFFFF?text=Preview+Video'">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-play-circle text-5xl text-white/50 group-hover:text-blue-500 transition-all"></i>
+                            <i class="fas fa-play-circle text-5xl text-white/50 group-hover:text-blue-500"></i>
                         </div>
                     </div>
+
                     <div class="p-6 flex-grow">
                         <span class="text-[9px] bg-blue-500/10 text-blue-400 px-3 py-1 rounded-lg font-black uppercase border border-blue-500/20">Cinematic</span>
-                        <h3 class="video-title text-lg font-black mt-3 uppercase italic leading-tight">After Movie Classmeet</h3>
-                        
+                        <h3 class="text-lg font-black mt-3 uppercase italic">Cinematic Hari Guru</h3>
                         <div class="flex items-center gap-4 mt-5 pt-4 border-t border-white/5">
-                            <button onclick="toggleLike(this)" class="text-gray-400 hover:text-red-500 transition flex items-center gap-2">
-                                <i class="far fa-heart text-sm"></i> <span class="text-[10px] font-bold">24</span>
+                            <button onclick="toggleLike(this)" class="text-gray-400 transition flex items-center gap-2">
+                                <i class="far fa-heart text-sm"></i>
+                                <span class="text-[10px] font-bold like-count">0</span>
                             </button>
-                            <div class="text-gray-400 flex items-center gap-2">
-                                <i class="far fa-comment text-sm"></i> <span class="text-[10px] font-bold" id="comment-count-1">1</span>
-                            </div>
                         </div>
+                    </div>
 
-                        <div class="mt-4 pt-4 border-t border-white/5">
-                            <div class="relative mb-3">
-                                <input type="text" id="input-1" placeholder="Tulis komentar..." 
-                                    class="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-4 pr-10 text-[10px] focus:outline-none focus:border-blue-500 transition-all"
-                                    onkeypress="handleComment(event, 1)">
-                                <button onclick="sendComment(1)" class="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500 hover:text-blue-400">
-                                    <i class="fas fa-paper-plane text-[10px]"></i>
-                                </button>
-                            </div>
-                            
-                            <div id="list-1" class="max-h-32 overflow-y-auto no-scrollbar space-y-2">
-                                <div class="comment-item">
-                                    <p class="text-[9px] font-bold text-blue-400 mb-0.5">Anonim</p>
-                                    <p class="text-[10px] text-gray-300 leading-snug">Gokil parah editannya! 🔥</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="px-6 pb-6 space-y-2">
+                        <input placeholder="Nama kamu..." class="username-input w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-[10px] focus:outline-none">
+                        <input placeholder="Tulis komentar..." onkeydown="addComment(event,this)" class="comment-input w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-[10px] focus:outline-none">
+                        <div class="comment-list max-h-40 overflow-y-auto space-y-2"></div>
                     </div>
                 </div>
 
+                <div class="video-card glass-card rounded-[2rem] overflow-hidden flex flex-col group" data-category="cinematic" data-video-id="vid_001" data-aos="zoom-in">
+                    <div class="relative w-full aspect-video cursor-pointer" 
+                         onclick="openVideo('https://res.cloudinary.com/dgrv0oyi8/video/upload/v1769851292/CINEMATIC_HARI_GURU_25_NOVEMBER_2025_dayrnp.mp4', 'mp4')">
+                        <img src="https://res.cloudinary.com/dgrv0oyi8/video/upload/v1769851292/CINEMATIC_HARI_GURU_25_NOVEMBER_2025_dayrnp.jpg" 
+                             class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition" 
+                             onerror="this.src='https://placehold.co/600x400/000000/FFFFFF?text=Preview+Video'">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-5xl text-white/50 group-hover:text-blue-500"></i>
+                        </div>
+                    </div>
+
+                    <div class="p-6 flex-grow">
+                        <span class="text-[9px] bg-blue-500/10 text-blue-400 px-3 py-1 rounded-lg font-black uppercase border border-blue-500/20">Cinematic</span>
+                        <h3 class="text-lg font-black mt-3 uppercase italic">Cinematic Hari Guru</h3>
+                        <div class="flex items-center gap-4 mt-5 pt-4 border-t border-white/5">
+                            <button onclick="toggleLike(this)" class="text-gray-400 transition flex items-center gap-2">
+                                <i class="far fa-heart text-sm"></i>
+                                <span class="text-[10px] font-bold like-count">0</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="px-6 pb-6 space-y-2">
+                        <input placeholder="Nama kamu..." class="username-input w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-[10px] focus:outline-none">
+                        <input placeholder="Tulis komentar..." onkeydown="addComment(event,this)" class="comment-input w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-[10px] focus:outline-none">
+                        <div class="comment-list max-h-40 overflow-y-auto space-y-2"></div>
+                    </div>
                 </div>
+            </div>
         </main>
     </div>
 
-    <div id="videoModal" onclick="closeVideo()">
-        <div id="modalContent" class="glass-card p-2 rounded-[2.5rem] w-full max-w-4xl overflow-hidden" onclick="event.stopPropagation()">
-            <div class="aspect-video">
-                <iframe id="modalIframe" class="w-full h-full rounded-[2rem]" frameborder="0" allowfullscreen allow="autoplay"></iframe>
-            </div>
-            <button onclick="closeVideo()" class="mt-4 w-full py-2 text-gray-400 hover:text-white text-[10px] font-black tracking-widest uppercase">
-                <i class="fas fa-times-circle mr-2"></i> Tutup Pemutar
-            </button>
-        </div>
-    </div>
-
     <footer class="bg-black/50 py-12 border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
-            <a href="https://www.instagram.com/12enambelas_?igsh=MTI4YzMyZzBnbHV0bg==" target="_blank" class="flex items-center gap-4 group">
-                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-pink-500 group-hover:border-pink-500/50">
-                    <i class="fab fa-instagram text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
-                    <p class="text-xs font-bold text-white">@12enambelas_</p>
-                </div>
-            </a>
-            <a href="https://www.instagram.com/smks.bksimo?igsh=MXIwa2MwbzYzYXkwYw==" target="_blank" class="flex items-center gap-4 group lg:justify-center">
-                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-purple-400 group-hover:border-purple-400/50">
-                    <i class="fab fa-instagram text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
-                    <p class="text-xs font-bold text-white">@smks.bksimo</p>
-                </div>
-            </a>
-            <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
-                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
-                    <i class="fas fa-globe text-lg"></i>
-                </div>
-                <div>
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
-                    <p class="text-xs font-bold text-white">SMK BK SIMO</p>
-                </div>
-            </a>
-            <a href="https://www.instagram.com/tomyeka_rmx?igsh=MW16MmRwOW42M3Znbw==" target="_blank" class="flex items-center gap-4 group lg:justify-end">
-                <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
-                    <i class="fas fa-code text-lg"></i>
-                </div>
-                <div>
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
-                    <p class="text-xs font-bold text-white italic">@tomyeka_rmx</p>
-                </div>
-            </a>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 items-center">
+                <a href="https://www.instagram.com/12enambelas_/" target="_blank" class="flex items-center gap-4 group">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-pink-500 group-hover:border-pink-500/50">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Kelas</p>
+                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@12enambelas_</p>
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/smks.bksimo/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-purple-400 group-hover:border-purple-400/50">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Instagram Sekolah</p>
+                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors">@smks.bksimo</p>
+                    </div>
+                </a>
+
+                <a href="https://www.smk-bk-simo.sch.id/" target="_blank" class="flex items-center gap-4 group lg:justify-center">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
+                        <i class="fas fa-globe text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Official Website</p>
+                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors">SMK BK SIMO</p>
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/tomyeka_rmx/" target="_blank" class="flex items-center gap-4 group lg:justify-end">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group-hover:bg-white/10 group-hover:text-blue-400 group-hover:border-blue-400/50">
+                        <i class="fas fa-code text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest leading-none mb-1">Web Developer</p>
+                        <p class="text-xs font-bold text-white group-hover:text-white transition-colors italic">@tomyeka_rmx</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="text-center pt-8 border-t border-white/5">
+                <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+                    © 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
+                </p>
+            </div>
         </div>
-        <div class="text-center pt-8 border-t border-white/5">
-            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                &copy; 2026 XII-16 TJKT. Crafted by Gemini Ai x Tomexx.ID
-            </p>
+    </footer>
+
+    <div id="videoModal" onclick="closeVideo()">
+        <div class="glass-card p-2 rounded-[2.5rem] w-full max-w-4xl" onclick="event.stopPropagation()">
+            <div class="aspect-video">
+                <div id="modalContainer" class="w-full h-full"></div>
+            </div>
+            <button onclick="closeVideo()" class="mt-4 w-full text-gray-400 text-[10px] font-black uppercase">Tutup Pemutar</button>
         </div>
     </div>
-</footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 800, once: true });
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
 
-        function openVideo(url) {
-            const modal = document.getElementById('videoModal');
-            const iframe = document.getElementById('modalIframe');
-            iframe.src = url;
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('active'), 10);
+    const clickSound = document.getElementById('clickSound');
+    function playClickSound() {
+        if (clickSound) {
+            clickSound.currentTime = 0;
+            clickSound.play().catch(e => console.log("Sound play prevented"));
+        }
+    }
+
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.cursor-pointer')) {
+            playClickSound();
+        }
+    });
+
+    /* ADMIN LOGIC */
+    const isAdmin = sessionStorage.getItem("adminAuth") === "true";
+    
+    const videoModal = document.getElementById("videoModal");
+    const modalContainer = document.getElementById("modalContainer");
+
+    function openVideo(url, type) {
+        if (type === 'youtube') {
+            modalContainer.innerHTML = `<iframe class="w-full h-full rounded-[2rem]" src="${url}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        } else {
+            modalContainer.innerHTML = `
+                <video controls autoplay class="w-full h-full rounded-[2rem]">
+                    <source src="${url}" type="video/mp4">
+                    Browser tidak mendukung video.
+                </video>`;
+        }
+        videoModal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeVideo() {
+        videoModal.style.display = "none";
+        modalContainer.innerHTML = "";
+        document.body.style.overflow = "auto";
+    }
+
+    function filterCat(cat, btn){
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-active'));
+        btn.classList.add('filter-active');
+        document.querySelectorAll('.video-card').forEach(v => {
+            v.style.display = (cat === "all" || v.dataset.category === cat) ? "flex" : "none";
+        });
+    }
+
+    function filterVideos(){
+        const q = document.getElementById('videoSearch').value.toLowerCase();
+        document.querySelectorAll('.video-card').forEach(v => {
+            v.style.display = v.innerText.toLowerCase().includes(q) ? "flex" : "none";
+        });
+    }
+
+    /* LIKE & COMMENT SYSTEM */
+    function getStore(id){ return JSON.parse(localStorage.getItem(id)) || {likes:0, comments:[]} }
+    function saveStore(id,data){ localStorage.setItem(id, JSON.stringify(data)) }
+
+    function toggleLike(btn){
+        const card = btn.closest('.video-card');
+        const id = card.dataset.videoId;
+        const store = getStore(id);
+        btn.classList.toggle('like-active');
+        btn.querySelector('i').classList.toggle('fas');
+        btn.querySelector('i').classList.toggle('far');
+        store.likes += btn.classList.contains('like-active') ? 1 : -1;
+        btn.querySelector('.like-count').innerText = store.likes;
+        saveStore(id, store);
+    }
+
+    function addComment(e, input){
+        if(e.key !== "Enter") return;
+        const card = input.closest('.video-card');
+        const userField = card.querySelector('.username-input');
+        const user = userField.value.trim() || "Anonim";
+        const text = input.value.trim();
+        if(!text) return;
+
+        // Simpan identitas user ke session agar bisa hapus komen sendiri
+        sessionStorage.setItem("lastUsedName", user);
+
+        const id = card.dataset.videoId;
+        const store = getStore(id);
+        
+        // Simpan komentar (default tidak di pin)
+        store.comments.unshift({user, text, pin: false});
+        saveStore(id, store);
+        
+        input.value = "";
+        renderComments(card, store);
+    }
+
+    // Fungsi Hapus Komentar
+    function deleteComment(videoId, index) {
+        if(!confirm("Hapus komentar ini?")) return;
+        const store = getStore(videoId);
+        store.comments.splice(index, 1);
+        saveStore(videoId, store);
+        
+        const card = document.querySelector(`[data-video-id="${videoId}"]`);
+        renderComments(card, store);
+    }
+
+    // Fungsi Pin Komentar (Admin Only)
+    function togglePin(videoId, index) {
+        const store = getStore(videoId);
+        const targetComment = store.comments[index];
+        
+        // Toggle status pin
+        targetComment.pin = !targetComment.pin;
+
+        // Jika di-pin, pindahkan ke paling atas array
+        if(targetComment.pin) {
+            const temp = store.comments.splice(index, 1)[0];
+            store.comments.unshift(temp);
         }
 
-        function closeVideo() {
-            const modal = document.getElementById('videoModal');
-            const iframe = document.getElementById('modalIframe');
-            modal.classList.remove('active');
-            setTimeout(() => {
-                modal.style.display = 'none';
-                iframe.src = "";
-            }, 400);
-        }
+        saveStore(videoId, store);
+        const card = document.querySelector(`[data-video-id="${videoId}"]`);
+        renderComments(card, store);
+    }
 
-        function handleComment(event, id) {
-            if (event.key === "Enter") sendComment(id);
-        }
+    function renderComments(card, store){
+        const list = card.querySelector('.comment-list');
+        const id = card.dataset.videoId;
+        list.innerHTML = "";
+        
+        const sessionUser = sessionStorage.getItem("lastUsedName");
 
-        function sendComment(id) {
-            const input = document.getElementById(`input-${id}`);
-            const list = document.getElementById(`list-${id}`);
-            const countSpan = document.getElementById(`comment-count-${id}`);
-            
-            if (input.value.trim() !== "") {
-                const newComment = document.createElement('div');
-                newComment.className = 'comment-item';
-                newComment.innerHTML = `
-                    <p class="text-[9px] font-bold text-blue-400 mb-0.5">User</p>
-                    <p class="text-[10px] text-gray-300 leading-snug">${input.value}</p>
-                `;
-                list.prepend(newComment);
-                countSpan.innerText = parseInt(countSpan.innerText) + 1;
-                input.value = "";
-            }
-        }
+        store.comments.forEach((c, index) => {
+            // Cek otoritas: Admin bisa hapus semua, User hanya bisa hapus miliknya sendiri
+            const canDelete = isAdmin || (c.user === sessionUser && sessionUser !== null);
+            const canPin = isAdmin;
 
-        function toggleLike(btn) {
-            btn.classList.toggle('like-active');
-            const icon = btn.querySelector('i');
-            icon.classList.toggle('fas');
-            icon.classList.toggle('far');
-            let span = btn.querySelector('span');
-            let val = parseInt(span.innerText);
-            span.innerText = btn.classList.contains('like-active') ? val + 1 : val - 1;
-        }
+            list.innerHTML += `
+              <div class="comment-item ${c.pin ? 'comment-pinned' : ''}">
+                <div class="flex justify-between items-start gap-2">
+                    <div class="flex-grow">
+                        <p class="text-[9px] font-bold ${c.pin ? 'text-yellow-500' : 'text-blue-400'}">
+                            ${c.pin ? '<i class="fas fa-thumbtack mr-1"></i>' : ''}${c.user}
+                        </p>
+                        <p class="text-[10px] text-gray-300 leading-tight">${c.text}</p>
+                    </div>
+                    <div class="flex gap-2 shrink-0">
+                        ${canPin ? `
+                            <button onclick="togglePin('${id}', ${index})" class="text-[9px] hover:text-yellow-500 transition">
+                                <i class="${c.pin ? 'fas' : 'far'} fa-thumbtack"></i>
+                            </button>` : ''}
+                        ${canDelete ? `
+                            <button onclick="deleteComment('${id}', ${index})" class="text-[9px] hover:text-red-500 transition">
+                                <i class="fas fa-trash"></i>
+                            </button>` : ''}
+                    </div>
+                </div>
+              </div>`;
+        });
+    }
 
-        function filterVideos() {
-            const input = document.getElementById('videoSearch').value.toLowerCase();
-            document.querySelectorAll('.video-card').forEach(card => {
-                const title = card.querySelector('.video-title').innerText.toLowerCase();
-                card.style.display = title.includes(input) ? 'flex' : 'none';
-            });
-        }
-
-        function filterCat(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-active'));
-            btn.classList.add('filter-active');
-            document.querySelectorAll('.video-card').forEach(card => {
-                const category = card.getAttribute('data-category');
-                card.style.display = (cat === 'all' || category === cat) ? 'flex' : 'none';
-            });
-        }
-    </script>
+    /* INITIALIZE */
+    document.querySelectorAll('.video-card').forEach(card => {
+        const store = getStore(card.dataset.videoId);
+        card.querySelector('.like-count').innerText = store.likes;
+        renderComments(card, store);
+    });
+</script>
 </body>
 </html>
