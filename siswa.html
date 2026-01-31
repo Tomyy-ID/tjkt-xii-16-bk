@@ -84,6 +84,10 @@
 </head>
 <body class="font-sans text-xs md:text-base min-h-screen flex flex-col">
 
+
+<audio id="welcomeSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+<audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+
     <nav class="p-4 md:p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/10">
         <div class="text-xl md:text-2xl font-black tracking-tighter animate-floating logo-glow shrink-0 uppercase">
             TJKT <span class="text-blue-500">XII-16</span>
@@ -188,25 +192,76 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+/* =======================
+   AUDIO CLICK FIX
+   ======================= */
+const clickSound = document.getElementById('clickSound');
+
+// unlock audio (anti blokir browser)
+let soundUnlocked = false;
+document.addEventListener('click', () => {
+    if (!soundUnlocked && clickSound) {
+        clickSound.play().then(() => {
+            clickSound.pause();
+            clickSound.currentTime = 0;
+            soundUnlocked = true;
+        }).catch(() => {});
+    }
+}, { once: true });
+
+function playClickSound() {
+    if (!clickSound) return;
+    clickSound.currentTime = 0;
+    clickSound.play().catch(() => {});
+}
+
+// global click listener (tanpa ubah HTML)
+document.addEventListener('click', (e) => {
+    const clickable = e.target.closest('button, a, .student-card');
+    if (clickable) {
+        playClickSound();
+    }
+});
+
+
+/* =======================
+   DATA SISWA
+   ======================= */
 const students = [
-    // ... (data students tetap sama seperti sebelumnya)
-    { name: "Anisyahira Zahwa Sabrina", nis: "13667", gender: "P" }, { name: "Aprika Putri Prasma", nis: "13668", gender: "P" },
-    { name: "Arham Dhuhati Achmad", nis: "13671", gender: "L" }, { name: "Asifa Nur Febrianawati", nis: "13701", gender: "P" },
-    { name: "Ayudya Kamila Pramesti", nis: "13705", gender: "P" }, { name: "Berlian Mega Sandi", nis: "13672", gender: "P" },
-    { name: "Dila Anggreini", nis: "13674", gender: "P" }, { name: "Dina Amelia Nugrahini", nis: "13709", gender: "P" },
-    { name: "Eva Jania Aprilianida", nis: "13676", gender: "P" }, { name: "Fadilla Gita Azzahro", nis: "13677", gender: "P" },
-    { name: "Hilal Ade Pratama", nis: "13679", gender: "L" }, { name: "Isnaya Pradita Rahayu", nis: "13681", gender: "P" },
-    { name: "Juliyanti Prihatin", nis: "13715", gender: "P" }, { name: "Kesya Rahmadani", nis: "13181", gender: "P" },
-    { name: "Lisya Febriana", nis: "13682", gender: "P" }, { name: "Lorena Alfaria Kusnowo", nis: "13683", gender: "P" },
-    { name: "Muhammad Aziz Abdul Jabar", nis: "13684", gender: "L" }, { name: "Muhammad Aziz Al Muthaqin", nis: "13367", gender: "L" },
-    { name: "Muhammad Ra'uf Ardhiyan'", nis: "13508", gender: "L" }, { name: "Mutiara Kenzabrina Novita Putri", nis: "13724", gender: "P" },
-    { name: "Naya Sagita", nis: "13698", gender: "P" }, { name: "Nida Erfina", nis: "13689", gender: "P" },
-    { name: "Nindi Ayu Safitri", nis: "13690", gender: "P" }, { name: "Oktaviani Sukma Anggreini", nis: "13691", gender: "P" },
-    { name: "Raga Prismana Adi Prasetya", nis: "13367", gender: "L" }, { name: "Reva Amanda", nis: "13693", gender: "P" },
-    { name: "Riska Putri Anggraini", nis: "13726", gender: "P" }, { name: "Rizky Aprilia Putri Abror", nis: "13695", gender: "P" },
-    { name: "Sabiandra Bias Sartiansyah", nis: "13164", gender: "L" }, { name: "Sheila Nika Ardiana Sari", nis: "13697", gender: "P" },
-    { name: "Sholiqin Hafiz Cahya Purnama", nis: "13698", gender: "L" }, { name: "Thalita Sabrina Bilge", nis: "13731", gender: "P" },
-    { name: "Tiara Putri Herdi Pratama", nis: "13732", gender: "P" }, { name: "Tomy Eka Ardianto", nis: "13236", gender: "L" },
+    { name: "Anisyahira Zahwa Sabrina", nis: "13667", gender: "P" },
+    { name: "Aprika Putri Prasma", nis: "13668", gender: "P" },
+    { name: "Arham Dhuhati Achmad", nis: "13671", gender: "L" },
+    { name: "Asifa Nur Febrianawati", nis: "13701", gender: "P" },
+    { name: "Ayudya Kamila Pramesti", nis: "13705", gender: "P" },
+    { name: "Berlian Mega Sandi", nis: "13672", gender: "P" },
+    { name: "Dila Anggreini", nis: "13674", gender: "P" },
+    { name: "Dina Amelia Nugrahini", nis: "13709", gender: "P" },
+    { name: "Eva Jania Aprilianida", nis: "13676", gender: "P" },
+    { name: "Fadilla Gita Azzahro", nis: "13677", gender: "P" },
+    { name: "Hilal Ade Pratama", nis: "13679", gender: "L" },
+    { name: "Isnaya Pradita Rahayu", nis: "13681", gender: "P" },
+    { name: "Juliyanti Prihatin", nis: "13715", gender: "P" },
+    { name: "Kesya Rahmadani", nis: "13181", gender: "P" },
+    { name: "Lisya Febriana", nis: "13682", gender: "P" },
+    { name: "Lorena Alfaria Kusnowo", nis: "13683", gender: "P" },
+    { name: "Muhammad Aziz Abdul Jabar", nis: "13684", gender: "L" },
+    { name: "Muhammad Aziz Al Muthaqin", nis: "13367", gender: "L" },
+    { name: "Muhammad Ra'uf Ardhiyan'", nis: "13508", gender: "L" },
+    { name: "Mutiara Kenzabrina Novita Putri", nis: "13724", gender: "P" },
+    { name: "Naya Sagita", nis: "13698", gender: "P" },
+    { name: "Nida Erfina", nis: "13689", gender: "P" },
+    { name: "Nindi Ayu Safitri", nis: "13690", gender: "P" },
+    { name: "Oktaviani Sukma Anggreini", nis: "13691", gender: "P" },
+    { name: "Raga Prismana Adi Prasetya", nis: "13367", gender: "L" },
+    { name: "Reva Amanda", nis: "13693", gender: "P" },
+    { name: "Riska Putri Anggraini", nis: "13726", gender: "P" },
+    { name: "Rizky Aprilia Putri Abror", nis: "13695", gender: "P" },
+    { name: "Sabiandra Bias Sartiansyah", nis: "13164", gender: "L" },
+    { name: "Sheila Nika Ardiana Sari", nis: "13697", gender: "P" },
+    { name: "Sholiqin Hafiz Cahya Purnama", nis: "13698", gender: "L" },
+    { name: "Thalita Sabrina Bilge", nis: "13731", gender: "P" },
+    { name: "Tiara Putri Herdi Pratama", nis: "13732", gender: "P" },
+    { name: "Tomy Eka Ardianto", nis: "13236", gender: "L" },
     { name: "Widya Fitri Zafarina", nis: "13699", gender: "P" },
     { name: "Yusita Sri Anggraini", nis: "13735", gender: "P" }
 ];
@@ -214,10 +269,12 @@ const students = [
 const grid = document.getElementById('studentGrid');
 let currentGenderFilter = 'all';
 
-// Fungsi Render dengan Optimasi
+/* =======================
+   RENDER SISWA
+   ======================= */
 function renderStudents() {
     const fragment = document.createDocumentFragment();
-    grid.innerHTML = ''; // Kosongkan grid
+    grid.innerHTML = '';
 
     students.forEach((student, i) => {
         const absen = i + 1;
@@ -226,31 +283,36 @@ function renderStudents() {
         card.setAttribute('data-aos', 'fade-up');
         card.setAttribute('data-gender', student.gender);
         card.onclick = () => openModal(i);
-        
+
         card.innerHTML = `
             <div class="relative overflow-hidden bg-slate-900">
-                <img src="img-siswa/${absen}.jpg" 
+                <img src="img-siswa/${absen}.jpg"
                      loading="lazy"
-                     onerror="this.src='https://via.placeholder.com/300x400?text=ABSEN+${absen}'" 
+                     onerror="this.src='https://via.placeholder.com/300x400?text=ABSEN+${absen}'"
                      class="photo-frame grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-500">
-                <div class="absolute top-2 left-2 bg-blue-600/80 backdrop-blur-md px-2 py-0.5 rounded text-[8px] md:text-[10px] font-black">
+                <div class="absolute top-2 left-2 bg-blue-600/80 px-2 py-0.5 rounded text-[8px] font-black">
                     ABS ${absen.toString().padStart(2, '0')}
                 </div>
-                <div class="absolute top-2 right-2 bg-purple-600/80 backdrop-blur-md px-2 py-0.5 rounded text-[8px] md:text-[10px] font-black">
+                <div class="absolute top-2 right-2 bg-purple-600/80 px-2 py-0.5 rounded text-[8px] font-black">
                     NIS ${student.nis}
                 </div>
             </div>
             <div class="p-3 text-center">
-                <h3 class="student-name text-[9px] md:text-xs font-black truncate uppercase tracking-tighter group-hover:text-blue-400 transition">${student.name}</h3>
+                <h3 class="student-name text-[9px] font-black truncate uppercase tracking-tighter">
+                    ${student.name}
+                </h3>
             </div>
         `;
         fragment.appendChild(card);
     });
-    
+
     grid.appendChild(fragment);
-    AOS.refresh(); // Refresh AOS setelah elemen baru masuk
+    AOS.refresh();
 }
 
+/* =======================
+   FILTER & SEARCH
+   ======================= */
 function setFilter(gender) {
     currentGenderFilter = gender;
     document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('filter-active'));
@@ -258,37 +320,33 @@ function setFilter(gender) {
     applyAllFilters();
 }
 
-// Debounce Search agar tidak berat saat mengetik
 let searchTimeout;
 function searchStudent() {
     clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-        applyAllFilters();
-    }, 250); // Eksekusi setelah 250ms berhenti mengetik
+    searchTimeout = setTimeout(applyAllFilters, 250);
 }
 
 function applyAllFilters() {
     const input = document.getElementById('searchInput').value.toLowerCase();
-    const cards = document.querySelectorAll('.student-card');
-    
-    // Gunakan requestAnimationFrame agar transisi UI mulus
-    requestAnimationFrame(() => {
-        cards.forEach(card => {
-            const name = card.querySelector('.student-name').innerText.toLowerCase();
-            const gender = card.getAttribute('data-gender');
-            const matchesSearch = name.includes(input);
-            const matchesGender = (currentGenderFilter === 'all' || gender === currentGenderFilter);
-
-            card.style.display = (matchesSearch && matchesGender) ? "block" : "none";
-        });
+    document.querySelectorAll('.student-card').forEach(card => {
+        const name = card.querySelector('.student-name').innerText.toLowerCase();
+        const gender = card.dataset.gender;
+        card.style.display =
+            name.includes(input) &&
+            (currentGenderFilter === 'all' || gender === currentGenderFilter)
+                ? 'block'
+                : 'none';
     });
 }
 
+/* =======================
+   MODAL
+   ======================= */
 function openModal(index) {
     const student = students[index];
-    const modalImg = document.getElementById('modalImg');
-    modalImg.src = `img-siswa/${index + 1}.jpg`;
-    modalImg.onerror = () => modalImg.src = 'https://via.placeholder.com/300x400?text=FOTO+BELUM+ADA';
+    const img = document.getElementById('modalImg');
+    img.src = `img-siswa/${index + 1}.jpg`;
+    img.onerror = () => img.src = 'https://via.placeholder.com/300x400?text=FOTO+BELUM+ADA';
     document.getElementById('modalName').innerText = student.name;
     document.getElementById('photoModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -299,18 +357,11 @@ function closeModal() {
     document.body.style.overflow = 'auto';
 }
 
-function updateActiveNav() {
-    const currentPath = window.location.pathname.split("/").pop() || "index.html";
-    document.querySelectorAll('.nav-link').forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-            link.classList.add('nav-active');
-        }
-    });
-}
-
+/* =======================
+   INIT
+   ======================= */
 window.addEventListener('DOMContentLoaded', () => {
     renderStudents();
-    updateActiveNav();
     AOS.init({ duration: 400, once: true, offset: 50 });
 });
 </script>
