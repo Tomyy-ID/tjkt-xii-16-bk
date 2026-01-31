@@ -192,6 +192,7 @@
             <button onclick="filterGallery('all')" id="btn-all" class="filter-btn album-active px-5 py-2 rounded-full border border-blue-500/30 text-[10px] font-bold uppercase tracking-widest transition-all">Semua</button>
             <button onclick="filterGallery('kegiatan')" id="btn-kegiatan" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Kegiatan</button>
             <button onclick="filterGallery('formal')" id="btn-formal" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Formal</button>
+            <button onclick="filterGallery('lomba')" id="btn-lomba" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Lomba</button>
             <button onclick="filterGallery('momen')" id="btn-momen" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Momen</button>
             <button onclick="filterGallery('praktek')" id="btn-praktek" class="filter-btn px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest transition-all">Praktek</button>
         </div>
@@ -334,6 +335,26 @@
                     </div>
                 </div>
 
+<div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
+                    <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider15')" ontouchstart="startDrag(event, 'slider15')">
+                        <div class="slides-container" id="slider15">
+                            <img src="img-album/p5-fotbar-1.jpg" class="slide" loading="lazy">
+                            <img src="img-album/p5-fotbar-2.jpg" class="slide" loading="lazy">
+                            <img src="img-album/p5-fotbar-3.jpg" class="slide" loading="lazy">
+                            <img src="img-album/p5-fotbar-4.jpg" class="slide" loading="lazy">
+                            <img src="img-album/p5-fotbar-5.jpg" class="slide" loading="lazy">
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                            <button onclick="openModalWithSlides('slider15', 'Fotbar Bersama Wali Kelas', 'Kegiatan P5')" class="bg-indigo-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider15"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold mb-1">Fotbar Bersama Wali Kelas</h3>
+                        <p class="text-blue-400 text-sm italic">Kegiatan P5</p>
+                    </div>
+                </div>
+
                 <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="kegiatan" data-aos="fade-up">
                     <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider8')" ontouchstart="startDrag(event, 'slider8')">
                         <div class="slides-container" id="slider8">
@@ -352,6 +373,43 @@
                         <p class="text-indigo-400 text-sm italic">Kegiatan P5</p>
                     </div>
                 </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="lomba" data-aos="fade-up">
+                    <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider16')" ontouchstart="startDrag(event, 'slider16')">
+                        <div class="slides-container" id="slider16">
+                            <img src="img-album/Tari-0.jpg" class="slide" loading="lazy">
+                            <img src="img-album/Tari-1.jpg" class="slide" loading="lazy">
+                            <img src="img-album/Tari-2.jpg" class="slide" loading="lazy">
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                            <button onclick="openModalWithSlides('slider16', 'Lomba Seni Tari', 'Kegiatan P5')" class="bg-indigo-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider16"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold mb-1">Lomba Seni Tari</h3>
+                        <p class="text-cyan-400 text-sm italic">Kegiatan P5</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="lomba" data-aos="fade-up">
+                    <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider17')" ontouchstart="startDrag(event, 'slider17')">
+                        <div class="slides-container" id="slider17">
+                            <img src="img-album/Lomba-hadroh-1.jpg" class="slide" loading="lazy">
+                            <img src="img-album/Lomba-hadroh-2.jpg" class="slide" loading="lazy">
+                            <img src="img-album/Lomba-hadroh-3.jpg" class="slide" loading="lazy">
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                            <button onclick="openModalWithSlides('slider17', 'Lomba Hadroh', 'Kegiatan P5')" class="bg-indigo-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider17"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold mb-1">Lomba Hadroh</h3>
+                        <p class="text-orange-400 text-sm italic">Kegiatan P5</p>
+                    </div>
+                </div>
+
 
                 <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="praktek" data-aos="fade-up">
                     <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider9')" ontouchstart="startDrag(event, 'slider9')">
