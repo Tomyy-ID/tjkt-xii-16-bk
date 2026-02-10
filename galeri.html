@@ -201,7 +201,32 @@
         <div class="container mx-auto px-6 pb-20">
             <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
-        <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
+
+                <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
+                    <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider18')" ontouchstart="startDrag(event, 'slider18')">
+                        <div class="slides-container" id="slider18">
+                            <img src="img-album/h1-ukk-1.jpg" class="slide" loading="lazy">
+                            <img src="img-album/h1-ukk-2.jpg" class="slide" loading="lazy">
+                            <img src="img-album/h1-ukk-3.jpg" class="slide" loading="lazy">
+                            <img src="img-album/h1-ukk-4.jpg" class="slide" loading="lazy">
+                            <img src="img-album/h1-ukk-5.jpg" class="slide" loading="lazy">
+                            <img src="img-album/h1-ukk-6.jpg" class="slide" loading="lazy">
+                            <img src="img-album/h1-ukk-7.jpg" class="slide" loading="lazy">
+                            <img src="img-album/h1-ukk-8.jpg" class="slide" loading="lazy">
+                            <img src="img-album/h1-ukk-9.jpg" class="slide" loading="lazy">
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 bg-black/40 pointer-events-none">
+                            <button onclick="openModalWithSlides('slider18', 'Fotbar H-1 Uji Kompetensi JNA_LSP', 'Sabtu, 7 Februari 2025')" class="bg-purple-600 p-4 rounded-full pointer-events-auto"><i class="fas fa-search-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-1 py-2 bg-black/20" id="dots-slider18"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold mb-1">Uji Kompetensi JNA_LSP</h3>
+                        <p class="text-purple-400 text-sm italic">Sabtu, 7 Februari 2025</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-3xl overflow-hidden shadow-2xl group" data-category="formal" data-aos="fade-up">
                     <div class="relative slider-viewport" onmousedown="startDrag(event, 'slider1')" ontouchstart="startDrag(event, 'slider1')">
                         <div class="slides-container" id="slider1">
                             <img src="img-album/Sosialisasi-KUA-1.jpg" class="slide" loading="lazy">
